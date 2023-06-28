@@ -1,0 +1,60 @@
+{%extends 'base/base.html'%}
+
+{%block content%}
+<section id="main-content">
+  <section class="wrapper">
+    <h3>{% include 'base/title_header.html' %}</h3>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="content-panel">
+          <h4>{{title_complete}}</h4>
+          <form action="" method="post">
+            {% csrf_token %}
+     
+                <div class="header-btn">
+                  <a href="{{add_url}}" class="btn btn-success"><i class="fa fa-check"></i><span> ADICIONAR</span></a>
+                </div>
+                <br>
+                <br>
+ 
+  
+    
+    
+    {% include 'base/msg_sucesso.html' %}
+
+ 
+       
+
+          <div class="body">
+
+           {% include 'base/search.html' %}
+
+           {% if tipo_pessoa == 'cliente' %}
+           {% include 'cadastro/cliente/cliente_list_table.html' %}
+           {% elif tipo_pessoa == 'empresa' %}
+           {% include 'cadastro/empresa/empresa_list_table.html' %}
+           {% elif tipo_pessoa == 'fornecedor' %}
+           {% include 'cadastro/fornecedor/fornecedor_list_table.html' %}
+           {% elif tipo_pessoa == 'transportadora' %}
+           {% include 'cadastro/transportadora/transportadora_list_table.html' %}
+           {% else %}
+           Nenhum registro encontrado
+           {% endif %}
+
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+</div>
+</div>
+</div>
+</section>
+</section>
+
+{% block footer %}
+{% endblock footer %}
+
+{%endblock%}
