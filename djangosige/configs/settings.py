@@ -153,7 +153,12 @@ MEDIA_URL = 'media/'
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 
-
+LOGIN_NOT_REQUIRED = (
+    r'^/login/$',
+    r'/login/esqueceu/',
+    r'/login/trocarsenha/',
+    r'/logout/',
+)
 
 
 GRAPH_MODELS = {
