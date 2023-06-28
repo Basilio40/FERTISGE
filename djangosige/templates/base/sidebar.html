@@ -27,111 +27,77 @@
     <aside>
       <div id="sidebar" class="nav-collapse ">
         <!-- sidebar menu start-->
-        <ul class="sidebar-menu " id="nav-accordion">
-          <p class="centered"><a href="profile.html"><img src="{% static 'img/BRASIL_FERTILIZANTES.png' %}" class="img-circle" width="80"></a></p>
-          <h5 class="centered">Brasil Fertilizantes</h5>
+        <ul class="sidebar-menu" id="nav-accordion">
+          <p class="centered"><a href="{% url 'base:index' %}"><img src="{% static 'img/BRASIL_FERTILIZANTES.png' %}" class="img-circle" width="80"></a></p>
           <li class="mt">
-            <a class="active" href="{% url 'base:index' %}">
+          </li>
+          <li class="sub-menu">
+            <a href="{% url 'cadastro:listaclientesview' %}">
               <i class="fa fa-dashboard"></i>
-              <span>Página Inicial</span>
+              <span>CLIENTES</span>
               </a>
           </li>
-        </ul>
-          <div class="accordion_item" >
-            <div class="accordion_header">
-              
-              <span>
-                <i class="fa fa-dashboard"></i> CADASTRO
-              </span> 
-              <div class="icon">
-                +
-              </div>
-            </div>
-            <div class="accordion_content">
-              <li><a href="{% url 'cadastro:listaclientesview' %}">Clientes</a></li>
-              <li><a href="{% url 'cadastro:addclienteview' %}">Ad Clientes</a></li>
-              <li><a href="{% url 'cadastro:listafornecedoresview' %}">Fornecedores</a></li>
-              <li><a href="{% url 'cadastro:addfornecedorview' %}">Ad Fornecedor</a></li>
-              <li><a href="{% url 'cadastro:listatransportadorasview' %}">Transportadoras</a></li>
-              <li><a href="{% url 'cadastro:addtransportadoraview' %}">Ad Transportadora</a></li>
-              <li><a href="{% url 'cadastro:listaprodutosview' %}">Produtos</a></li>
-              <li><a href="{% url 'cadastro:addprodutoview' %}">Ad Produto</a></li>
-              <li><a href="{% url 'cadastro:listaprodutosbaixoestoqueview' %}">Baixo Estoque</a></li>
-            </div>
-          </div>
-          <div class="accordion_item" >
-            <div class="accordion_header">
-              <span>
-                <i class="fa fa-dashboard"></i> ESTOQUE
-              </span> 
-              <div class="icon">
-                +
-              </div>
-            </div>
-            <div class="accordion_content">
-              <li><a href="#">Blank Page</a></li>
-              <li><a href="#">Login</a></li>
-            </div>
-          </div>
-          <div class="accordion_item" >
-            <div class="accordion_header">
-              <span>
-                <i class="fa fa-dashboard"></i> COMPRAS
-              </span> 
-              <div class="icon">
-                +
-              </div>
-            </div>
-            <div class="accordion_content">
-              <li><a href="#">Blank Page</a></li>
-              <li><a href="#">Login</a></li>
-            </div>
-          </div>
-          <div class="accordion_item" >
-            <div class="accordion_header">
-              <span>
-                <i class="fa fa-dashboard"></i> VENDAS
-              </span> 
-              <div class="icon">
-                +
-              </div>
-            </div>
-            <div class="accordion_content">
-              <li><a href="#">Blank Page</a></li>
-              <li><a href="#">Login</a></li>
-            </div>
-          </div>
-          <div class="accordion_item" >
-            <div class="accordion_header">
-              <span>
-                <i class="fa fa-dashboard"></i> FINANCEIRO
-              </span> 
-              <div class="icon">
-                +
-              </div>
-            </div>
-            <div class="accordion_content">
-              <li><a href="#">Blank Page</a></li>
-              <li><a href="#">Login</a></li>
-            </div>
-          </div>
-          <div class="accordion_item" >
-            <div class="accordion_header">
-              <span>
-                <i class="fa fa-dashboard"></i> FISCAL
-              </span> 
-              <div class="icon">
-                +
-              </div>
-            </div>
-            <div class="accordion_content">
-              <li><a href="#">Blank Page</a></li>
-              <li><a href="#">Login</a></li>
-            </div>
-          </div>
-    
+              <li class="sub-menu">
+                <a href="{% url 'cadastro:listafornecedoresview' %}">
+                  <i class="fa fa-dashboard"></i>
+                  <span>FORNECEDORES</span>
+                  </a>
+              </li>
+                  <li class="sub-menu">
+                    <a href="{% url 'cadastro:listatransportadorasview' %}">
+                      <i class="fa fa-dashboard"></i>
+                      <span>TRANSPORTADORAS</span>
+                      </a>
+                </li>
+                <li class="sub-menu">
+                  <a href="{% url 'cadastro:listaprodutosview' %}">
+                    <i class="fa fa-dashboard"></i>
+                    <span>PRODUTOS</span>
+                  </a>
+                  <li class="sub-menu">
+                      <a href="{% url 'cadastro:listaunidadesview' %}">
+                      <i class="fa fa-dashboard"></i>
+                        <span>UNIDADES</span>
+                      </a>
+                      <li class="sub-menu">
+                        <a href="{% url 'cadastro:listamarcasview' %}">
+                          <i class="fa fa-dashboard"></i>
+                          <span>MARCA</span>
+                          </a>
+              <li class="sub-menu">
+                <a href="{% url 'estoque:listalocalview' %}">
+                  <i class="fa fa-dashboard"></i>
+                  <span>ESTOQUE</span>
+                  </a>
+          <li class="sub-menu">
+            <a href="{% url 'compras:listaorcamentocompraview' %}">
+              <i class="fa fa-cogs"></i>
+              <span>COMPRAS</span>
+              </a>
+  
+          </li>
+          <li class="sub-menu">
+            <a href="{% url 'vendas:listaorcamentovendaview' %}">
+              <i class="fa fa-book"></i>
+              <span>VENDAS</span>
+              </a>
 
-   
+          </li>
+          <li class="sub-menu">
+            <a href="{% url 'financeiro:listalancamentoview' %}">
+              <i class="fa fa-tasks"></i>
+              <span>FINANCEIRO</span>
+              </a>
+
+          </li>
+          <li class="sub-menu">
+            <a href="{% url 'fiscal:listanotafiscalsaidaview' %}">
+              <i class="fa fa-th"></i>
+              <span>FISCAL</span>
+              </a>
+          </li>
+         
+       </li>
         <!-- sidebar menu end-->
       </div>
     </aside>
