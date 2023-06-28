@@ -4,6 +4,8 @@ from django.urls import include, path
 from django.contrib import admin
 from django.conf.urls.static import static
 from .configs.settings import DEBUG, MEDIA_ROOT, MEDIA_URL
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -17,5 +19,4 @@ urlpatterns = [
     path('estoque/', include('djangosige.apps.estoque.urls')),
 ]
 
-if DEBUG is True:
-    urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
