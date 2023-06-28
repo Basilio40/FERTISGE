@@ -18,8 +18,7 @@ DEBUG = config('DEBUG', default=True, cast=bool)
 
 ALLOWED_HOSTS = ['*']
 
-if not DEFAULT_DATABASE_URL:
-    DEFAULT_DATABASE_URL = 'sqlite:///' + os.path.join(APP_ROOT, 'db.sqlite3')
+
 
 DATABASES = {
         'default': {
