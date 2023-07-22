@@ -16,80 +16,62 @@
             {% csrf_token %}
             <!-- Body-->
             <div class="body">
-              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="tabs">
 
                 {% include 'cadastro/pessoa_tab_list.html' %}
-
-                <div class="tab-content">
+              
+                <!-- <div class="tab-content"> -->
                   <!-- Tab informacoes gerais -->
                   <div role="tabpanel" class="tab-pane active" id="tab_inf_gerais">
                     {{object}}
                     {% if tipo_pessoa == 'cliente' %}
-
                     {% include 'cadastro/cliente/cliente_tab_inf_gerais.html' %}
-
                     {% elif tipo_pessoa == 'empresa' %}
-
                     {% include 'cadastro/empresa/empresa_tab_inf_gerais.html' %}
-
                     {% elif tipo_pessoa == 'fornecedor' %}
-
                     {% include 'cadastro/fornecedor/fornecedor_tab_inf_gerais.html' %}
-
                     {% elif tipo_pessoa == 'transportadora' %}
-
                     {% include 'cadastro/transportadora/transportadora_tab_inf_gerais.html' %}
-
                     {% endif %}
-
                   </div>
                   <!-- #Tab informacoes gerais -->
-
+              
                   {% if tipo_pessoa == 'transportadora' %}
                   <div role="tabpanel" class="tab-pane formset-tab" id="tab_veiculo">
-                  {% include 'formset/formset.html' with formset=veiculo_form title='Veículo' %}
+                    {% include 'formset/formset.html' with formset=veiculo_form title='Veículo' %}
                   </div>
                   {% endif %}
-
-
+              
                   <!-- Tab endereco -->
                   <div role="tabpanel" class="tab-pane formset-tab" id="tab_endereco">
-
                     {% include 'formset/formset.html' with formset=endereco_form title='Endereço' %}
-
                   </div>
                   <!-- #Tab endereco -->
-
-
+              
                   <!-- Tab contato -->
                   <div role="tabpanel" class="tab-pane formset-tab" id="tab_contato">
                     {% for formset in formsets %}
                     {% include 'formset/formset_fields.html' %}
                     {% endfor %}
-
                   </div>
                   <!-- #Tab contato -->
-
+              
                   <!-- Tab banco -->
                   <div role="tabpanel" class="tab-pane formset-tab" id="tab_banco">
-
                     {% include 'formset/formset.html' with formset=banco_form title='Dados Bancários' %}
-
                   </div>
                   <!-- #Tab banco -->
-
+              
                   <!-- Tab documentos adicionais -->
                   <div role="tabpanel" class="tab-pane formset-tab" id="tab_documento">
-
                     {% include 'formset/formset.html' with formset=documento_form title='Documentos Adicionais' %}
-
                   </div>
                   <!-- #Tab documentos adicionais -->
-
-
-                </div>
-
+              
+                <!-- </div> -->
               </div>
+              
               <br>
               <br>
               <br>
