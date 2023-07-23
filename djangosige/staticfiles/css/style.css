@@ -3515,3 +3515,12 @@ ul.chat-available-user li a:hover {
 }
 
 
+/* Estilos personalizados para os conteúdos das guias */
+#tabs > div {
+  display: none;
+}
+
+#tabs > div.active {
+  display: block;
+  /* Adicione seus estilos personalizados para o conteúdo da guia ativa aqui */
+}
