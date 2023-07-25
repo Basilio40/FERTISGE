@@ -4021,6 +4021,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav-tabs > li {
   float: left;
   margin-bottom: -1px;
+  padding-bottom: 0px!important;
 }
 .nav-tabs > li > a {
   margin-right: 2px;
@@ -6755,3 +6756,215 @@ button.close {
   }
 }
 /*# sourceMappingURL=bootstrap.css.map */
+
+.foot-btn {
+  display: flex;
+  align-items: center;
+  height: 40px; /* Defina a altura desejada, pode ser a altura do ícone ou do texto */
+}
+
+.foot-btn span {
+  margin-left: 5px; /* Adiciona margem de 5px à esquerda do texto */
+}
+
+.add-formset {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 5px 10px; /* Ajuste conforme necessário para o espaçamento desejado */
+  /* Adicione outras propriedades de estilo conforme necessário */
+}
+
+/* Estilos para o botão estilizável */
+.btn-group {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* Estilos para o botão estilizável */
+.btn-pessoa {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center; /* Centraliza horizontalmente */
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+  background-color: #eaeaea;
+  cursor: pointer;
+  color: #000; /* Cor do texto quando não selecionado */
+  line-height: 30px; /* Ajuste a altura conforme necessário */
+  border-radius: 5px;
+}
+
+/* Estilos para o botão selecionado */
+.btn-pessoa.active {
+  background-color: #fff;
+  color: #000; /* Cor do texto quando selecionado */
+  border: 1px solid #ddd
+}
+
+/* Estilos para centralizar o texto no botão */
+.btn-pessoa strong {
+  margin: 0 auto; /* Centraliza o texto horizontalmente */
+  color: #555;
+  padding-top: 2px;
+}
+
+/* Desativar hover */
+.btn-pessoa:hover {
+  background-color: #eaeaea;
+  color: #000;
+  border-color: #ccc;
+}
+
+/* Estilos para o container dos botões e do elemento <strong> */
+.btn-container {
+  display: inline-flex;
+}
+
+.header-btn {
+  margin-bottom: 10px;
+  margin-left: 10px;
+  width: 120px;
+}
+
+.add-button {
+  display: flex; /* Exibe os elementos internos como flex */
+  align-items: center; /* Centraliza verticalmente os elementos internos */
+  text-decoration: none; /* Remove sublinhado do link */
+  padding: 8px 16px; /* Espaçamento interno do botão */
+  border: 1px solid #28a745; /* Borda do botão */
+  background-color: #28a745; /* Cor de fundo do botão */
+  color: #fff; /* Cor do texto do botão */
+  justify-content: center;
+}
+
+.add-button i {
+  margin-right: 5px; /* Espaçamento entre o ícone e o texto */
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+}
+
+.input-group-addon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 36px; /* Largura do botão quadrado */
+  height: 36px; /* Altura do botão quadrado */
+  border: 1px solid #ccc;
+  background-color: #f5f5f5;
+  cursor: pointer;
+}
+
+.input-group-addon i {
+  color: #888;
+}
+
+.form-line {
+  flex: 1;
+}
+
+.line-input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+#lista-database_wrapper {
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+/* Estilos personalizados para a paginação do DataTables */
+.dataTables_paginate {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dataTables_paginate a {
+  margin: 0 5px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-decoration: none;
+  color: #333;
+}
+
+.dataTables_paginate .current {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}
+
+.dataTables_paginate .previous,
+.dataTables_paginate .next {
+  background-color: #f0f0f0;
+}
+
+.dataTables_paginate .disabled {
+  pointer-events: none;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Estilo para o botão "Editar" */
+.btn-editar {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  width: 30px;
+  height: 30px;
+  display: inline-flex; /* Utiliza o flexbox para centralizar o ícone */
+  justify-content: center; /* Centraliza o ícone horizontalmente */
+  align-items: center; /* Centraliza o ícone verticalmente */
+}
+
+.btn-editar:hover {
+  background-color: #0056b3;
+}
+
+/* Estilo para o botão "Excluir" */
+.btn-excluir {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  margin-left: 10px; /* Adiciona um espaço entre os botões */
+  width: 30px;
+  height: 30px;
+  display: inline-flex; /* Utiliza o flexbox para centralizar o ícone */
+  justify-content: center; /* Centraliza o ícone horizontalmente */
+  align-items: center; /* Centraliza o ícone verticalmente */
+}
+
+.btn-excluir:hover {
+  background-color: #c82333;
+}
+
+.btn-editar i {
+  /* Estilos do ícone */
+  font-size: 16px; /* Ajuste o tamanho do ícone conforme necessário */
+}
+
+.btn-excluir i {
+  /* Estilos do ícone */
+  font-size: 16px; /* Ajuste o tamanho do ícone conforme necessário */
+}

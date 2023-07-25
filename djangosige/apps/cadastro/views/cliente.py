@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 
 from djangosige.apps.cadastro.forms import ClienteForm
 from djangosige.apps.cadastro.models import Cliente
+from django.urls import reverse_lazy
 
 from .base import AdicionarPessoaView, PessoasListView, EditarPessoaView
 
@@ -47,8 +48,16 @@ class ClientesListView(PessoasListView):
         context['title_complete'] = 'CLIENTES CADASTRADOS'
         context['add_url'] = reverse_lazy('cadastro:addclienteview')
         context['tipo_pessoa'] = 'cliente'
-        return context
 
+        for cliente in context['all_clientes']:
+            if cliente.tipo_pessoa == 'PF':
+                cliente.cpf_cnpj = cliente.pessoa_fis_info.cpf
+            elif cliente.tipo_pessoa == 'PJ':
+                cliente.cpf_cnpj = cliente.pessoa_jur_info.cnpj
+            else:
+                cliente.cpf_cnpj = None
+
+        return context
 
 class EditarClienteView(EditarPessoaView):
     form_class = ClienteForm

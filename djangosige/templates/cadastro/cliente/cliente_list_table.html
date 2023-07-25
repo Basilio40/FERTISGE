@@ -2,40 +2,86 @@
 
 {% block content %}
 
+  <table id="lista-database" class="table">
 
+    <thead>
+      <tr>
+        <th>#ID</th>                   
+        <th>Nome/Razão Social</th>
+        <th>CPF/CNPJ</th>
+        <th>Estado</th>
+        <th>Município</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
 
+    <tbody>
 
-        <table id="lista-database" class="table">
-          <thead>
-            <tr>
-              <th>#ID</th>                   
-              <th>Nome/Razão Social</th>
-              <th>CPF/CNPJ</th>
-              <th>Estado</th>
-              <th>Município</th>
-              <th>Remover</th>
-            </tr>
-          </thead>
+      {% if all_clientes%}
 
-          <tbody>
-            {% if all_clientes%}
-            {% for cliente in all_clientes %}
-            <tr class="clickable-row" data-href="{% url 'cadastro:editarclienteview' cliente.id %}">
-              <td>{{cliente.id}}</td>
-              <td>{{cliente.nome_razao_social}}</td>
+        {% for cliente in all_clientes %}
 
-              <td>{% if cliente.endereco.all.0.uf %}{{cliente.endereco.all.0.get_uf_display}}{% endif %}</td>
-              <td>{{cliente.endereco.all.0.municipio|default_if_none:""}}</td>
-              <td class="lista-remove">
-                <input type="checkbox" name="{{cliente.id}}" id="remover-entrada-{{cliente.id}}"/>
-                <label class="remove-entry-label" for="remover-entrada-{{cliente.id}}"></label>
-              </td>
-            </tr>
-            {% endfor %}
-            {%else%}
-            {%endif%}
-          </tbody>
-        </table>
+          <tr>
 
-  
-  {% endblock content %}
+            <td>
+              {{cliente.id}}
+            </td>
+
+            <td>
+              {{cliente.nome_razao_social}}
+            </td>
+
+            <td>
+              {{ cliente.cpf_cnpj|default_if_none:'' }}
+            </td>
+
+            <td>
+              {{cliente.endereco.all.0.uf|default_if_none:""}}
+            </td>
+
+            <td>
+              {{cliente.endereco.all.0.municipio|default_if_none:""}}
+            </td>
+
+            <td class="lista-remove">
+
+                <!-- Botão de edição -->
+                <a href="{% url 'cadastro:editarclienteview' cliente.id %}" class="btn btn-editar">
+                  <i class="fa fa-pencil"></i>
+                </a>
+
+                <!-- Botão de excluir -->
+                <!-- <a href="{% url 'cadastro:excluirclienteview' cliente.id %}" class="btn btn-excluir">
+                  <i class="fa fa-trash"></i>
+                </a> -->
+
+            </td>
+
+          </tr>
+
+        {% endfor %}
+
+      {%else%}
+
+      {%endif%}
+
+    </tbody>
+  </table>
+
+  <script>
+    $(document).ready(function() {
+
+      // table = $('#lista-database').DataTable( {
+      //     paging: false
+      // } );
+      
+      // table.destroy();
+      
+      // table = $('#lista-database').DataTable( {
+      //     searching: false
+      // } );
+
+    });
+  </script>
+
+{% endblock content %}
