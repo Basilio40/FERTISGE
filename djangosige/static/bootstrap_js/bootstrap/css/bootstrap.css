@@ -6972,3 +6972,17 @@ button.close {
 #lista-database tbody tr td {
   vertical-align: middle;
 }
+
+.table tbody tr td,
+.table thead tr th {
+  text-align: center;
+}
+
+.table thead tr .acoes {
+  text-align: end;
+}
+
+.lista-remove {
+  display: flex;
+  justify-content: end!important;
+}
