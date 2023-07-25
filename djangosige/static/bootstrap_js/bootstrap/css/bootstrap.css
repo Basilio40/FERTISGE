@@ -6968,3 +6968,7 @@ button.close {
   /* Estilos do ícone */
   font-size: 16px; /* Ajuste o tamanho do ícone conforme necessário */
 }
+
+#lista-database tbody tr td {
+  vertical-align: middle;
+}

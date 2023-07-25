@@ -1,34 +1,68 @@
+<table id="lista-database" class="table">
 
-<div class="table-responsive">
-  <table id="lista-database" class="table table-bordered table-striped lista-table">
-    <thead>
-      <tr>
-        <th>#ID</th>                   
-        <th>Nome/Razão Social</th>
-        <th>CPF/CNPJ</th>
-        <th>Estado</th>
-        <th>Município</th>
-        <th>Remover</th>
-      </tr>
-    </thead>
-
-    <tbody>
-     {% if all_fornecedores %}
-     {% for fornecedor in all_fornecedores %}
-     <tr class="clickable-row" data-href="{% url 'cadastro:editarfornecedorview' fornecedor.id %}">
-      <td>{{fornecedor.id}}</td>
-      <td>{{fornecedor.nome_razao_social}}</td>
-    
-      <td>{% if fornecedor.endereco.all.0.uf %}{{fornecedor.endereco.all.0.get_uf_display}}{% endif %}</td>
-      <td>{{fornecedor.endereco.all.0.municipio|default_if_none:""}}</td>
-      <td class="lista-remove">
-        <input type="checkbox" name="{{fornecedor.id}}" id="remover-entrada-{{fornecedor.id}}"/>
-        <label class="remove-entry-label" for="remover-entrada-{{fornecedor.id}}"></label>
-      </td>
+  <thead>
+    <tr>
+      <th>#ID</th>                   
+      <th>Nome/Razão Social</th>
+      <th>CPF/CNPJ</th>
+      <th>Estado</th>
+      <th>Município</th>
+      <th>Remover</th>
     </tr>
-    {% endfor %}
+  </thead>
+
+  <tbody>
+
+    {% if all_fornecedores %}
+
+      {% for fornecedor in all_fornecedores %}
+
+      <tr>
+
+        <td>
+          {{fornecedor.id}}
+        </td>
+
+        <td>
+          {{fornecedor.nome_razao_social}}
+        </td>
+
+        <td>
+          {{ fornecedor.cpf_cnpj|default_if_none:'' }}
+        </td>
+      
+        <td>
+          {% if fornecedor.endereco.all.0.uf %}
+            {{fornecedor.endereco.all.0.get_uf_display}}
+          {% endif %}
+        </td>
+
+        <td>
+          {{fornecedor.endereco.all.0.municipio|default_if_none:""}}
+        </td>
+
+        <td class="lista-remove">
+
+          <!-- editar fornecedor -->
+          <a href="{% url 'cadastro:editarfornecedorview' fornecedor.id %}" class="btn btn-editar">
+            <i class="fa fa-pencil"></i>
+          </a>
+
+          <!-- Excluir fornecedor -->
+          <a href="" class="btn btn-excluir">
+            <i class="fa fa-trash"></i>
+          </a>
+
+        </td>
+
+      </tr>
+
+      {% endfor %}
+
     {%else%}
+
     {%endif%}
+
   </tbody>
+
 </table>
-</div>

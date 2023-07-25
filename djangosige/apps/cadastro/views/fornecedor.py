@@ -44,6 +44,15 @@ class FornecedoresListView(PessoasListView):
         context['title_complete'] = 'FORNECEDORES CADASTRADOS'
         context['add_url'] = reverse_lazy('cadastro:addfornecedorview')
         context['tipo_pessoa'] = 'fornecedor'
+
+        for fornecedor in context['all_fornecedores']:
+            if fornecedor.tipo_pessoa == 'PF':
+                fornecedor.cpf_cnpj = fornecedor.pessoa_fis_info.cpf
+            elif fornecedor.tipo_pessoa == 'PJ':
+                fornecedor.cpf_cnpj = fornecedor.pessoa_jur_info.cnpj
+            else:
+                fornecedor.cpf_cnpj = None
+
         return context
 
 
