@@ -3,37 +3,27 @@
 {%block content%}
 <section id="main-content">
   <section class="wrapper">
+
     <h2>{{title_complete|lower}}</h2>
+
     <div class="row">
       <div class="col-md-12">
 
-    {% include 'base/title_header.html' %}
-
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-      <div class="row">
-        <div class="row">
-
-          <!--Header-->
-          <div class="body">
-
-            <h2>
-              <a href="{{return_url}}"></a>
-            </h2>
-
-          </div>
-          <!--# Header-->
-
           <form id="addfornecedor_form" role="form" action="" method="post" enctype="multipart/form-data">
+
             {% csrf_token %}
+
             <!-- Body-->
-            <div class="body">
+            <div class="row">
+
               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
-                {% include 'cadastro/produto/produto_tab_list.html' %}
+                <div id="tabs" class="tab-content">
 
-                <div class="tab-content">
+                  {% include 'cadastro/produto/produto_tab_list.html' %}
+
                   <!-- Tab dados gerais -->
-                  <div role="tabpanel" class="tab-pane active" id="tab_dados_gerais">
+                  <div role="tabpanel" class="tab-pane active" id="tab_dados_gerais" style="margin-top: 20px;">
 
                     {% include 'cadastro/produto/produto_tab_dados_gerais.html' %}
 
@@ -41,7 +31,7 @@
                   <!-- #Tab dados gerais -->
 
                   <!-- Tab estoque -->
-                  <div role="tabpanel" class="tab-pane formset-tab" id="tab_estoque">
+                  <div role="tabpanel" class="tab-pane formset-tab" id="tab_estoque" style="margin-top: 20px;">
 
                     {% include 'cadastro/produto/produto_tab_estoque.html' %}
 
@@ -49,7 +39,7 @@
                   <!-- #Tab estoque -->
 
                   <!-- Tab fiscal -->
-                  <div role="tabpanel" class="tab-pane formset-tab" id="tab_fiscal">
+                  <div role="tabpanel" class="tab-pane formset-tab" id="tab_fiscal" style="margin-top: 20px;">
 
                     {% include 'cadastro/produto/produto_tab_fiscal.html' %}
 
@@ -59,18 +49,20 @@
                 </div>
 
               </div>
-              <button class="btn btn-success foot-btn" type="submit"><i class="material-icons">&#xE148;</i><span> SALVAR</span></button>
+
+              <button class="btn btn-success foot-btn" type="submit" style="margin-left: 15px;">
+                <i class="material-icons">&#xE148;</i>
+                <span> SALVAR</span>
+              </button>
+
             </div>
             <!--#Body-->
           </form>
 
-        </div>
       </div>
     </div>
 
-  </div>
-    </div>
-</section>
+  </section>
 </section>
 
 

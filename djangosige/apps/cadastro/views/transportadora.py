@@ -47,11 +47,19 @@ class TransportadorasListView(PessoasListView):
     permission_codename = 'view_transportadora'
 
     def get_context_data(self, **kwargs):
-        context = super(TransportadorasListView,
-                        self).get_context_data(**kwargs)
+        context = super(TransportadorasListView, self).get_context_data(**kwargs)
         context['title_complete'] = 'TRANSPORTADORAS CADASTRADAS'
         context['add_url'] = reverse_lazy('cadastro:addtransportadoraview')
         context['tipo_pessoa'] = 'transportadora'
+
+        for transportadora in context['all_transportadoras']:
+            if transportadora.tipo_pessoa == 'PF':
+                transportadora.cpf_cnpj = transportadora.pessoa_fis_info.cpf
+            elif transportadora.tipo_pessoa == 'PJ':
+                transportadora.cpf_cnpj = transportadora.pessoa_jur_info.cnpj
+            else:
+                transportadora.cpf_cnpj = None
+
         return context
 
 

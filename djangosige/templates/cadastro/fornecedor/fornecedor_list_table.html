@@ -1,68 +1,70 @@
-<table id="lista-database" class="table">
+<div class="table-responsive">
+  <table id="lista-database" class="table">
 
-  <thead>
-    <tr>
-      <th>#ID</th>                   
-      <th>Nome/Razão Social</th>
-      <th>CPF/CNPJ</th>
-      <th>Estado</th>
-      <th>Município</th>
-      <th>Remover</th>
-    </tr>
-  </thead>
-
-  <tbody>
-
-    {% if all_fornecedores %}
-
-      {% for fornecedor in all_fornecedores %}
-
+    <thead>
       <tr>
-
-        <td>
-          {{fornecedor.id}}
-        </td>
-
-        <td>
-          {{fornecedor.nome_razao_social}}
-        </td>
-
-        <td>
-          {{ fornecedor.cpf_cnpj|default_if_none:'' }}
-        </td>
-      
-        <td>
-          {% if fornecedor.endereco.all.0.uf %}
-            {{fornecedor.endereco.all.0.get_uf_display}}
-          {% endif %}
-        </td>
-
-        <td>
-          {{fornecedor.endereco.all.0.municipio|default_if_none:""}}
-        </td>
-
-        <td class="lista-remove">
-
-          <!-- editar fornecedor -->
-          <a href="{% url 'cadastro:editarfornecedorview' fornecedor.id %}" class="btn btn-editar">
-            <i class="fa fa-pencil"></i>
-          </a>
-
-          <!-- Excluir fornecedor -->
-          <a href="" class="btn btn-excluir">
-            <i class="fa fa-trash"></i>
-          </a>
-
-        </td>
-
+        <th>#ID</th>                   
+        <th>Nome/Razão Social</th>
+        <th>CPF/CNPJ</th>
+        <th>Estado</th>
+        <th>Município</th>
+        <th>Ações</th>
       </tr>
+    </thead>
 
-      {% endfor %}
+    <tbody>
 
-    {%else%}
+      {% if all_fornecedores %}
 
-    {%endif%}
+        {% for fornecedor in all_fornecedores %}
 
-  </tbody>
+        <tr>
 
-</table>
+          <td>
+            {{fornecedor.id}}
+          </td>
+
+          <td>
+            {{fornecedor.nome_razao_social}}
+          </td>
+
+          <td>
+            {{ fornecedor.cpf_cnpj|default_if_none:'' }}
+          </td>
+        
+          <td>
+            {% if fornecedor.endereco.all.0.uf %}
+              {{fornecedor.endereco.all.0.get_uf_display}}
+            {% endif %}
+          </td>
+
+          <td>
+            {{fornecedor.endereco.all.0.municipio|default_if_none:""}}
+          </td>
+
+          <td class="lista-remove">
+
+            <!-- editar fornecedor -->
+            <a href="{% url 'cadastro:editarfornecedorview' fornecedor.id %}" class="btn btn-editar">
+              <i class="fa fa-pencil"></i>
+            </a>
+
+            <!-- Excluir fornecedor -->
+            <a href="" class="btn btn-excluir">
+              <i class="fa fa-trash"></i>
+            </a>
+
+          </td>
+
+        </tr>
+
+        {% endfor %}
+
+      {%else%}
+
+      {%endif%}
+
+    </tbody>
+
+  </table>
+</div>

@@ -1,7 +1,7 @@
 
 
 {% block content %}
-
+<div class="table-responsive">
   <table id="lista-database" class="table">
 
     <thead>
@@ -67,21 +67,6 @@
 
     </tbody>
   </table>
-
-  <script>
-    $(document).ready(function() {
-
-      // table = $('#lista-database').DataTable( {
-      //     paging: false
-      // } );
-      
-      // table.destroy();
-      
-      // table = $('#lista-database').DataTable( {
-      //     searching: false
-      // } );
-
-    });
-  </script>
+</div>
 
 {% endblock content %}
