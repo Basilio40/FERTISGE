@@ -191,6 +191,8 @@ $.Admin.table = {
 
         //Tabela DataTable
         dTable = $('#lista-database').DataTable({
+            lengthChange: false,
+            pageLength: 5, // Definir resultados por página como padrão
             "dom" : 'ltipr',
             "language" : {
                 "sEmptyTable": "Nenhum registro encontrado",

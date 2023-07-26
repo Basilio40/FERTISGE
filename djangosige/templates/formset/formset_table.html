@@ -4,23 +4,56 @@
   <div id="{{formset.prefix}}-{{forloop.counter0}}" class="formset" style="overflow-x: scroll;">
 
     <table class="table table-responsive table-bordered table-striped form-table">
+
       <thead>
+
         <tr>
+
           {% for field in form.visible_fields %}
-          <th>{{field.label}}{% if field.errors %}<label class="error error-table">{% for error in field.errors %}{{error}}{% endfor %}</label>{% endif %}</th>      
+
+          <th class="center-text" style="vertical-align: inherit;">
+            {{field.label}}
+
+            {% if field.errors %}
+
+              <label class="error error-table">
+
+                {% for error in field.errors %}
+                  {{error}}
+                {% endfor %}
+
+              </label>
+
+            {% endif %}
+          </th>      
+          
           {% endfor %}
-          <th><a class="remove-formset"></a></th>
+
+          <th class="center-text" style="vertical-align: inherit;">Remover</th>
         </tr>
+
       </thead>
 
       <tbody>
        <tr>
+
           {% for field in form.visible_fields %}
-          <td class="field-td">{{field}}</td>
+
+            <td class="field-td" style="vertical-align: inherit;">
+              {{field}}
+            </td>
+
           {% endfor %}
-          <td></td>
+
+          <td style="vertical-align: inherit;">
+            <a class="remove-formset">
+              <i class="material-icons icon" style="color: red;">delete</i>
+            </a>
+          </td>
+
         </tr>
       </tbody>
+
     </table>
 
     {{ form.id }}

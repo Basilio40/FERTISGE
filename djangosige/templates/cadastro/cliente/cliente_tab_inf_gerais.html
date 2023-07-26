@@ -21,9 +21,18 @@
       </div>
 
       {% if form.tipo_pessoa.errors %}<label class="error">{% for error in form.tipo_pessoa.errors %}{{error}}{% endfor %}</label>{% endif %}
+
+      <!-- Input hidden para armazenar o valor selecionado -->
+      <input type="hidden" name="{{form.prefix}}-tipo_pessoa_hidden" id="tipo_pessoa_hidden" value="{% if form.tipo_pessoa.value %}{{ form.tipo_pessoa.value }}{% endif %}" />
     </div>
   </div>
 </div>
+<script>
+  $('#fisica').change(function(){
+      console.log('oi')
+      _this.trocarCampos($(this));
+  });
+</script>
 
 <div class="col-sm-6">
   <div class="form-group">
