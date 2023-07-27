@@ -6826,7 +6826,7 @@ button.close {
 .header-btn {
   margin-bottom: 10px;
   margin-left: 10px;
-  width: 120px;
+  width: 150px;
 }
 
 .add-button {
@@ -6838,6 +6838,16 @@ button.close {
   background-color: #28a745; /* Cor de fundo do botão */
   color: #fff; /* Cor do texto do botão */
   justify-content: center;
+}
+
+.import-button {
+  display: flex; /* Exibe os elementos internos como flex */
+  align-items: center; /* Centraliza verticalmente os elementos internos */
+  text-decoration: none; /* Remove sublinhado do link */
+  padding: 8px 16px; /* Espaçamento interno do botão */
+  color: #fff; /* Cor do texto do botão */
+  justify-content: center;
+  margin-top: 10px;
 }
 
 .add-button i {
