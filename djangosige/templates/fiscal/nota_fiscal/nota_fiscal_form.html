@@ -648,7 +648,7 @@
   <!-- #Tab VENDA -->
 
   <!-- Tab COBRANÇA -->
-  <div role="tabpanel" class="tab-pane" id="tab_cobr">
+  <div role="tabpanel" class="tab-pane row" id="tab_cobr">
 
     <div class="col-sm-6">
       <div class="form-group">
@@ -670,58 +670,72 @@
       </div>
     </div>
 
-    <h4 style="border-bottom: 1px solid #afabab;margin-bottom: 25px;">Fatura (NF-e)</h4>
+    <div class="col-sm-12" style="width: 100%;">
+      <h4 style="border-bottom: 1px solid #afabab;margin-bottom: 25px;">Fatura (NF-e)</h4>
+    </div>
 
-    <div class="col-sm-12" style="margin-bottom: 17px;margin-top: 5px;">
+    <!-- <div class="col-sm-12" style="margin-bottom: 17px;margin-top: 5px;">
       {{form.grupo_cobr}}
-      <label for="id_grupo_cobr" style="font-weight: bold;" title="Selecionar para manter os dados da fatura e duplicatas na nota fiscal.">{{ form.grupo_cobr.label }}</label>
+      <label
+        for="id_grupo_cobr"
+        style="font-weight: bold;"
+        title="Selecionar para manter os dados da fatura e duplicatas na nota fiscal."
+      >
+        {{ form.grupo_cobr.label }}
+      </label>
+    </div> -->
+
+    <div class="fatura_input_div col-sm-12" style="width: 100%;">
+      <div class="row">
+
+        <div class="col-sm-3">
+          <div class="form-group">
+            <div class="form-line">
+              <label>{{form.n_fat.label}}</label>{% if form.n_fat.field.required %}<strong style="color:red;"> *</strong>{% endif %}
+              {% if form.n_fat.errors %}<label class="error">{% for error in form.n_fat.errors %}{{error}}{% endfor %}</label>{% endif %}
+              {{form.n_fat}}
+            </div>
+          </div>
+        </div>
+  
+        <div class="col-sm-3">
+          <div class="form-group">
+            <div class="form-line">
+              <label>{{form.v_orig.label}}</label>{% if form.v_orig.field.required %}<strong style="color:red;"> *</strong>{% endif %}
+              {% if form.v_orig.errors %}<label class="error">{% for error in form.v_orig.errors %}{{error}}{% endfor %}</label>{% endif %}
+              {{form.v_orig}}
+            </div>
+          </div>
+        </div>
+  
+        <div class="col-sm-3">
+          <div class="form-group">
+            <div class="form-line">
+              <label>{{form.v_desc.label}}</label>{% if form.v_desc.field.required %}<strong style="color:red;"> *</strong>{% endif %}
+              {% if form.v_desc.errors %}<label class="error">{% for error in form.v_desc.errors %}{{error}}{% endfor %}</label>{% endif %}
+              {{form.v_desc}}
+            </div>
+          </div>
+        </div>
+  
+        <div class="col-sm-3">
+          <div class="form-group">
+            <div class="form-line">
+              <label>{{form.v_liq.label}}</label>{% if form.v_liq.field.required %}<strong style="color:red;"> *</strong>{% endif %}
+              {% if form.v_liq.errors %}<label class="error">{% for error in form.v_liq.errors %}{{error}}{% endfor %}</label>{% endif %}
+              {{form.v_liq}}
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
 
-    <div class="fatura_input_div">
-      <div class="col-sm-3">
-        <div class="form-group">
-          <div class="form-line">
-            <label>{{form.n_fat.label}}</label>{% if form.n_fat.field.required %}<strong style="color:red;"> *</strong>{% endif %}
-            {% if form.n_fat.errors %}<label class="error">{% for error in form.n_fat.errors %}{{error}}{% endfor %}</label>{% endif %}
-            {{form.n_fat}}
-          </div>
-        </div>
-      </div>
-
-      <div class="col-sm-3">
-        <div class="form-group">
-          <div class="form-line">
-            <label>{{form.v_orig.label}}</label>{% if form.v_orig.field.required %}<strong style="color:red;"> *</strong>{% endif %}
-            {% if form.v_orig.errors %}<label class="error">{% for error in form.v_orig.errors %}{{error}}{% endfor %}</label>{% endif %}
-            {{form.v_orig}}
-          </div>
-        </div>
-      </div>
-
-      <div class="col-sm-3">
-        <div class="form-group">
-          <div class="form-line">
-            <label>{{form.v_desc.label}}</label>{% if form.v_desc.field.required %}<strong style="color:red;"> *</strong>{% endif %}
-            {% if form.v_desc.errors %}<label class="error">{% for error in form.v_desc.errors %}{{error}}{% endfor %}</label>{% endif %}
-            {{form.v_desc}}
-          </div>
-        </div>
-      </div>
-
-      <div class="col-sm-3">
-        <div class="form-group">
-          <div class="form-line">
-            <label>{{form.v_liq.label}}</label>{% if form.v_liq.field.required %}<strong style="color:red;"> *</strong>{% endif %}
-            {% if form.v_liq.errors %}<label class="error">{% for error in form.v_liq.errors %}{{error}}{% endfor %}</label>{% endif %}
-            {{form.v_liq}}
-          </div>
-        </div>
-      </div>
+    <div class="col-sm-12" style="width: 100%;">
+      <h4 style="border-bottom: 1px solid #afabab;margin-bottom: 25px;">Duplicatas (NF-e)</h4>
     </div>
 
-    <h4 style="border-bottom: 1px solid #afabab;margin-bottom: 25px;">Duplicatas (NF-e)</h4>
-
-    <div class="col-sm-12 lista">
+    <div class="col-sm-12 lista" style="width: 100%;">
       <table id="pagamentos_tabela" class="table table-bordered lista-table">
         <thead>
           <tr>
@@ -740,7 +754,9 @@
 
     </div>
 
-    <h4 style="border-bottom: 1px solid #afabab;margin-bottom: 25px;">Pagamento (NFC-e)</h4>
+    <div class="col-sm-12" style="width: 100%;">
+      <h4 style="border-bottom: 1px solid #afabab;margin-bottom: 25px;">Pagamento (NFC-e)</h4>
+    </div>
 
     <div class="col-sm-6">
       <div class="form-group">
