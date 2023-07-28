@@ -1108,9 +1108,9 @@ PANELS CONFIGURATIONS
 }
 
 /*Content Panel*/
-.content-panel {
+ {
 	background: #ffffff;
-	box-shadow: 0px 3px 2px #aab2bd;
+	/* box-shadow: 0px 3px 2px #aab2bd; */
 	padding-top: 15px;
 	padding-bottom: 5px;
 }
