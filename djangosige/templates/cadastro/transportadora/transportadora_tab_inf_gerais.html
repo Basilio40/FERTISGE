@@ -1,29 +1,77 @@
-<div class="col-sm-12" style="margin-top: 15px;">
+<div class="col-sm-12" style="margin-top:15px;">
   <div class="form-group">
     <div class="form-line">
-      <div class="btn-container"> <!-- Container dos botões e do elemento <strong> -->
-        <div class="btn-group" data-toggle="buttons">
-          <!-- Botão Pessoa Física -->
-          <label class="btn btn-pessoa active">
-            <input type="radio" name="{{form.prefix}}-tipo_pessoa" id="fisica" value="PF" {% if form.tipo_pessoa.value == 'PF' %}checked="checked"{% endif %}/>
-            <strong>Pessoa Física</strong>
-          </label>
-
-          <!-- Botão Pessoa Jurídica -->
-          <label class="btn btn-pessoa">
-            <input type="radio" name="{{form.prefix}}-tipo_pessoa" id="juridica" value="PJ" {% if form.tipo_pessoa.value == 'PJ' %}checked="checked"{% endif %}/>
-            <strong>Pessoa Jurídica</strong>
-          </label>
-        </div>
-
-        <strong style="color:red; margin-left: 5px;"> *</strong>
-
+      
+      <div class="radio-buttons">
+        <input 
+          type="radio"
+          name="{{form.prefix}}-tipo_pessoa"
+          id="fisica"
+          value="PF"
+          {% if form.tipo_pessoa.value == 'PF' %}
+            checked="checked"
+          {% elif form.tipo_pessoa.value is None %}
+            checked="checked"
+          {% endif %}
+        />
+        <label for="fisica">
+          <strong>Pessoa Física</strong>
+        </label>
       </div>
-
-      {% if form.tipo_pessoa.errors %}<label class="error">{% for error in form.tipo_pessoa.errors %}{{error}}{% endfor %}</label>{% endif %}
+      
+      <div class="radio-buttons">
+        <input
+          type="radio"
+          name="{{form.prefix}}-tipo_pessoa"
+          id="juridica"
+          value="PJ"
+          {% if form.tipo_pessoa.value == 'PJ' %}
+            checked="checked"
+          {% endif %}
+        />
+        <label for="juridica">
+          <strong>Pessoa Jurídica</strong>
+        </label>
+      </div>
+      
+      <strong style="color:red;"> *</strong>
+      
+      {% if form.tipo_pessoa.errors %}
+        <label class="error">
+          {% for error in form.tipo_pessoa.errors %}
+            {{error}}
+          {% endfor %}
+        </label>
+      {% endif %}
+    
     </div>
   </div>
 </div>
+
+<style>
+  .radio-buttons {
+    display: inline-block;
+    margin-right: 10px;
+  }
+
+  .radio-buttons input[type="radio"] {
+    display: none;
+  }
+
+  .radio-buttons label {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #9b9b9b;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+
+  .radio-buttons input[type="radio"]:checked + label {
+    background-color: #fff;
+    color: #9b9b9b;
+  }
+</style>
 
 <div class="col-sm-6">
   <div class="form-group">
