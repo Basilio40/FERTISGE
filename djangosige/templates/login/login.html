@@ -3534,51 +3534,93 @@
     <!-- **********************************************************************************************************************************************************
         MAIN CONTENT
         *********************************************************************************************************************************************************** -->
-    <div id="login-page">
-      <div class="container">
-        <form class="form-login" id="login"  action="{% url 'login:loginview' %}" method="POST">{% csrf_token %}
-          <h2 class="form-login-heading">LOGIN</h2>
-          <div class="login-wrap">
-            <input type="text" class="form-control"  placeholder="User ID" autofocus name="username">
-            <br>
-            <input type="password" class="form-control" placeholder="Password" name="password">
-            <label class="checkbox">
-              <input type="checkbox" value="remember-me"> Remember me
-              <span class="pull-right">
-              <a data-toggle="modal" href="login.html#myModal"> Esqueceu a senha?</a>
-              </span>
-              </label>
-            <button class="btn btn-theme btn-block" href="{% url 'base:index'%}" type="submit"><i class="fa fa-lock"></i> Login</button>
-            <hr>
-            <div class="login-social-link centered">
-            </div>
-            <div class="registration">
+  <div id="login-page">
 
+    <div class="container">
+
+      <div class="box-form-login">
+
+        <form class="form-login" id="login"  action="{% url 'login:loginview' %}" method="POST" style="margin: 0px!important; max-width: 400px!important;">
+          
+          {% csrf_token %}
+  
+          <h2 class="form-login-heading" style="border-radius: 20px 20px 0px 0px;">
+            LOGIN
+          </h2>
+  
+          <div class="login-wrap">
+  
+            <input type="text" class="form-control"  placeholder="User ID" autofocus name="username">
+  
+            <br>
+  
+            <input type="password" class="form-control" placeholder="Password" name="password">
+  
+            <label class="checkbox">
+  
+              <input type="checkbox" value="remember-me"/>
+              
+              Mantenha Conectado
+  
+              <span class="pull-right"></span>
+              
+            </label>
+  
+            <div class="box-forgot-password-link">
+              <a class="forgot-password-link" data-toggle="modal" href="login.html#myModal">Esqueceu a senha?</a>
             </div>
+            
+            <button class="btn btn-theme btn-block" href="{% url 'base:index'%}" type="submit">
+              <i class="fa fa-lock"></i> Login
+            </button>
+  
           </div>
-          <!-- Modal -->
-          <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                  <h4 class="modal-title">Forgot Password ?</h4>
-                </div>
-                <div class="modal-body">
-                  <p>Enter your e-mail address below to reset your password.</p>
-                  <input type="text" name="email" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix">
-                </div>
-                <div class="modal-footer">
-                  <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
-                  <button class="btn btn-theme" type="button">Submit</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- modal -->
+  
         </form>
+        
       </div>
+      
     </div>
+    
+  </div>
+  
+  <!-- Modal -->
+  <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade" style="background-color: transparent;">
+    
+    <div class="modal-dialog">
+
+      <div class="modal-content">
+
+        <div class="modal-header" style="border-radius: 20px 20px 0px 0px;">
+
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+          <h4 class="modal-title">Esqueceu sua Senha?</h4>
+
+        </div>
+
+        <div class="modal-body">
+
+          <p>Digite seu E-mail a baixo para resetar sua senha.</p>
+
+          <input type="text" name="email" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix">
+        
+        </div>
+        
+        <div class="modal-footer">
+
+          <button data-dismiss="modal" class="btn btn-default" type="button">Cancelar</button>
+
+          <button class="btn btn-theme" type="button">Enviar</button>
+          
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+  <!-- modal -->
 
     <!-- css alternativo -->
 
