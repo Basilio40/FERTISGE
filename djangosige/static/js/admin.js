@@ -2109,6 +2109,8 @@ $.Admin.compraForm = {
         form_atual.find('input[id$=-vicms]').val(modal.find('#id_vicms_modal').val());
 
         form_atual.find('select[id$=-tipo_desconto]').val('0').trigger('change');
+
+        modal.modal('hide');
     },
 
     setItensFields: function(form_number){

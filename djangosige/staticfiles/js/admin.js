@@ -1099,7 +1099,7 @@ $.Admin.vendaForm = {
             _this.setTotalParcelasFields();
         });
 
-        $('#salvar_impostos_modal').on('click', function(){
+        $('#salvar_impostos_modal').on('click', function(){ console.log('salvei')
             _this.salvarInfoImpostoModal($(this).parents('.imposto_modal'));
         });
 
