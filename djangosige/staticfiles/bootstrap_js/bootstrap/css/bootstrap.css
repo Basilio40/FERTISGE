@@ -3473,6 +3473,11 @@ input[type="button"].btn-block {
 .fade.in {
   opacity: 1;
 }
+
+.fade.show {
+  opacity: 1;
+}
+
 .collapse {
   display: none;
 }
@@ -5883,10 +5888,10 @@ button.close {
   -webkit-transition: -webkit-transform .3s ease-out;
        -o-transition:      -o-transform .3s ease-out;
           transition:         transform .3s ease-out;
-  -webkit-transform: translate(0, -25%);
+  /* -webkit-transform: translate(0, -25%);
       -ms-transform: translate(0, -25%);
        -o-transform: translate(0, -25%);
-          transform: translate(0, -25%);
+          transform: translate(0, -25%); */
 }
 .modal.in .modal-dialog {
   -webkit-transform: translate(0, 0);
@@ -5910,7 +5915,7 @@ button.close {
           background-clip: padding-box;
   border: 1px solid #999;
   border: 1px solid rgba(0, 0, 0, .2);
-  border-radius: 6px;
+  border-radius: 10px;
   outline: 0;
   -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
           box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
@@ -5945,7 +5950,8 @@ button.close {
 }
 .modal-body {
   position: relative;
-  padding: 15px;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 .modal-footer {
   padding: 15px;
@@ -7056,6 +7062,7 @@ th.center-text {
 /* Estiliza a barra de rolagem horizontal */
 ::-webkit-scrollbar {
   height: 5px; /* Altura da barra de rolagem */
+  width: 5px;
 }
 
 /* Estiliza a área de fundo da barra de rolagem horizontal */
