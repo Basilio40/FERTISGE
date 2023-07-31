@@ -47,7 +47,7 @@ class ProdutoForm(forms.ModelForm):
             'cfop_padrao': forms.Select(attrs={'class': 'form-control'}),
             'grupo_fiscal': forms.Select(attrs={'class': 'form-control'}),
             'estoque_minimo': forms.TextInput(attrs={'class': 'form-control decimal-mask'}),
-            'controlar_estoque': forms.CheckboxInput(attrs={'class': 'form-control'}),
+            'controlar_estoque': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
         labels = {
             'codigo': ('Código'),

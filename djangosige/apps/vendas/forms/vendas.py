@@ -43,11 +43,11 @@ class VendaForm(forms.ModelForm):
         widgets = {
             'data_emissao': forms.DateInput(attrs={'class': 'form-control datepicker'}),
             'cliente': forms.Select(attrs={'class': 'form-control'}),
-            'ind_final': forms. CheckboxInput(attrs={'class': 'form-control'}),
+            'ind_final': forms. CheckboxInput(attrs={'class': 'form-check-input'}),
             'transportadora': forms.Select(attrs={'class': 'form-control'}),
             'mod_frete': forms.Select(attrs={'class': 'form-control'}),
             'local_orig': forms.Select(attrs={'class': 'form-control'}),
-            'movimentar_estoque': forms.CheckboxInput(attrs={'class': 'form-control'}),
+            'movimentar_estoque': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
             'veiculo': forms.Select(attrs={'class': 'form-control'}),
             'vendedor': forms.TextInput(attrs={'class': 'form-control'}),
             'valor_total': forms.TextInput(attrs={'class': 'form-control decimal-mask', 'readonly': True}),

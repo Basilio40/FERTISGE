@@ -43,7 +43,7 @@ class CompraForm(forms.ModelForm):
             'fornecedor': forms.Select(attrs={'class': 'form-control'}),
             'mod_frete': forms.Select(attrs={'class': 'form-control'}),
             'local_dest': forms.Select(attrs={'class': 'form-control'}),
-            'movimentar_estoque': forms.CheckboxInput(attrs={'class': 'form-control'}),
+            'movimentar_estoque': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
             'valor_total': forms.TextInput(attrs={'class': 'form-control decimal-mask', 'readonly': True}),
             'tipo_desconto': forms.Select(attrs={'class': 'form-control'}),
             'desconto': forms.TextInput(attrs={'class': 'form-control decimal-mask-four'}),
