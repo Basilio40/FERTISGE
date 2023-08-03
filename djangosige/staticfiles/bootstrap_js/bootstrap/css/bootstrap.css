@@ -2547,6 +2547,7 @@ output {
   color: #555;
 }
 .form-control {
+  opacity: 1!important;
   display: block;
   width: 100%;
   height: 34px;
@@ -7144,10 +7145,18 @@ a.forgot-password-link:hover {
 }
 
 .box-form-login {
-  max-width: 500px; /* Largura máxima da div do formulário */
+  max-width: 400px; /* Largura máxima da div do formulário */
   background-color: #fff; /* Cor de fundo da box-form-login */
   padding: 30px; /* Aumentar o padding para mais destaque */
   border-radius: 15px; /* Bordas arredondadas para mais destaque */
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Sombra ao redor da box-form-login */
   width: 45%;
+}
+
+.form-check-input {
+  opacity: 1!important;
+}
+
+.form-check-label {
+  margin-left: 15px;
 }
