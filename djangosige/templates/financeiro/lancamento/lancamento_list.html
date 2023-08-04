@@ -1,80 +1,95 @@
 {%extends 'base/base.html'%}
 
-{%block title%}{{title_complete|title}}{%endblock%}
-{%block content%}
-<section id="main-content">
-  <section class="wrapper">
-    <div class="row">
-      <div class="col-md-12">
-  
-    {% include 'base/title_header.html' %}
-    
-    {% include 'base/msg_sucesso.html' %}
+{%block title%}
+  {{title_complete|title}}
+{%endblock%}
 
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 lista-content">
-      <div class="card">
-        <form action="" method="post">
-          {% csrf_token %}
-          <div class="body" style="overflow:visible;">
-            <h2>
-              {{title_complete}}
-            </h2>
-              <div class="body">
-                {% if add_url %}
-                <a href="{{add_url}}" class="btn btn-success"><i class="material-icons">&#xE148;</i><span> ADICIONAR</span></a>
-                {% else %}
-                <div class="dropdown" style="display: inline-block;float:right;">
-                  <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">Adicionar
-                  <span class="caret"></span></button>
-                  <ul class="dropdown-menu pull-right">
-                    <li><a href="{% url 'financeiro:addpagamentoview' %}">Pagamento</a></li>
-                    <li><a href="{% url 'financeiro:addcontapagarview' %}">Conta a pagar</a></li>
-                    <li><a href="{% url 'financeiro:addrecebimentoview' %}">Recebimento</a></li>
-                    <li><a href="{% url 'financeiro:addcontareceberview' %}">Conta a receber</a></li>
-                  </ul>
-                </div>
-                {% endif %}
-                <button class="btn btn-red btn-remove"><i class="material-icons">&#xE872;</i></button>
-              </div>
+{%block content%}
+
+<section id="main-content" style="background-color: #f2f4ef;">
+
+  <section class="wrapper">
+
+    <div class="row">
+
+      <div id="tabs-financeiro" class="col-md-12" style="padding: 0px;">
+  
+        <!-- {% include 'base/title_header.html' %} -->
+        <!-- {% include 'base/msg_sucesso.html' %} -->
+
+        <div class="header-financeiro">
+
+          <div class="row" style="margin: 0px; width: 100%;">
+
+            <div class="col-md-3 header-financeiro-logo">
+
+              <svg width="145" height="32" viewBox="0 0 145 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path opacity="0.5" d="M16.0001 0V8C11.5824 8 8.00007 11.5823 8.00007 16H0C0 7.16463 7.16093 0 16.0001 0Z" fill="#FBF7EA"></path>
+                <path opacity="0.75" d="M16.0001 32V24C11.5824 24 8.00007 20.4177 8.00007 16H0C0 24.8354 7.16093 32 16.0001 32Z" fill="#FBF7EA"></path>
+                <path d="M32.0001 16C32.0001 24.8354 24.8392 32 16 32V24C20.4177 24 24.0001 20.4177 24.0001 16C24.0001 11.5823 20.4177 8 16 8V0C24.8392 0 32.0001 7.16463 32.0001 16Z" fill="#FBF7EA"></path>
+                <text x="45" y="25" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#FBF7EA">Financeiro</text>
+              </svg>
+
+            </div>
+
+            <div class="col-md-6 header-financeiro-tab">
+
+                <ul id="ul-tab-financeiro">
+                  <li class="li-tab-financeiro">
+                    <a href="#tab-visao">visão geral</a>
+                  </li>
+                  <li class="li-tab-financeiro">
+                    <a href="#tab-lancamento">lançamentos</a>
+                  </li>
+                  <li class="li-tab-financeiro">
+                    <a href="#tab-relatorio">relatórios</a>
+                  </li>
+                </ul>
+
+            </div>
+
           </div>
 
-          <div class="body">
+        </div>
 
-           {% include 'base/search.html' %}
+        <div id="box-financeiro">
 
-           {% if all_contaspagar %}
-           {% include 'financeiro/lancamento/conta_pagar_list_table.html' %}
-           {% elif all_contasreceber %}
-           {% include 'financeiro/lancamento/conta_receber_list_table.html' %}
-           {% elif all_saidas %}
-           {% include 'financeiro/lancamento/pagamentos_list_table.html' %}
-           {% elif all_entradas %}
-           {% include 'financeiro/lancamento/recebimentos_list_table.html' %}
-           {% elif all_lancamentos %}
-           {% include 'financeiro/lancamento/todos_lancamentos_list_table.html' %}
-           {% else %}
-           Nenhum registro encontrado
-           {% endif %}
+          <div id="tab-visao">
+
+            {% include 'financeiro/lancamento/tabs/visao_tab.html' %}
+
+          </div>
+
+          <div id="tab-lancamento">
+
+            {% include 'financeiro/lancamento/tabs/lancamento_tab.html' %}
+
+          </div>
+
+          <div id="tab-relatorio">
+
+            {% include 'financeiro/lancamento/tabs/relatorio_tab.html' %}
+
+          </div>
+
+        </div>
+        
 
       </div>
 
-    </form>
+    </div>
 
-    {% include 'financeiro/lancamento/modal_selecionar_data.html' %}
+  </section>
 
-  </div>
-</div>
-
-</div>
-</div>
-</section>
 </section>
 
 
 {%endblock%}
 
 {% block js %}
+
   {% load static %}
+
   <!-- JQuery Mask Input Js -->
   <script src="{% static 'js/jquery.mask.js' %}"></script>
   
@@ -90,6 +105,30 @@
 
     $.Admin.maskInput.maskLancamento();
     $.Admin.lancamentoList.init(req_urls);
+  </script>
+
+  <script>
+    $(function() {
+      // Ao carregar a página, mostre o conteúdo da primeira guia e adicione a classe "active" ao primeiro link
+      $("#box-financeiro > div:first-child").addClass("active");
+      $("#ul-tab-financeiro li:first-child a").addClass("active");
+
+      // Manipule o clique nas guias
+      $("#ul-tab-financeiro li a").click(function(event) {
+        event.preventDefault();
+
+        // Remova a classe "active" de todas as guias e oculte todos os conteúdos das guias
+        $("#ul-tab-financeiro li a").removeClass("active");
+
+        $("#tab-visao").removeClass("active");
+        $("#tab-lancamento").removeClass("active");
+        $("#tab-relatorio").removeClass("active");
+
+        // Adicione a classe "active" à guia clicada e mostre o conteúdo correspondente
+        $(this).addClass("active");
+        $($(this).attr("href")).addClass("active");
+      });
+    });
   </script>
   
 {% endblock %}

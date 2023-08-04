@@ -1,0 +1,67 @@
+<div class="row box-tabs">
+
+  <div class="col-md-6 box-lancamento-financeiro">
+
+    <div class="container-box" style="flex-direction: column; padding: 20px;">
+
+      <h2 class="lancamento-title">
+        Lançamentos
+      </h2>
+
+      <ul class="btn-list">
+
+        <li class="btn-action lancamento">
+          <a class="btn-action-a" href="{% url 'financeiro:addpagamentoview' %}">
+
+            <i class="fas fa-money-check-alt" style="color: #d72638; font-size: 43px; padding-left: 8px;"></i>
+
+            <p class="btn-title">
+              Pagamento
+            </p>
+
+          </a>
+        </li>
+
+        <li class="btn-action lancamento">
+          <a class="btn-action-a" href="{% url 'financeiro:addcontapagarview' %}">
+
+            <i class="fas fa-file-invoice-dollar" style="color: #d72638; font-size: 43px; padding-left: 24px;"></i>
+
+            <p class="btn-title">
+              Conta a pagar
+            </p>
+
+          </a>
+        </li>
+
+        <li class="btn-action lancamento">
+          <a class="btn-action-a" href="{% url 'financeiro:addrecebimentoview' %}">
+
+            <i class="fas fa-money-bill-alt" style="color: #129e3f; font-size: 43px; padding-left: 15px;"></i>
+
+            <p class="btn-title">
+              Recebimento
+            </p>
+
+          </a>
+        </li>
+
+        <li class="btn-action lancamento">
+          <a class="btn-action-a" href="{% url 'financeiro:addcontareceberview' %}">
+
+            <i class="fas fa-file-invoice" style="color: #129e3f; font-size: 43px; padding-left: 25px;"></i>
+
+            <p class="btn-title">
+              Conta a receber
+            </p>
+
+          </a>
+        </li>
+
+      </ul>
+
+    </div>
+
+  </div>
+  
+</div>

@@ -1,0 +1,87 @@
+<div class="row box-tabs">
+
+  <div class="col-md-10 box-relatorio-financeiro">
+
+    <div class="container-box-relatorio">
+
+      <div class="header-relatorio">
+
+        <h2 class="relatorio-title">
+          Relatórios
+        </h2>
+  
+        <h3 class="relatorio-time">
+          Últimos 12 meses
+        </h3>
+  
+        <div class="dropdown" style="display: inline-block; float: right; margin-top: 10px;">
+  
+          <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">
+            Periodo
+            <span class="caret"></span>
+          </button>
+  
+          <ul class="dropdown-menu pull-right">
+            <li>Hoje</li>
+            <li>Esta semana</li>
+            <li>Este mês</li>
+            <li>Últimos 3 meses</li>
+            <li>Últimos 6 meses</li>
+            <li>Últimos 12 meses</li>
+            <li>Este ano</li>
+          </ul>
+  
+        </div>
+
+      </div>
+
+      <div id="tab-relatorio-interno" style="width: 100%;">
+
+        <ul id="ul-tab-relatorio">
+
+          <li class="li-tab-relatorio">
+            <a href="#tab-relatorio-rece-desp">receitas x despesas</a>
+          </li>
+
+          <li class="li-tab-relatorio">
+            <a href="#tab-relatorio-categoria">categorias</a>
+          </li>
+
+        </ul>
+
+        <div id="tab-relatorio-rece-desp">
+          receitas x despesas
+        </div>
+
+        <div id="tab-relatorio-categoria">
+          categorias
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+  $(function() {
+    // Ao carregar a página, mostre o conteúdo da primeira guia e adicione a classe "active" a ela
+    $("#tab-relatorio-interno > div:first-child").addClass("active");
+    $("#tab-relatorio-interno ul li:first-child a").addClass("active");
+
+    // Manipule o clique nas guias
+    $("#tab-relatorio-interno ul li a").click(function(event) {
+      event.preventDefault();
+
+      // Remova a classe "active" de todas as guias e oculte todos os conteúdos das guias
+      $("#tab-relatorio-interno ul li a").removeClass("active");
+      $("#tab-relatorio-interno > div").removeClass("active");
+
+      // Adicione a classe "active" à guia clicada e mostre o conteúdo correspondente
+      $(this).addClass("active");
+      $($(this).attr("href")).addClass("active");
+    });
+  });
+</script>

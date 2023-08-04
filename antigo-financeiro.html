@@ -1,0 +1,86 @@
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 lista-content">
+
+  <div class="card">
+
+    <form action="" method="post">
+
+      {% csrf_token %}
+
+      <div class="body" style="overflow:visible;">
+
+        <h2>
+          {{title_complete}}
+        </h2>
+
+        <div class="body">
+
+          {% if add_url %}
+
+            <a href="{{add_url}}" class="btn btn-success">
+              <i class="material-icons">&#xE148;</i>
+              <span> ADICIONAR</span>
+            </a>
+
+          {% else %}
+
+            <div class="dropdown" style="display: inline-block; float: right;">
+
+              <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">
+                Adicionar
+                <span class="caret"></span>
+              </button>
+
+              <ul class="dropdown-menu pull-right">
+                <li><a href="{% url 'financeiro:addpagamentoview' %}">Pagamento</a></li>
+                <li><a href="{% url 'financeiro:addcontapagarview' %}">Conta a pagar</a></li>
+                <li><a href="{% url 'financeiro:addrecebimentoview' %}">Recebimento</a></li>
+                <li><a href="{% url 'financeiro:addcontareceberview' %}">Conta a receber</a></li>
+              </ul>
+
+            </div>
+
+          {% endif %}
+          
+        </div>
+
+      </div>
+
+      <div class="body">
+
+        {% include 'base/search.html' %}
+
+        {% if all_contaspagar %}
+
+          {% include 'financeiro/lancamento/conta_pagar_list_table.html' %}
+
+        {% elif all_contasreceber %}
+
+          {% include 'financeiro/lancamento/conta_receber_list_table.html' %}
+
+        {% elif all_saidas %}
+
+          {% include 'financeiro/lancamento/pagamentos_list_table.html' %}
+
+        {% elif all_entradas %}
+
+          {% include 'financeiro/lancamento/recebimentos_list_table.html' %}
+
+        {% elif all_lancamentos %}
+
+          {% include 'financeiro/lancamento/todos_lancamentos_list_table.html' %}
+
+        {% else %}
+
+          Nenhum registro encontrado
+
+        {% endif %}
+
+      </div>
+
+    </form>
+
+    {% include 'financeiro/lancamento/modal_selecionar_data.html' %}
+
+  </div>
+
+</div>
