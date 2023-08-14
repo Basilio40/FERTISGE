@@ -29,7 +29,12 @@
             <p>
               R$ 
               <strong class="strong-valor">
-                -10.116,11
+                {% if all_lancamentos %}
+                {% for lancamento in all_lancamentos %}
+                {{lancamento.format_valor_liquido}}
+                {% endfor %}
+                {%else%}
+                {%endif%}
               </strong>
             </p>
 
@@ -45,9 +50,11 @@
               receita mensal
             </p>
 
+
             <p class="valor-label" style="color: #129e3f;">
-              R$ 1.045.071,58
+
             </p>
+
 
           </div>
 
@@ -57,9 +64,13 @@
               despensa mensal
             </p>
 
+
+
             <p class="valor-label" style="color: #d72638;">
               R$ -377.964,11
             </p>
+
+
 
           </div>
 
