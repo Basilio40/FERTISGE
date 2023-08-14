@@ -3,17 +3,18 @@
 
 {%block title%} {{object.nome_razao_social}} {%endblock%}
 {%block content%}
-<section class="content">
-  <div class="container-fluid">
+<section id="main-content">
+  <section class="wrapper">
 
-    {% include 'base/title_header.html' %}
+    <h3>{% include 'base/title_header.html' %}</h3>
 
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-      <div class="row">
-        <div class="card">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="content-panel">
+
 
           <!--Header-->
-          <div class="header">
+          <div class="body">
 
             <h2>
               <a href="{{return_url}}"><i class="material-icons">&#xE5C4;</i></a>{{object.nome_razao_social}}
@@ -132,6 +133,7 @@
     </div>
 
   </div>
+    </div>
 </section>
 
 
