@@ -404,6 +404,8 @@ class LancamentoListView(LancamentoListBaseView):
         context = super(LancamentoListView, self).get_context_data(**kwargs)
         context['title_complete'] = 'TODOS OS LANÇAMENTOS'
         context['all_lancamentos_saidas'] = Saida.objects.all()
+        
+        context.update(LancamanetoBoardInfo().get_context_data())
         return context
 
     def get_queryset(self):
@@ -442,6 +444,8 @@ class ContaPagarListView(LancamentoListBaseView):
         context = super(ContaPagarListView, self).get_context_data(**kwargs)
         context['title_complete'] = 'CONTAS A PAGAR'
         context['add_url'] = reverse_lazy('financeiro:addcontapagarview')
+        
+        context.update(LancamanetoBoardInfo().get_context_data())
         return context
 
     def get_queryset(self):
@@ -522,6 +526,8 @@ class ContaReceberHojeListView(ContaReceberAtrasadasListView):
         context['title_complete'] = 'CONTAS A RECEBER DO DIA ' + \
             datetime.now().date().strftime('%d/%m/%Y')
         context['add_url'] = reverse_lazy('financeiro:addcontareceberview')
+        
+        context.update(LancamanetoBoardInfo().get_context_data())
         return context
 
     def get_queryset(self):
@@ -542,6 +548,7 @@ class EntradaListView(LancamentoListBaseView):
 
     def get_queryset(self):
         return super(EntradaListView, self).get_queryset(object=Entrada, status=['0', ])
+
 
 
 class SaidaListView(LancamentoListBaseView):
@@ -775,3 +782,86 @@ class FaturarPedidoCompraView(CustomView, MovimentoCaixaMixin):
             request, "<b>Pedido de compra {0} </b>realizado com sucesso.".format(str(pedido.id)))
 
         return redirect(reverse_lazy('compras:listapedidocompraview'))
+
+
+class LancamanetoBoardInfo:
+    
+    def get_context_data(self):
+        context = {}
+        
+        context["saldo"] = self.get_valores_saldo()
+        context["lancamentos"] = self.get_lancamentos_table()
+        context["client"] = "Brasil Fertilizantes"
+        return context
+
+    def get_valores_saldo(self):
+        values = {}
+        
+        ultimo_movimento = MovimentoCaixa.objects.latest("data_movimento")
+        if ultimo_movimento:
+            values['total'] = Lancamento.static_format_valor_liquido(ultimo_movimento.saldo_final)
+        
+        lancamentos = Lancamento.objects.filter(data_vencimento__gte=datetime.now().strftime("%Y-%m-01"))
+        if lancamentos:
+            from decimal import Decimal
+            entradas = [x.lancamento_ptr_id for x in Entrada.objects.all()]
+            
+            receita = Decimal(0)
+            despesas = Decimal(0)
+            for conta in lancamentos:
+                if conta.id in entradas:
+                    receita += conta.valor_liquido
+                else:
+                    despesas += conta.valor_liquido
+
+            values['receita'] = Lancamento.static_format_valor_liquido(receita)
+            values['despesas'] = Lancamento.static_format_valor_liquido(despesas)
+            values['balanco'] = Lancamento.static_format_valor_liquido(receita - despesas)
+            
+        return values
+    
+    def get_lancamentos_table(self):
+        from calendar import monthrange
+        info = {
+            "pagar": {
+                "pendente":[],
+                "proximo": []
+                },
+
+            "receber": {
+                "pendente":[],
+                "proximo": []
+            }
+        }
+        
+        entradas = [x.lancamento_ptr_id for x in Entrada.objects.all()]
+        filter_limit = datetime.now().strftime("%Y-%m-" + str(monthrange(datetime.now().year, datetime.now().month)[-1]))
+        
+        pe_lancamentos = Lancamento.objects.filter(data_vencimento__lte=filter_limit)
+        for conta in pe_lancamentos:
+            if not conta.data_pagamento:
+                if conta.id in entradas:
+                    info["receber"]["pendente"].append(self.format_lancamento(conta))
+                else:
+                    info["pagar"]["pendente"].append(self.format_lancamento(conta))
+            
+        
+        pr_lancamentos = Lancamento.objects.filter(data_vencimento__gt=filter_limit)
+        for conta in pr_lancamentos:
+            if not conta.data_pagamento:
+                if conta.id in entradas:
+                    info["receber"]["proximo"].append(self.format_lancamento(conta))
+                else:
+                    info["pagar"]["proximo"].append(self.format_lancamento(conta))
+            
+        
+        return info
+    
+    def format_lancamento(self, obj: Lancamento):
+        info = {
+            "descricao": obj.descricao,
+            "vencimento": obj.data_vencimento.strftime("%d/%m/%Y"),
+            "valor": obj.format_valor_liquido()
+        }
+    
+        return info

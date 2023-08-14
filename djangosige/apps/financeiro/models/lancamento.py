@@ -45,6 +45,9 @@ class Lancamento(models.Model):
 
     def format_valor_liquido(self):
         return locale.format(u'%.2f', self.valor_liquido, 1)
+    
+    def static_format_valor_liquido(valor):
+        return locale.format(u'%.2f', valor, 1)
 
     @property
     def format_data_vencimento(self):

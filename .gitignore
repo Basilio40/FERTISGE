@@ -19,7 +19,7 @@ media
 # Byte-compiled / optimized / DLL files
 *.py[cod]
 *$py.class
-.pyc
+*.pyc
 
 # C extensions
 *.so
@@ -136,7 +136,7 @@ celerybeat.pid
 .env
 .venv
 env/
-venv/
+venv/*
 ENV/
 env.bak/
 venv.bak/

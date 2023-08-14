@@ -7,9 +7,8 @@
 {%block content%}
 
 <section id="main-content" style="background-color: #f2f4ef;">
-
   <section class="wrapper">
-
+    <div hidden>{{title_complete}}</div>
     <div class="row">
 
       <div id="tabs-financeiro" class="col-md-12" style="padding: 0px;">
@@ -56,7 +55,7 @@
 
           <div id="tab-visao">
 
-            {% include 'financeiro/lancamento/tabs/visao_tab.html' %}
+            {% include 'financeiro/lancamento/tabs/visao_tab.html' with client=client saldo=saldo pagar=lancamentos.pagar receber=lancamentos.receber %}
 
           </div>
 
