@@ -159,6 +159,8 @@ class AdicionarContaPagarView(AdicionarLancamentoBaseView):
                         self).get_context_data(**kwargs)
         context['title_complete'] = 'ADICIONAR CONTA A PAGAR'
         context['return_url'] = reverse_lazy('financeiro:listacontapagarview')
+        
+        context.update(LancamanetoBoardInfo().get_context_data())
         return context
 
 
@@ -174,6 +176,8 @@ class AdicionarContaReceberView(AdicionarLancamentoBaseView):
         context['title_complete'] = 'ADICIONAR CONTA A RECEBER'
         context['return_url'] = reverse_lazy(
             'financeiro:listacontareceberview')
+        
+        context.update(LancamanetoBoardInfo().get_context_data())
         return context
 
 
@@ -188,6 +192,8 @@ class AdicionarEntradaView(AdicionarLancamentoBaseView):
         context['title_complete'] = 'ADICIONAR RECEBIMENTO'
         context['return_url'] = reverse_lazy(
             'financeiro:listarecebimentosview')
+        
+        context.update(LancamanetoBoardInfo().get_context_data())
         return context
 
 
@@ -201,6 +207,8 @@ class AdicionarSaidaView(AdicionarLancamentoBaseView):
         context = super(AdicionarSaidaView, self).get_context_data(**kwargs)
         context['title_complete'] = 'ADICIONAR PAGAMENTO'
         context['return_url'] = reverse_lazy('financeiro:listapagamentosview')
+        
+        context.update(LancamanetoBoardInfo().get_context_data())
         return context
 
 
@@ -463,6 +471,8 @@ class ContaPagarAtrasadasListView(LancamentoListBaseView):
                         self).get_context_data(**kwargs)
         context['title_complete'] = 'CONTAS A PAGAR ATRASADAS'
         context['add_url'] = reverse_lazy('financeiro:addcontapagarview')
+        
+        context.update(LancamanetoBoardInfo().get_context_data())
         return context
 
     def get_queryset(self):
@@ -478,6 +488,8 @@ class ContaPagarHojeListView(ContaPagarAtrasadasListView):
         context['title_complete'] = 'CONTAS A PAGAR DO DIA ' + \
             datetime.now().date().strftime('%d/%m/%Y')
         context['add_url'] = reverse_lazy('financeiro:addcontapagarview')
+        
+        context.update(LancamanetoBoardInfo().get_context_data())
         return context
 
     def get_queryset(self):
@@ -494,6 +506,8 @@ class ContaReceberListView(LancamentoListBaseView):
         context = super(ContaReceberListView, self).get_context_data(**kwargs)
         context['title_complete'] = 'CONTAS A RECEBER'
         context['add_url'] = reverse_lazy('financeiro:addcontareceberview')
+        
+        context.update(LancamanetoBoardInfo().get_context_data())
         return context
 
     def get_queryset(self):
@@ -511,6 +525,8 @@ class ContaReceberAtrasadasListView(LancamentoListBaseView):
                         self).get_context_data(**kwargs)
         context['title_complete'] = 'CONTAS A RECEBER ATRASADAS'
         context['add_url'] = reverse_lazy('financeiro:addcontareceberview')
+        
+        context.update(LancamanetoBoardInfo().get_context_data())
         return context
 
     def get_queryset(self):
@@ -544,6 +560,8 @@ class EntradaListView(LancamentoListBaseView):
         context = super(EntradaListView, self).get_context_data(**kwargs)
         context['title_complete'] = 'RECEBIMENTOS'
         context['add_url'] = reverse_lazy('financeiro:addrecebimentoview')
+        
+        context.update(LancamanetoBoardInfo().get_context_data())
         return context
 
     def get_queryset(self):
@@ -561,6 +579,8 @@ class SaidaListView(LancamentoListBaseView):
         context = super(SaidaListView, self).get_context_data(**kwargs)
         context['title_complete'] = 'PAGAMENTOS'
         context['add_url'] = reverse_lazy('financeiro:addpagamentoview')
+        
+        context.update(LancamanetoBoardInfo().get_context_data())
         return context
 
     def get_queryset(self):
@@ -784,14 +804,12 @@ class FaturarPedidoCompraView(CustomView, MovimentoCaixaMixin):
         return redirect(reverse_lazy('compras:listapedidocompraview'))
 
 
-class LancamanetoBoardInfo:
-    
+class LancamanetoBoardInfo:    
     def get_context_data(self):
         context = {}
-        
+
         context["saldo"] = self.get_valores_saldo()
         context["lancamentos"] = self.get_lancamentos_table()
-        context["client"] = "Brasil Fertilizantes"
         return context
 
     def get_valores_saldo(self):

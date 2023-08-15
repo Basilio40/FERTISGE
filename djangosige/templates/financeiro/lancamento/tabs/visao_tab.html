@@ -206,131 +206,41 @@
 
       <div class="contas-receber-list">
         <ul>
+
           {% if receber.pendente %}
           {% for conta in receber.pendente %}
-          <li>
-            <a class="contas-a" href="">
-              <div style="display: flex; flex-direction: row;">
+            <li>
+              <a class="contas-a" href="">
 
-                <i class="material-icons contas-icon" style="background-color: rgb(255, 151, 124);">note</i>
-  
-                <span style="max-width: 300px;">
-  
-                  <h3 class="contas-title-label">
-                    {{conta.descricao}}
-                  </h3>
-  
-                  <p class="contas-subtitle-label">
-                    {{conta.vencimento}}
-                  </p>
-  
-                </span>
+                <div style="display: flex; flex-direction: row;">
 
-              </div>
+                  <i class="material-icons contas-icon" style="background-color: rgb(255, 151, 124);">note</i>
+                  
+                  <span style="max-width: 300px;">
 
-              <div>
+                    <h3 class="contas-title-label">
+                      {{conta.descricao}}
+                    </h3>
 
-                <h3 class="contas-value-label">
-                  R$ {{conta.valor}}
-                </h3>
+                    <p class="contas-subtitle-label">
+                      {{conta.vencimento}}
+                    </p>
 
-              </div>
-            </a>
-          </li>
+                  </span>
+                
+                </div>
+
+                <div>
+
+                  <h3 class="contas-value-label">
+                    R$ {{conta.valor}}</h3>
+                </div>
+              </a>
+            </li>
           {% endfor%}
           {% endif%}
-          <li>
-            <a class="contas-a" href="">
 
-              <div style="display: flex; flex-direction: row;">
-
-                <i class="material-icons contas-icon" style="background-color: rgb(255, 151, 124);">note</i>
-  
-                <span style="max-width: 300px;">
-  
-                  <h3 class="contas-title-label">
-                    IPTU FIRMA FERTILIZANTES FARDIN E FARDIN E FARDIN
-                  </h3>
-  
-                  <p class="contas-subtitle-label">
-                    01/01/2023
-                  </p>
-  
-                </span>
-
-              </div>
-
-              <div>
-
-                <h3 class="contas-value-label">
-                  R$ 0,00
-                </h3>
-
-              </div>
-            </a>
-          </li>
-          <li>
-            <a class="contas-a" href="">
-
-              <div style="display: flex; flex-direction: row;">
-
-                <i class="material-icons contas-icon" style="background-color: rgb(255, 151, 124);">note</i>
-  
-                <span style="max-width: 300px;">
-  
-                  <h3 class="contas-title-label">
-                    IPTU FIRMA FERTILIZANTES FARDIN E FARDIN E FARDIN
-                  </h3>
-  
-                  <p class="contas-subtitle-label">
-                    01/01/2023
-                  </p>
-  
-                </span>
-
-              </div>
-
-              <div>
-
-                <h3 class="contas-value-label">
-                  R$ 0,00
-                </h3>
-
-              </div>
-            </a>
-          </li>
-          <li>
-            <a class="contas-a" href="">
-
-              <div style="display: flex; flex-direction: row;">
-
-                <i class="material-icons contas-icon" style="background-color: rgb(255, 151, 124);">note</i>
-  
-                <span style="max-width: 300px;">
-  
-                  <h3 class="contas-title-label">
-                    IPTU FIRMA FERTILIZANTES FARDIN E FARDIN E FARDIN
-                  </h3>
-  
-                  <p class="contas-subtitle-label">
-                    01/01/2023
-                  </p>
-  
-                </span>
-
-              </div>
-
-              <div>
-
-                <h3 class="contas-value-label">
-                  R$ 0,00
-                </h3>
-
-              </div>
-            </a>
-          </li>
         </ul>
-        
       </div>
 
       <div class="box-contas-notificacao" style="background-color: #f8f8f8;">
@@ -340,98 +250,39 @@
       </div>
 
       <div class="contas-receber-list">
-
         <ul>
-          <li>
-            <a class="contas-a" href="">
+          {% if receber.proximo %}
+          {% for conta in receber.proximo %}
+            <li>
+              <a class="contas-a" href="">
 
-              <div style="display: flex; flex-direction: row;">
+                <div style="display: flex; flex-direction: row;">
 
-                <i class="material-icons contas-icon" style="background-color: rgb(255, 151, 124);">note</i>
-  
-                <span style="max-width: 300px;">
-  
-                  <h3 class="contas-title-label">
-                    IPTU FIRMA FERTILIZANTES FARDIN E FARDIN E FARDIN
-                  </h3>
-  
-                  <p class="contas-subtitle-label">
-                    01/01/2023
-                  </p>
-  
-                </span>
+                  <i class="material-icons contas-icon" style="background-color: rgb(255, 151, 124);">note</i>
+                  
+                  <span style="max-width: 300px;">
 
-              </div>
+                    <h3 class="contas-title-label">
+                      {{conta.descricao}}
+                    </h3>
 
-              <div>
+                    <p class="contas-subtitle-label">
+                      {{conta.vencimento}}
+                    </p>
 
-                <h3 class="contas-value-label">
-                  R$ 0,00
-                </h3>
+                  </span>
+                
+                </div>
 
-              </div>
-            </a>
-          </li>
-          <li>
-            <a class="contas-a" href="">
+                <div>
 
-              <div style="display: flex; flex-direction: row;">
-
-                <i class="material-icons contas-icon" style="background-color: rgb(255, 151, 124);">note</i>
-  
-                <span style="max-width: 300px;">
-  
-                  <h3 class="contas-title-label">
-                    IPTU FIRMA FERTILIZANTES FARDIN E FARDIN E FARDIN
-                  </h3>
-  
-                  <p class="contas-subtitle-label">
-                    01/01/2023
-                  </p>
-  
-                </span>
-
-              </div>
-
-              <div>
-
-                <h3 class="contas-value-label">
-                  R$ 0,00
-                </h3>
-
-              </div>
-            </a>
-          </li>
-          <li>
-            <a class="contas-a" href="">
-
-              <div style="display: flex; flex-direction: row;">
-
-                <i class="material-icons contas-icon" style="background-color: rgb(255, 151, 124);">note</i>
-  
-                <span style="max-width: 300px;">
-  
-                  <h3 class="contas-title-label">
-                    IPTU FIRMA FERTILIZANTES FARDIN E FARDIN E FARDIN
-                  </h3>
-  
-                  <p class="contas-subtitle-label">
-                    01/01/2023
-                  </p>
-  
-                </span>
-
-              </div>
-
-              <div>
-
-                <h3 class="contas-value-label">
-                  R$ 0,00
-                </h3>
-
-              </div>
-            </a>
-          </li>
+                  <h3 class="contas-value-label">
+                    R$ {{conta.valor}}</h3>
+                </div>
+              </a>
+            </li>
+          {% endfor%}
+          {% endif%}
         </ul>
 
       </div>

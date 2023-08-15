@@ -9,6 +9,7 @@ from djangosige.apps.cadastro.models import Cliente, Fornecedor, Produto, Empres
 from djangosige.apps.vendas.models import OrcamentoVenda, PedidoVenda
 from djangosige.apps.compras.models import OrcamentoCompra, PedidoCompra
 from djangosige.apps.financeiro.models import MovimentoCaixa, Entrada, Saida
+from djangosige.apps.estoque.models import MovimentoEstoque
 
 from datetime import datetime
 
@@ -16,6 +17,76 @@ from datetime import datetime
 class IndexView(TemplateView):
     template_name = 'base/index.html'
 
+    def get_fluxo_de_caixa(self):
+        data_atual = data_atual = datetime.now().date()
+        context = {}
+        
+        try:
+            context['movimento_dia'] = MovimentoCaixa.objects.get(
+                data_movimento=data_atual)
+        except (MovimentoCaixa.DoesNotExist, ObjectDoesNotExist):
+            ultimo_mvmt = MovimentoCaixa.objects.latest('data_movimento')
+            if ultimo_mvmt:
+                context['saldo'] = ultimo_mvmt.saldo_final
+            else:
+                context['saldo'] = '0,00'
+
+        return context
+    
+    def get_fluxo_de_estoque(self):
+        from decimal import Decimal
+        
+        data_atual = data_atual = datetime.now().date()
+        context = {
+            "itens_qtd": Decimal(0),
+            "valor_entrada": Decimal(0),
+            "valor_saida": Decimal(0),
+            "valor_total": Decimal(0)
+        }
+        
+        try:
+            movimentos = MovimentoEstoque.objects.filter(data_movimento=data_atual)
+            if movimentos:
+                for mov in movimentos:
+                    try:
+                        context['valor_entrada'] += mov.entradaestoque.valor_total
+                    except: ...
+                    
+                    try:
+                        context['valor_saida'] += mov.saidaestoque.valor_total
+                    except: ...
+                    
+                    context['valor_total'] += mov.valor_total
+                    context["itens_qtd"] += mov.quantidade_itens
+        
+        except (MovimentoEstoque.DoesNotExist, ObjectDoesNotExist): ...
+
+        return {'estoque_dia': context}
+    
+    def get_contas_a_pagar(self):
+        data_atual = data_atual = datetime.now().date()
+        context = {}
+        
+        try:
+            context['contas_pagar'] = Saida.objects.get(data_vencimento=data_atual)
+            
+        except (Saida.DoesNotExist, ObjectDoesNotExist):
+            ...
+
+        return context
+    
+    def get_contas_a_receber(self):
+        data_atual = data_atual = datetime.now().date()
+        context = {}
+        
+        try:
+            context['contas_receber'] = Entrada.objects.get(data_vencimento=data_atual)
+            
+        except (Entrada.DoesNotExist, ObjectDoesNotExist):
+            ...
+
+        return context
+    
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
         quantidade_cadastro = {}
@@ -63,18 +134,10 @@ class IndexView(TemplateView):
             data_vencimento__lte=data_atual, status__in=['1', '2']).count()
         context['alertas'] = alertas
 
-        try:
-            context['movimento_dia'] = MovimentoCaixa.objects.get(
-                data_movimento=data_atual)
-        except (MovimentoCaixa.DoesNotExist, ObjectDoesNotExist):
-            ultimo_mvmt = MovimentoCaixa.objects.filter(
-                data_movimento__lt=data_atual)
-            if ultimo_mvmt:
-                context['saldo'] = ultimo_mvmt.latest(
-                    'data_movimento').saldo_final
-            else:
-                context['saldo'] = '0,00'
-
+        context.update(self.get_fluxo_de_caixa())
+        context.update(self.get_contas_a_pagar())
+        context.update(self.get_contas_a_receber())
+        context.update(self.get_fluxo_de_estoque())
         return context
 
 
