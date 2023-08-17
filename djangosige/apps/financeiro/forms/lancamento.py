@@ -50,7 +50,7 @@ class LancamentoForm(forms.ModelForm):
             'abatimento': forms.TextInput(attrs={'class': 'form-control decimal-mask'}),
             'juros': forms.TextInput(attrs={'class': 'form-control decimal-mask'}),
             'valor_liquido': forms.TextInput(attrs={'class': 'form-control decimal-mask'}),
-            'movimentar_caixa': forms.CheckboxInput(attrs={'class': 'form-control'}),
+            'movimentar_caixa': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
         labels = {
             'descricao': ('Descrição'),
