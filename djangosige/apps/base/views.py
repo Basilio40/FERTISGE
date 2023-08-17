@@ -60,7 +60,11 @@ class IndexView(TemplateView):
                     context["itens_qtd"] += mov.quantidade_itens
         
         except (MovimentoEstoque.DoesNotExist, ObjectDoesNotExist): ...
-
+        
+        
+        context["valor_entrada"] = Entrada.static_format_valor_liquido(context["valor_entrada"])
+        context["valor_saida"] = Entrada.static_format_valor_liquido(context["valor_saida"])
+        context["valor_total"] = Entrada.static_format_valor_liquido(context["valor_total"])
         return {'estoque_dia': context}
     
     def get_contas_a_pagar(self):

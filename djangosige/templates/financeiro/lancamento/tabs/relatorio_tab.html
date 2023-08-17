@@ -1,3 +1,5 @@
+{% load static %}
+
 <div class="row box-tabs">
 
   <div class="col-md-10 box-relatorio-financeiro">
@@ -37,25 +39,134 @@
 
       <div id="tab-relatorio-interno" style="width: 100%;">
 
-        <ul id="ul-tab-relatorio">
+        <ul id="ul-tab-relatorio" class="row" style="display: flex; list-style: none; padding: 10px; margin: 0; justify-content: left; align-items: center; height: 100%">
 
-          <li class="li-tab-relatorio">
+          <li class="li-tab-relatorio" style="margin: 0 15px 0px 15px;">
             <a href="#tab-relatorio-rece-desp">receitas x despesas</a>
           </li>
 
-          <li class="li-tab-relatorio">
+          <li class="li-tab-relatorio" style="margin: 0 15px 0px 15px;">
             <a href="#tab-relatorio-categoria">categorias</a>
           </li>
 
         </ul>
-
         <div id="tab-relatorio-rece-desp">
-          receitas x despesas
+          
+          <div class="perfil">
+            <h4>Receitas x Despesas</h4>
+          </div>
+          
+          <div class="">
+            <canvas id="graph-rece-desp" width="800" height="400" style="background-color: #dfdfdf;"></canvas>
+          </div>
+
         </div>
 
         <div id="tab-relatorio-categoria">
-          categorias
+          
+          <div class="perfil">
+            <h4>Categorias</h4>
+          </div>
+          
+          <div class="">
+            <canvas id="graph-categorias" width="800" height="400" style="background-color: #dfdfdf;"></canvas>
+          </div>
+
         </div>
+      
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      <script src="{% static '/js/graphrender.js' %}"></script>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="row box-tabs">
+
+  <div class="col-md-10 box-relatorio-financeiro">
+
+    <div class="container-box-relatorio">
+
+      <div class="perfil">
+        <h2>Receitas</h2>
+      </div>
+
+      <div id="receitas-list" class="table-responsive">
+
+        <table id="receitas-table" class="table dataTable no-footer" role="grid">
+          <thead>
+            <tr role="row">
+              <th>Categorias</th>
+              <th>Porcentual</th>
+              <th>Valor</th>
+            </tr>
+          </thead>
+
+          <tfoot>
+            <tr role="row">
+              <th style="text-align: center;">Total</th>
+              <th style="text-align: center;">100%</th>
+              <th style="text-align: center; color: #129e3f; font-weight: bold;">R$ 10,00</th>
+            </tr>
+          </tfoot>
+          
+          <tbody>
+            <tr role="row">
+              <td>Carro</td>
+              <td>16%</td>
+              <td style="color: #129e3f">R$ 10,00</td>
+            </tr>
+          </tbody>
+        </table>
+        
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="row box-tabs">
+
+  <div class="col-md-10 box-relatorio-financeiro">
+
+    <div class="container-box-relatorio">
+
+      <div class="perfil">
+        <h2>Despesas</h2>
+      </div>
+
+      <div class="despesas-list table-responsive">
+        
+        <table id="despesas-table" class="table dataTable no-footer" role="grid">
+          <thead>
+            <tr role="row">
+              <th>Categorias</th>
+              <th>Porcentual</th>
+              <th>Valor</th>
+            </tr>
+          </thead>
+
+          <tfoot>
+            <tr role="row">
+              <th style="text-align: center;">Total</th>
+              <th style="text-align: center;">100%</th>
+              <th style="text-align: center; color: #d72638; font-weight: bold;">R$ 10,00</th>
+            </tr>
+          </tfoot>
+
+          <tbody>
+            <tr role="row">
+              <td>Carro</td>
+              <td>16%</td>
+              <td style="color: #d72638;">R$ 10,00</td>
+            </tr>
+          </tbody>
+        </table>
 
       </div>
 

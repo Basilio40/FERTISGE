@@ -883,3 +883,57 @@ class LancamanetoBoardInfo:
         }
     
         return info
+    
+class LancamentoGraphInfo(CustomCreateView):
+    
+    def get(self, request, *args, **kwargs):
+        response = { "code": 500 }
+        
+        try:
+            table = "tab-relatorio-rece-desp"
+            filter = datetime.now().strftime("%Y-%m-%d")
+            filter = "2023-08-15"
+            response.update(self.handler(table, filter))
+                    
+        except Exception as e:
+            response["code"] =  599
+            response["error"] =  str(e)
+        
+        return JsonResponse(response)
+    
+    def post(self, request, *args, **kwargs):
+        response = { "code": 500 }
+        
+        try:
+            table = request.POST.get("table")
+            filter = request.POST.get("filter")
+            
+            if table and filter:
+                response.update(self.handler(table, filter))
+                    
+        except Exception as e:
+            response["code"] =  599
+            response["error"] =  str(e)
+        
+        return JsonResponse(response)
+    
+    def handler(self, table, filter):
+        data = {}
+        
+        if table == "tab-relatorio-rece-desp":
+            if isinstance(filter, (list, tuple)):
+                data["result"] = self.serialize_obj(MovimentoCaixa.objects.filter(data_movimento__gte=filter[0], data_movimento__lte=filter[1]))
+                
+            else:
+                data["result"] = self.serialize_obj(MovimentoCaixa.objects.filter(data_movimento=filter))
+                
+                data["code"] = 200
+                    
+        return data
+    
+    
+    def serialize_obj(self, mov):
+        data = {}
+        
+        data["deu certo"] = True
+        return data

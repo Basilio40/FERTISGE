@@ -20,7 +20,7 @@ ALLOWED_HOSTS = ['*']
 
 
 
-HIGOR_LOCAL = True
+HIGOR_LOCAL = False
 DATABASES = {
         'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
