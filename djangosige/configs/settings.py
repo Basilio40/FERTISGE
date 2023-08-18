@@ -20,15 +20,14 @@ ALLOWED_HOSTS = ['*']
 
 
 
-HIGOR_LOCAL = False
 DATABASES = {
         'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'railway',
         'USER':'postgres',
-        'PASSWORD': 'w10uHqZVKsxvblzdUG5P' if(HIGOR_LOCAL) else 'SfSNwB1lGsPqjhzgiavB',
-        'HOST': 'containers-us-west-126.railway.app' if(HIGOR_LOCAL) else 'containers-us-west-139.railway.app',
-        'PORT': '7362' if(HIGOR_LOCAL) else '6066',
+        'PASSWORD': 'SfSNwB1lGsPqjhzgiavB',
+        'HOST': 'containers-us-west-139.railway.app',
+        'PORT': '6066',
     }
 }
 
