@@ -3,26 +3,41 @@
 {%block title%}{{title_complete|title}}{%endblock%}
 {%block content%}
 <section id="main-content">
+
   <section class="wrapper">
 
-    <h3>{% include 'base/title_header.html' %}</h3>
-
     <div class="row">
-      <div class="col-md-12">
-        <div class="content-panel">
-          {% include 'base/msg_error.html' %}
-          <b>{% include 'base/msg_sucesso.html' %}</b>
+
+      <div class="col-md-12" style="margin-left: 30px;">
+
+        <div class="content-panel" style="background-color: transparent!important;">
+
+          <b>
+            {% include 'base/msg_error.html' %}
+          </b>
+
+          <b>
+            {% include 'base/msg_sucesso.html' %}
+          </b>
+
           <!--Header-->
           <div class="body" style="overflow:visible;">
 
             <h2>
-              <a href="{{return_url}}"><i class="material-icons">&#xE5C4;</i></a> {{title_complete}}
+              {{title_complete}}
             </h2>
-            <div class="header-btn">
+
+            <div class="header-btn" style="margin-left: 0px!important;">
+
               {% if saida %}
-              <div class="dropdown" style="display: inline-block;float:right;">
-                <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">Ações
-                <span class="caret"></span></button>
+
+              <div class="dropdown" style="display: inline-block;">
+
+                <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">
+                  Ações
+                  <span class="caret"></span>
+                </button>
+
                 <ul class="dropdown-menu pull-right">
                   <li><a href="{% url 'fiscal:validarnotafiscal' object.id %}">Validar XML</a></li>
                   <li><a href="{% url 'fiscal:emitirnotafiscal' object.id %}">Emitir Nota</a></li>
@@ -36,17 +51,20 @@
                   <li><a href="{% url 'fiscal:gerardanfce' object.id %}">Gerar DANFCE</a></li>
                   {% endif %}
                 </ul>
+
               </div>
+
               {% endif %}
+
             </div>
-            <div><small>Campos marcados com <strong style="color:red;">*</strong> são obrigatórios.</small></div>
 
           </div>
           <!--# Header-->
 
           <form role="form" action="" method="post" enctype="multipart/form-data">
+
             {% csrf_token %}
-            
+
             {% include 'fiscal/nota_fiscal/nota_fiscal_form.html' %}
 
           </form>
@@ -58,17 +76,19 @@
           {% endif %}
 
         </div>
+
       </div>
+
     </div>
 
-  </div>
-</section>
+  </section>
 
+</section>
 
 {%endblock%}
 
 {% block js %}
-    
-  {% include 'fiscal/nota_fiscal/nota_fiscal_jsblock.html' %}
-  
+
+{% include 'fiscal/nota_fiscal/nota_fiscal_jsblock.html' %}
+
 {% endblock %}
