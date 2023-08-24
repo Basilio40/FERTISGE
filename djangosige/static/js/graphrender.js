@@ -1,6 +1,6 @@
 const ctx = document.getElementById('graph-rece-desp').getContext('2d');
 class Receitas {
-    label = "Receitass";
+    label = "Receitas";
     backgroundColor = "#129e3f";
     borderWidth = 0;
     data = [];
@@ -22,7 +22,7 @@ class Despesas {
 }
 
 function get_data(filter) {
-    url= "/financeiro/lancamentos/graphdata/"    
+    url = "/financeiro/lancamentos/graphdata/"
 
     fetchOptions = {
         method: "POST",
@@ -51,7 +51,7 @@ function get_csrf() {
 const myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-      labels : ["06 Ago", "13 Ago", "20 Ago", "27 Ago", "03 Set"],
+        labels: ["06 Ago", "13 Ago", "20 Ago", "27 Ago", "03 Set"],
         datasets: [
             new Receitas([0.1, 0.5]),
             new Despesas([0.14, 0.6])
@@ -60,7 +60,8 @@ const myChart = new Chart(ctx, {
     options: {
         scales: {
             y: {
-                beginAtZero: true
+                beginAtZero: true,
+                display: false, // Isso esconde o eixo Y
             }
         }
     }

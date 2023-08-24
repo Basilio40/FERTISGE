@@ -18,7 +18,7 @@
               saldo geral
             </p>
             <p>
-              R$ 
+              R$
               <strong class="strong-valor">
                 {{saldo.total}}
               </strong>
@@ -116,33 +116,33 @@
       <div class="contas-pagar-list">
         <ul>
           {% if pagar.pendente %}
-            {% for conta in pagar.pendente %}
-              <li>
-                <a class="contas-a" href="">
-                  <div style="display: flex; flex-direction: row;">
-                    <i class="material-icons contas-icon" style="background-color: rgb(255, 151, 124);">note</i>
-                    <span style="max-width: 300px;">
-                      
-                      <h3 class="contas-title-label">
-                        {{conta.descricao}}
-                      </h3>
-                      <p class="contas-subtitle-label">
-                        {{conta.vencimento}}
-                      </p>
+          {% for conta in pagar.pendente %}
+          <li>
+            <a class="contas-a" href="" style="justify-content: space-between!important;">
+              <div style="display: flex; flex-direction: row; margin-top: 20px;">
+                <i class="material-icons contas-icon" style="background-color: rgb(255, 151, 124);">note</i>
+                <span style="max-width: 300px;">
 
-                    </span>
-                  </div>
-    
-                  <div>
-    
-                    <h3 class="contas-value-label">
-                      R$ {{conta.valor}}
-                    </h3>
-    
-                  </div>
-                </a>
-              </li>
-            {% endfor%}
+                  <h3 class="contas-title-label">
+                    {{conta.descricao}}
+                  </h3>
+                  <p class="contas-subtitle-label">
+                    {{conta.vencimento}}
+                  </p>
+
+                </span>
+              </div>
+
+              <div>
+
+                <h3 class="contas-value-label">
+                  R$ {{conta.valor}}
+                </h3>
+
+              </div>
+            </a>
+          </li>
+          {% endfor%}
           {% endif %}
         </ul>
 
@@ -157,39 +157,39 @@
       <div class="contas-pagar-list">
         <ul>
           {% if pagar.proximo %}
-            {% for conta in pagar.proximo %}
-              <li>
-                <a class="contas-a" href="">
-                  <div style="display: flex; flex-direction: row;">
-                    <i class="material-icons contas-icon" style="background-color: rgb(255, 151, 124);">note</i>
-                    <span style="max-width: 300px;">
-                      
-                      <h3 class="contas-title-label">
-                        {{conta.descricao}}
-                      </h3>
-                      <p class="contas-subtitle-label">
-                        {{conta.vencimento}}
-                      </p>
+          {% for conta in pagar.proximo %}
+          <li>
+            <a class="contas-a" href="" style="justify-content: space-between!important;">
+              <div style="display: flex; flex-direction: row; margin-top: 20px;">
+                <i class="material-icons contas-icon" style="background-color: rgb(255, 151, 124);">note</i>
+                <span style="max-width: 300px;">
 
-                    </span>
-                  </div>
-    
-                  <div>
-    
-                    <h3 class="contas-value-label">
-                      R$ {{conta.valor}}
-                    </h3>
-    
-                  </div>
-                </a>
-              </li>
-            {% endfor%}
+                  <h3 class="contas-title-label">
+                    {{conta.descricao}}
+                  </h3>
+                  <p class="contas-subtitle-label">
+                    {{conta.vencimento}}
+                  </p>
+
+                </span>
+              </div>
+
+              <div>
+
+                <h3 class="contas-value-label">
+                  R$ {{conta.valor}}
+                </h3>
+
+              </div>
+            </a>
+          </li>
+          {% endfor%}
           {% endif %}
         </ul>
       </div>
     </div>
   </div>
-  
+
   <div class="col-md-5 box-contas-receber">
 
     <div class="container-contas-receber">
@@ -209,34 +209,34 @@
 
           {% if receber.pendente %}
           {% for conta in receber.pendente %}
-            <li>
-              <a class="contas-a" href="">
+          <li>
+            <a class="contas-a" href="" style="justify-content: space-between!important;">
 
-                <div style="display: flex; flex-direction: row;">
+              <div style="display: flex; flex-direction: row; margin-top: 20px;">
 
-                  <i class="material-icons contas-icon" style="background-color: rgb(255, 151, 124);">note</i>
-                  
-                  <span style="max-width: 300px;">
+                <i class="material-icons contas-icon" style="background-color: rgb(255, 151, 124);">note</i>
 
-                    <h3 class="contas-title-label">
-                      {{conta.descricao}}
-                    </h3>
+                <span style="max-width: 300px;">
 
-                    <p class="contas-subtitle-label">
-                      {{conta.vencimento}}
-                    </p>
+                  <h3 class="contas-title-label">
+                    {{conta.descricao}}
+                  </h3>
 
-                  </span>
-                
-                </div>
+                  <p class="contas-subtitle-label">
+                    {{conta.vencimento}}
+                  </p>
 
-                <div>
+                </span>
 
-                  <h3 class="contas-value-label">
-                    R$ {{conta.valor}}</h3>
-                </div>
-              </a>
-            </li>
+              </div>
+
+              <div>
+
+                <h3 class="contas-value-label">
+                  R$ {{conta.valor}}</h3>
+              </div>
+            </a>
+          </li>
           {% endfor%}
           {% endif%}
 
@@ -253,41 +253,41 @@
         <ul>
           {% if receber.proximo %}
           {% for conta in receber.proximo %}
-            <li>
-              <a class="contas-a" href="">
+          <li>
+            <a class="contas-a" href="" style="justify-content: space-between!important;">
 
-                <div style="display: flex; flex-direction: row;">
+              <div style="display: flex; flex-direction: row; margin-top: 20px;">
 
-                  <i class="material-icons contas-icon" style="background-color: rgb(255, 151, 124);">note</i>
-                  
-                  <span style="max-width: 300px;">
+                <i class="material-icons contas-icon" style="background-color: rgb(255, 151, 124);">note</i>
 
-                    <h3 class="contas-title-label">
-                      {{conta.descricao}}
-                    </h3>
+                <span style="max-width: 300px;">
 
-                    <p class="contas-subtitle-label">
-                      {{conta.vencimento}}
-                    </p>
+                  <h3 class="contas-title-label">
+                    {{conta.descricao}}
+                  </h3>
 
-                  </span>
-                
-                </div>
+                  <p class="contas-subtitle-label">
+                    {{conta.vencimento}}
+                  </p>
 
-                <div>
+                </span>
 
-                  <h3 class="contas-value-label">
-                    R$ {{conta.valor}}</h3>
-                </div>
-              </a>
-            </li>
+              </div>
+
+              <div>
+
+                <h3 class="contas-value-label">
+                  R$ {{conta.valor}}</h3>
+              </div>
+            </a>
+          </li>
           {% endfor%}
           {% endif%}
         </ul>
 
       </div>
-      
+
     </div>
-  
+
   </div>
 </div>

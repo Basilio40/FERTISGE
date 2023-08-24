@@ -3,6 +3,7 @@
 {%block title%}Página Inicial{%endblock%}
 
 {%block content%}
+
 <section id="main-content">
 
   <section class="wrapper">
@@ -26,65 +27,71 @@
         <div class="row" style="margin-left: 0px; margin-right: 10px; padding-top: 20px;">
 
           {% if perms.financeiro.acesso_fluxodecaixa %}
-          
-            <div class="col-md-6"><div class="box-menu">
-                <h3>
-                  <!-- <i class="fa fa-angle-right"></i> -->
-                  FLUXO DE CAIXA
-                  <b style="padding-left:4px;"> - DIA {{data_atual}}</b>
-                </h3>
-                <div class="content-panel">
-                  <div class="header-btn-menu">
-                    <a href="{% url 'financeiro:fluxodecaixaview' %}" class="btn btn-primary menu-button">
-                      <i class="fa fa-stack-exchange"></i>
-                      <span> FLUXO DE CAIXA</span>
-                    </a>
-                    <!-- Aqui você pode adicionar mais conteúdo à header-btn se necessário -->
-                  </div>
-                  <div class="body lista div-scroll">
-                    <table class="table table-bordered lista-table">
-                      <thead>
-                        <tr>
-                          <!-- <th>Data</th> -->
-                          <th>Saldo inicial</th>
-                          <th>Entradas</th>
-                          <th>Saídas</th>
-                          <th>Lucro/Prejuízo</th>
-                          <th>Saldo final</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {% if movimento_dia %}
-                        <tr>
-                          <!-- <td>{{movimento_dia.format_data_movimento}}</td> -->
-                          <td>{{movimento_dia.saldo_inicial}}</td>
-                          <td>{{movimento_dia.entradas}}</td>
-                          <td>{{movimento_dia.saidas}}</td>
-                          <td {%if movimento_dia.valor_lucro_prejuizo < 0 %}style="background-color:#f1b1b1;font-weight:bold;"
-                              {% else %}style="background-color:#b3e5b3;font-weight:bold;"
-                              {% endif %}>
-                            {{movimento_dia.valor_lucro_prejuizo}}
-                          </td>
-                          <td>{{movimento_dia.saldo_final}}</td>
-                        </tr>
-                        {% else %}
-                        <tr>
-                          <td>{{saldo}}</td>
-                          <td>0,00</td>
-                          <td>0,00</td>
-                          <td style="background-color:#b3e5b3;font-weight:bold;">0,00</td>
-                          <td>{{saldo}}</td>
-                        </tr>
-                        {% endif %}
-                      </tbody>
-                    </table>
-                  </div>
-                </div></div>
-            </div>
 
-            <div class="col-md-6"><div class="box-menu">
-              <h3> MOVIMENTO DE ESTOQUE<b style="padding-left:4px;"> - DIA {{data_atual}}</b></h3>
-              <div class="content-panel">
+          <!-- Fluxo de caixa  -->
+          <div class="col-md-6">
+            <div class="box-menu">
+              <h3 style="margin-bottom: 15px;">
+                <!-- <i class="fa fa-angle-right"></i> -->
+                FLUXO DE CAIXA
+                <b style="padding-left:4px;"> - DIA {{data_atual}}</b>
+              </h3>
+              <div class="content-panel" style="padding-top: 0px!important;">
+                <div class="header-btn-menu">
+                  <a href="{% url 'financeiro:fluxodecaixaview' %}" class="btn btn-primary menu-button">
+                    <i class="fa fa-stack-exchange"></i>
+                    <span> FLUXO DE CAIXA</span>
+                  </a>
+                  <!-- Aqui você pode adicionar mais conteúdo à header-btn se necessário -->
+                </div>
+                <div class="body lista div-scroll">
+                  <table class="table table-bordered lista-table">
+                    <thead>
+                      <tr>
+                        <!-- <th>Data</th> -->
+                        <th>Saldo inicial</th>
+                        <th>Entradas</th>
+                        <th>Saídas</th>
+                        <th>Lucro/Prejuízo</th>
+                        <th>Saldo final</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% if movimento_dia %}
+                      <tr>
+                        <!-- <td>{{movimento_dia.format_data_movimento}}</td> -->
+                        <td>{{movimento_dia.saldo_inicial}}</td>
+                        <td>{{movimento_dia.entradas}}</td>
+                        <td>{{movimento_dia.saidas}}</td>
+                        <td {%if movimento_dia.valor_lucro_prejuizo < 0%}
+                          style="background-color:#f1b1b1;font-weight:bold;" {% else%}
+                          style="background-color:#b3e5b3;font-weight:bold;" {% endif %}>
+                          {{movimento_dia.valor_lucro_prejuizo}}
+                        </td>
+                        <td>{{movimento_dia.saldo_final}}</td>
+                      </tr>
+                      {% else %}
+                      <tr>
+                        <td>{{saldo}}</td>
+                        <td>0,00</td>
+                        <td>0,00</td>
+                        <td style="background-color:#b3e5b3;font-weight:bold;">0,00</td>
+                        <td>{{saldo}}</td>
+                      </tr>
+                      {% endif %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Estoque -->
+          <div class="col-md-6">
+            <div class="box-menu">
+              <h3 style="margin-bottom: 15px;"> MOVIMENTO DE ESTOQUE<b style="padding-left:4px;"> - DIA
+                  {{data_atual}}</b></h3>
+              <div class="content-panel" style="padding-top: 0px!important;">
                 <div class="header-btn-menu">
                   <a href="{% url 'financeiro:fluxodecaixaview' %}" class="btn btn-primary menu-button">
                     <i class="fa fa-stack-exchange"></i>
@@ -110,11 +117,13 @@
                         <td>{{estoque_dia.itens_qtd}}</td>
                         <td>{{estoque_dia.valor_entrada}}</td>
                         <td>{{estoque_dia.valor_saida}}</td>
-                        <td {%if estoque_dia.valor_entrada < estoque_dia.valor_saida %}style="background-color:#f1b1b1;font-weight:bold;"
-                              {% else %}style="background-color:#b3e5b3;font-weight:bold;"
-                              {% endif %}>
+
+                        <td {%if estoque_dia.valor_entrada < estoque_dia.valor_saida%}
+                          style="background-color:#f1b1b1;font-weight:bold;" {% else%}
+                          style="background-color:#b3e5b3;font-weight:bold;" {% endif %}>
                           {{estoque_dia.valor_total}}
                         </td>
+
                       </tr>
                       {% else %}
                       <tr>
@@ -127,12 +136,15 @@
                     </tbody>
                   </table>
                 </div>
-              </div></div>
+              </div>
             </div>
+          </div>
 
-            <div class="col-md-6"><div class="box-menu">
-              <h3>CONTAS A PAGAR<b style="padding-left:4px;"> - DIA {{data_atual}}</b></h3>
-              <div class="content-panel">
+          <!-- Contas a pagar -->
+          <div class="col-md-6">
+            <div class="box-menu">
+              <h3 style="margin-bottom: 15px;">CONTAS A PAGAR<b style="padding-left:4px;"> - DIA {{data_atual}}</b></h3>
+              <div class="content-panel" style="padding-top: 0px!important;">
                 <div class="header-btn-menu">
                   <a href="{% url 'financeiro:fluxodecaixaview' %}" class="btn btn-primary menu-button">
                     <i class="fa fa-stack-exchange"></i>
@@ -162,21 +174,25 @@
                       </tr>
                       {% else %}
                       <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>Nenhuma</td>
+                        <td> - </td>
+                        <td>0,00</td>
+                        <td>0,00</td>
                       </tr>
                       {% endif %}
                     </tbody>
                   </table>
                 </div>
-              </div></div>
+              </div>
             </div>
+          </div>
 
-            <div class="col-md-6"><div class="box-menu">
-              <h3>CONTAS A RECEBER<b style="padding-left:4px;">(DIA {{data_atual}})</b></h3>
-              <div class="content-panel">
+          <!-- Contas a receber -->
+          <div class="col-md-6">
+            <div class="box-menu">
+              <h3 style="margin-bottom: 15px;">CONTAS A RECEBER<b style="padding-left:4px;"> - DIA {{data_atual}}</b>
+              </h3>
+              <div class="content-panel" style="padding-top: 0px!important;">
                 <div class="header-btn-menu">
                   <a href="{% url 'financeiro:fluxodecaixaview' %}" class="btn btn-primary menu-button">
                     <i class="fa fa-stack-exchange"></i>
@@ -206,34 +222,34 @@
                       </tr>
                       {% else %}
                       <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>Nenhuma</td>
+                        <td> - </td>
+                        <td>0,00</td>
+                        <td>0,00</td>
                       </tr>
                       {% endif %}
                     </tbody>
                   </table>
                 </div>
-              </div></div>
+              </div>
             </div>
+          </div>
 
           {% endif %}
 
         </div>
 
       </div>
-    
+
     </div>
 
   </section>
 
 </section>
 
-
 {%endblock%}
 
-          <!-- <div class="col-md-4 col-sm-4 mb">
+<!-- <div class="col-md-4 col-sm-4 mb">
             <div class="grey-panel pn donut-chart">
               <div class="grey-header">
                 <h3>CADASTRO</h3>

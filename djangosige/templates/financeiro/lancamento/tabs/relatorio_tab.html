@@ -11,18 +11,18 @@
         <h2 class="relatorio-title">
           Relatórios
         </h2>
-  
+
         <h3 class="relatorio-time">
           Últimos 12 meses
         </h3>
-  
+
         <div class="dropdown" style="display: inline-block; float: right; margin-top: 10px;">
-  
+
           <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">
             Periodo
             <span class="caret"></span>
           </button>
-  
+
           <ul class="dropdown-menu pull-right">
             <li>Hoje</li>
             <li>Esta semana</li>
@@ -32,17 +32,18 @@
             <li>Últimos 12 meses</li>
             <li>Este ano</li>
           </ul>
-  
+
         </div>
 
       </div>
 
       <div id="tab-relatorio-interno" style="width: 100%;">
 
-        <ul id="ul-tab-relatorio" class="row" style="display: flex; list-style: none; padding: 10px; margin: 0; justify-content: left; align-items: center; height: 100%">
+        <ul id="ul-tab-relatorio" class="row"
+          style="display: flex; list-style: none; padding: 10px; margin: 0; justify-content: left; align-items: center; height: 100%">
 
           <li class="li-tab-relatorio" style="margin: 0 15px 0px 15px;">
-            <a href="#tab-relatorio-rece-desp">receitas x despesas</a>
+            <a href="#tab-relatorio-rece-desp" class="active">receitas x despesas</a>
           </li>
 
           <li class="li-tab-relatorio" style="margin: 0 15px 0px 15px;">
@@ -50,32 +51,166 @@
           </li>
 
         </ul>
-        <div id="tab-relatorio-rece-desp">
-          
+
+        <div id="tab-relatorio-rece-desp" class="active">
+
           <div class="perfil">
             <h4>Receitas x Despesas</h4>
           </div>
-          
-          <div class="">
-            <canvas id="graph-rece-desp" width="800" height="400" style="background-color: #dfdfdf;"></canvas>
+
+          <div class="" style="margin-bottom: 40px;">
+            <canvas id="graph-rece-desp" width="800" height="400"></canvas>
+          </div>
+
+          <div class="container-box-relatorio" style="border-top: 2px solid #f0f2f5;">
+
+            <div class="perfil">
+              <h2>Detalhamento</h2>
+            </div>
+
+            <div id="receitas-list" class="table-responsive">
+
+              <table id="receitas-table" class="table dataTable no-footer" role="grid">
+                <thead>
+                  <tr role="row">
+                    <th>período</th>
+                    <th>entradas</th>
+                    <th>saídas</th>
+                    <th>resultado</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr role="row">
+                    <td>31 Jul à 06 Ago</td>
+                    <td>R$ 22.992,00</td>
+                    <td style="color: #d72638">R$ -45.208,95</td>
+                    <td style="color: #d72638">R$ -22.216,95</td>
+                  </tr>
+
+                  <tr role="row">
+                    <td>07 Ago à 13 Ago</td>
+                    <td>R$ 247.442,00</td>
+                    <td style="color: #d72638">R$ -226.602,49</td>
+                    <td style="color: #129e3f">R$ 20.839,51</td>
+                  </tr>
+
+                  <tr role="row">
+                    <td>14 Ago à 20 Ago</td>
+                    <td>R$ 61.600,00</td>
+                    <td style="color: #d72638">R$ -56.831,92</td>
+                    <td style="color: #129e3f">R$ 4.768,08</td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+
           </div>
 
         </div>
 
         <div id="tab-relatorio-categoria">
-          
+
           <div class="perfil">
             <h4>Categorias</h4>
           </div>
-          
-          <div class="">
+
+          <div class="" style="margin-bottom: 40px;">
             <canvas id="graph-categorias" width="800" height="400" style="background-color: #dfdfdf;"></canvas>
           </div>
 
+          <!-- Receita -->
+          <div class="container-box-relatorio" style="border-top: 2px solid #f0f2f5;">
+
+            <div class="perfil">
+              <h2>Receitas</h2>
+            </div>
+
+            <div id="receitas-list" class="table-responsive">
+
+              <table id="receitas-table" class="table dataTable no-footer" role="grid">
+                <thead>
+                  <tr role="row">
+                    <th>categorias</th>
+                    <th>percentual</th>
+                    <th>valor</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr role="row">
+                    <td>BOLETO</td>
+                    <td>51,66%</td>
+                    <td style="color: #129e3f">R$ 172.052,00</td>
+                  </tr>
+
+                  <tr role="row">
+                    <td>TRANSFERENCIA</td>
+                    <td>48,04%</td>
+                    <td style="color: #129e3f">R$ 159.982,00</td>
+                  </tr>
+
+                  <tr role="row">
+                    <td>ACERTO</td>
+                    <td>0,30%</td>
+                    <td style="color: #129e3f">R$ 1.000,00</td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+
+          </div>
+
+          <!-- Despesas -->
+          <div class="container-box-relatorio" style="border-top: 2px solid #f0f2f5;">
+
+            <div class="perfil">
+              <h2>Despesas</h2>
+            </div>
+
+            <div id="receitas-list" class="table-responsive">
+
+              <table id="receitas-table" class="table dataTable no-footer" role="grid">
+                <thead>
+                  <tr role="row">
+                    <th>categorias</th>
+                    <th>percentual</th>
+                    <th>valor</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr role="row">
+                    <td>FRETE</td>
+                    <td>20,71%</td>
+                    <td style="color: #d72638">R$ -68.062,00</td>
+                  </tr>
+
+                  <tr role="row">
+                    <td>Financiamento/Compra de Veic...</td>
+                    <td>17,56%</td>
+                    <td style="color: #d72638">R$ -57.708,75</td>
+                  </tr>
+
+                  <tr role="row">
+                    <td>Gastos Cartão de Crédito Empres...</td>
+                    <td>16,32%</td>
+                    <td style="color: #d72638">R$ -53.641,57</td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+
+          </div>
+
         </div>
-      
-      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-      <script src="{% static '/js/graphrender.js' %}"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="{% static '/js/graphrender.js' %}"></script>
+
       </div>
 
     </div>
@@ -84,7 +219,28 @@
 
 </div>
 
-<div class="row box-tabs">
+<script>
+  $(function () {
+    // Ao carregar a página, mostre o conteúdo da primeira guia e adicione a classe "active" a ela
+    $("#tab-relatorio-interno > div:first-child").addClass("active");
+    $("#tab-relatorio-interno ul li:first-child a").addClass("active");
+
+    // Manipule o clique nas guias
+    $("#tab-relatorio-interno ul li a").click(function (event) {
+      event.preventDefault();
+
+      // Remova a classe "active" de todas as guias e oculte todos os conteúdos das guias
+      $("#tab-relatorio-interno ul li a").removeClass("active");
+      $("#tab-relatorio-interno > div").removeClass("active");
+
+      // Adicione a classe "active" à guia clicada e mostre o conteúdo correspondente
+      $(this).addClass("active");
+      $($(this).attr("href")).addClass("active");
+    });
+  });
+</script>
+
+<!-- <div class="row box-tabs">
 
   <div class="col-md-10 box-relatorio-financeiro">
 
@@ -112,7 +268,7 @@
               <th style="text-align: center; color: #129e3f; font-weight: bold;">R$ 10,00</th>
             </tr>
           </tfoot>
-          
+
           <tbody>
             <tr role="row">
               <td>Carro</td>
@@ -121,7 +277,7 @@
             </tr>
           </tbody>
         </table>
-        
+
       </div>
 
     </div>
@@ -141,7 +297,7 @@
       </div>
 
       <div class="despesas-list table-responsive">
-        
+
         <table id="despesas-table" class="table dataTable no-footer" role="grid">
           <thead>
             <tr role="row">
@@ -174,25 +330,4 @@
 
   </div>
 
-</div>
-
-<script>
-  $(function() {
-    // Ao carregar a página, mostre o conteúdo da primeira guia e adicione a classe "active" a ela
-    $("#tab-relatorio-interno > div:first-child").addClass("active");
-    $("#tab-relatorio-interno ul li:first-child a").addClass("active");
-
-    // Manipule o clique nas guias
-    $("#tab-relatorio-interno ul li a").click(function(event) {
-      event.preventDefault();
-
-      // Remova a classe "active" de todas as guias e oculte todos os conteúdos das guias
-      $("#tab-relatorio-interno ul li a").removeClass("active");
-      $("#tab-relatorio-interno > div").removeClass("active");
-
-      // Adicione a classe "active" à guia clicada e mostre o conteúdo correspondente
-      $(this).addClass("active");
-      $($(this).attr("href")).addClass("active");
-    });
-  });
-</script>
+</div> -->

@@ -199,7 +199,7 @@ class ConsultarCadastroForm(forms.Form):
     empresa = forms.ModelChoiceField(queryset=Empresa.objects.all(), widget=forms.Select(
         attrs={'class': 'form-control', }), label='Selecionar empresa', required=True)
     salvar_arquivos = forms.BooleanField(widget=forms.CheckboxInput(
-        attrs={'class': 'form-control', }), label='Salvar arquivos XML gerados?', required=False)
+        attrs={'class': 'form-check-input', }), label='Salvar arquivos XML gerados?', required=False)
 
 
 class InutilizarNotasForm(forms.Form):
@@ -218,7 +218,7 @@ class InutilizarNotasForm(forms.Form):
     justificativa = forms.CharField(max_length=255, widget=forms.Textarea(
         attrs={'class': 'form-control', }), label='Justificativa', required=False)
     salvar_arquivos = forms.BooleanField(widget=forms.CheckboxInput(
-        attrs={'class': 'form-control', }), label='Salvar arquivos XML gerados?', required=False)
+        attrs={'class': 'form-check-input', }), label='Salvar arquivos XML gerados?', required=False)
 
 
 class ConsultarNotaForm(forms.Form):
@@ -229,7 +229,7 @@ class ConsultarNotaForm(forms.Form):
     chave = forms.CharField(max_length=44, widget=forms.TextInput(
         attrs={'class': 'form-control', }), label='Chave da nota', required=False)
     salvar_arquivos = forms.BooleanField(widget=forms.CheckboxInput(
-        attrs={'class': 'form-control', }), label='Salvar arquivos XML gerados?', required=False)
+        attrs={'class': 'form-check-input form-check-input-label', }), label='Salvar arquivos XML gerados?', required=False)
 
 
 class BaixarNotaForm(forms.Form):
@@ -240,9 +240,9 @@ class BaixarNotaForm(forms.Form):
     chave = forms.CharField(max_length=44, widget=forms.TextInput(
         attrs={'class': 'form-control', }), label='Chave da nota', required=False)
     ambiente_nacional = forms.BooleanField(widget=forms.CheckboxInput(
-        attrs={'class': 'form-control', }), label='Utilizar ambiente nacional?(Recomendado)', initial=True, required=False)
+        attrs={'class': 'form-check-input', }), label='Utilizar ambiente nacional?(Recomendado)', initial=True, required=False)
     salvar_arquivos = forms.BooleanField(widget=forms.CheckboxInput(
-        attrs={'class': 'form-control', }), label='Salvar arquivos XML gerados?', required=False)
+        attrs={'class': 'form-check-input', }), label='Salvar arquivos XML gerados?', required=False)
 
 
 class ManifestacaoDestinatarioForm(forms.Form):
@@ -257,11 +257,11 @@ class ManifestacaoDestinatarioForm(forms.Form):
     chave = forms.CharField(max_length=44, widget=forms.TextInput(
         attrs={'class': 'form-control', }), label='Chave da nota', required=False)
     ambiente_nacional = forms.BooleanField(widget=forms.CheckboxInput(
-        attrs={'class': 'form-control', }), label='Utilizar ambiente nacional?(Recomendado)', initial=True, required=False)
+        attrs={'class': 'form-check-input', }), label='Utilizar ambiente nacional?(Recomendado)', initial=True, required=False)
     justificativa = forms.CharField(max_length=255, widget=forms.Textarea(
         attrs={'class': 'form-control', }), label='Justificativa', required=False)
     salvar_arquivos = forms.BooleanField(widget=forms.CheckboxInput(
-        attrs={'class': 'form-control', }), label='Salvar arquivos XML gerados?', required=False)
+        attrs={'class': 'form-check-input', }), label='Salvar arquivos XML gerados?', required=False)
 
 
 class AutXMLForm(forms.ModelForm):
