@@ -8,6 +8,7 @@ from djangosige.configs import DEBUG
 app_name = 'base'
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
+    path('criar_usuario', views.criar_usuario, name='criar_usuario'),
 ]
 
 if DEBUG:

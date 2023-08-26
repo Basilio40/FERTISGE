@@ -4,15 +4,25 @@ from django.views.generic import TemplateView
 from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import F
+from django.http import HttpResponse
 
+from django.contrib.auth.models import User
 from djangosige.apps.cadastro.models import Cliente, Fornecedor, Produto, Empresa, Transportadora
 from djangosige.apps.vendas.models import OrcamentoVenda, PedidoVenda
 from djangosige.apps.compras.models import OrcamentoCompra, PedidoCompra
 from djangosige.apps.financeiro.models import MovimentoCaixa, Entrada, Saida
 from djangosige.apps.estoque.models import MovimentoEstoque
+from rolepermissions.roles import assign_role, get_user_roles
+from rolepermissions.permissions import revoke_permission, grant_permission
+from rolepermissions.decorators import has_role_decorator , has_permission_decorator
 
 from datetime import datetime
 
+def criar_usuario(request):
+    user = User.objects.create_user(username="vendedor",password="1234")
+    user.save()
+    assign_role(user, 'vend')
+    return HttpResponse('Usuario salvo com sucesso')
 
 class IndexView(TemplateView):
     template_name = 'base/index.html'
@@ -32,6 +42,8 @@ class IndexView(TemplateView):
                 context['saldo'] = '0,00'
 
         return context
+    
+
     
     def get_fluxo_de_estoque(self):
         from decimal import Decimal

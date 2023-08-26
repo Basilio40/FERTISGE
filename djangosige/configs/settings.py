@@ -2,6 +2,9 @@ import os
 from decouple import config, Csv
 from dj_database_url import parse as dburl
 from .configs import DEFAULT_DATABASE_URL, DEFAULT_FROM_EMAIL, EMAIL_HOST, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD, EMAIL_PORT, EMAIL_USE_TLS
+from pathlib import Path
+
+
 
 APP_ROOT = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 PROJECT_ROOT = os.path.abspath(os.path.dirname(APP_ROOT))
@@ -44,6 +47,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
+    
+    #apps terceiros:
+    'rolepermissions',
 
     # djangosige apps:
     'djangosige.apps.base',
@@ -167,3 +173,5 @@ GRAPH_MODELS = {
   'all_applications': True,
   'group_models': True,
 }
+
+ROLEPERMISSIONS_MODULE = 'djangosige.configs.roles'

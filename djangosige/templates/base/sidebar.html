@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load permission_tags %}
 
 
 
@@ -31,70 +32,88 @@
           <!-- <p class="centered"><a href="{% url 'base:index' %}"><img src="{% static 'img/BRASIL_FERTILIZANTES.png' %}" class="img-circle" width="80"></a></p>
           <li class="mt">
           </li> -->
+          {% if user|can:'ver_inicio' %}
           <li class="sub-menu">
             <a href="{% url 'base:index' %}">
               <i class="fa fa-home"></i>
               <span>INICIO</span>
               </a>
           </li>
+          {% endif %}
+          {% if user|can:'ver_cadastro' %}
           <li class="sub-menu">
             <a href="{% url 'cadastro:listaclientesview' %}">
               <i class="fa fa-user"></i>
               <span>CLIENTES</span>
               </a>
           </li>
+          {% endif %}
+         
               <li class="sub-menu">
                 <a href="{% url 'cadastro:listafornecedoresview' %}">
                   <i class="fa fa-industry"></i>
                   <span>FORNECEDORES</span>
                   </a>
               </li>
+
                   <li class="sub-menu">
                     <a href="{% url 'cadastro:listatransportadorasview' %}">
                       <i class="fa fa-truck"></i>
                       <span>TRANSPORTADORAS</span>
                       </a>
                 </li>
+                {% if user|can:'ver_produtos' %}
                 <li class="sub-menu">
                   <a href="{% url 'cadastro:listaprodutosview' %}">
                     <i class="fa fa-leaf"></i>
                     <span>PRODUTOS</span>
                   </a>
+                  {% endif %}
+                  {% if user|can:'ver_unidades' %}
                   <li class="sub-menu">
                       <a href="{% url 'cadastro:listaunidadesview' %}">
                         <i class="fa fa-balance-scale"></i>
                         <span>UNIDADES</span>
                       </a>
+                    {% endif %}
+                    {% if user|can:'ver_marca' %}
                       <li class="sub-menu">
                         <a href="{% url 'cadastro:listamarcasview' %}">
                           <i class="fa fa-trademark"></i>
                           <span>MARCA</span>
                           </a>
+                      {% endif %}
+              {% if user|can:'ver_estoque' %}
               <li class="sub-menu">
                 <a href="{% url 'estoque:listalocalview' %}">
                   <i class="fa fa-cubes"></i>
                   <span>ESTOQUE</span>
                   </a>
+              {% endif %}
+          {% if user|can:'ver_compras' %}
           <li class="sub-menu">
             <a href="{% url 'compras:listaorcamentocompraview' %}">
               <i class="fa fa-shopping-cart"></i>
               <span>COMPRAS</span>
               </a>
-  
+              {% endif %}
           </li>
+          {% if user|can:'ver_vendas' %}
           <li class="sub-menu">
             <a href="{% url 'vendas:listaorcamentovendaview' %}">
               <i class="fa fa-shopping-bag"></i>
               <span>VENDAS</span>
               </a>
-
+              {% endif %}
+              {% if user|can:'ver_financeiro' %}
           </li>
           <li class="sub-menu">
             <a href="{% url 'financeiro:listalancamentoview' %}">
               <i class="fa fa-money"></i>
               <span>FINANCEIRO</span>
               </a>
-
+              {% endif %}
+              {% if user|can:'ver_financeiro' %}
           </li>
           <li class="sub-menu">
             <a href="{% url 'fiscal:listanotafiscalsaidaview' %}">
@@ -102,6 +121,7 @@
               <span>FISCAL</span>
               </a>
           </li>
+          {% endif %}
          
        </li>
         <!-- sidebar menu end-->
