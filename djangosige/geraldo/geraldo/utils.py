@@ -1,5 +1,8 @@
 import sys
-import collections
+try:
+    from collections.abc import Callable
+except:
+    from collections import Callable
 
 try:
     import reportlab
@@ -107,7 +110,7 @@ def get_attr_value(obj, attr_path):
     if len(parts) > 1:
         val = get_attr_value(val, '.'.join(parts[1:]))
 
-    if isinstance(val, collections.Callable):
+    if isinstance(val, Callable):
         val = val()
 
     return val

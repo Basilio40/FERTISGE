@@ -11,35 +11,24 @@
         <h2 class="relatorio-title">
           Relatórios
         </h2>
-  
-        <h3 class="relatorio-time">
-          Últimos 12 meses
-        </h3>
-  
-        <div class="dropdown" style="display: inline-block; float: right; margin-top: 10px;">
-  
-          <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">
-            Periodo
-            <span class="caret"></span>
-          </button>
-  
-          <ul class="dropdown-menu pull-right">
-            <li>Hoje</li>
-            <li>Esta semana</li>
-            <li>Este mês</li>
-            <li>Últimos 3 meses</li>
-            <li>Últimos 6 meses</li>
-            <li>Últimos 12 meses</li>
-            <li>Este ano</li>
-          </ul>
-  
+        <div class="relatorio-data-box">
+          <select name="filter" id="filter" class="disabled-select select-label">
+            <option value="Hoje" class="time-label">Hoje</option>
+            <option value="Esta semana" class="time-label">Esta semana</option>
+            <option value="Este mês" class="time-label">Este mês</option>
+            <option value="Últimos 3 meses" class="time-label">Últimos 3 meses</option>
+            <option value="Últimos 6 meses" class="time-label">Últimos 6 meses</option>
+            <option value="Últimos 12 meses" class="time-label" selected>Últimos 12 meses</option>
+            <option value="Este ano" class="time-label">Este ano</option>
+          </select>
         </div>
 
       </div>
 
       <div id="tab-relatorio-interno" style="width: 100%;">
 
-        <ul id="ul-tab-relatorio" class="row" style="display: flex; list-style: none; padding: 10px; margin: 0; justify-content: left; align-items: center; height: 100%">
+        <ul id="ul-tab-relatorio" class="row"
+          style="display: flex; list-style: none; padding: 10px; margin: 0; justify-content: left; align-items: center; height: 100%">
 
           <li class="li-tab-relatorio" style="margin: 0 15px 0px 15px;">
             <a href="#tab-relatorio-rece-desp">receitas x despesas</a>
@@ -51,123 +40,148 @@
 
         </ul>
         <div id="tab-relatorio-rece-desp">
-          
-          <div class="perfil">
-            <h4>Receitas x Despesas</h4>
+
+          <div class="container-box-relatorio">
+            <div class="perfil">
+              <h4>Receitas x Despesas</h4>
+            </div>
+
+            <div class="">
+              <canvas id="graph-rece-desp" class="graph-canvas"></canvas>
+            </div>
           </div>
-          
-          <div class="">
-            <canvas id="graph-rece-desp" width="800" height="400" style="background-color: #dfdfdf;"></canvas>
+
+          <div class="container-box-relatorio">
+
+            <div class="perfil">
+              <h3>Detalhamento</h3>
+            </div>
+
+            <div id="receitas-list" class="table-responsive">
+
+              <table id="receitas-table" class="table dataTable no-footer" role="grid">
+                <thead>
+                  <tr role="row">
+                    <th>Categorias</th>
+                    <th>Porcentual</th>
+                    <th>Valor</th>
+                  </tr>
+                </thead>
+
+                <tfoot>
+                  <tr role="row">
+                    <th style="text-align: center;">Total</th>
+                    <th style="text-align: center;">100%</th>
+                    <th style="text-align: center; color: #129e3f; font-weight: bold;">R$ 10,00</th>
+                  </tr>
+                </tfoot>
+
+                <tbody>
+                  <tr role="row">
+                    <td>Carro</td>
+                    <td>16%</td>
+                    <td style="color: #129e3f">R$ 10,00</td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+
           </div>
 
         </div>
 
         <div id="tab-relatorio-categoria">
-          
-          <div class="perfil">
-            <h4>Categorias</h4>
+
+          <div class="container-box-relatorio">
+            <div class="perfil">
+              <h3>Categorias</h3>
+            </div>
+
+            <div class="">
+              <canvas id="graph-categorias" class="graph-canvas"></canvas>
+            </div>
+
           </div>
-          
-          <div class="">
-            <canvas id="graph-categorias" width="800" height="400" style="background-color: #dfdfdf;"></canvas>
+
+          <div class="container-box-relatorio">
+
+            <div class="perfil">
+              <h3>Receitas</h3>
+            </div>
+
+            <div id="receitas-list" class="table-responsive">
+
+              <table id="receitas-table" class="table dataTable no-footer" role="grid">
+                <thead>
+                  <tr role="row">
+                    <th>Categorias</th>
+                    <th>Porcentual</th>
+                    <th>Valor</th>
+                  </tr>
+                </thead>
+
+                <tfoot>
+                  <tr role="row">
+                    <th style="text-align: center;">Total</th>
+                    <th style="text-align: center;">100%</th>
+                    <th style="text-align: center; color: #129e3f; font-weight: bold;">R$ 10,00</th>
+                  </tr>
+                </tfoot>
+
+                <tbody>
+                  <tr role="row">
+                    <td>Carro</td>
+                    <td>16%</td>
+                    <td style="color: #129e3f">R$ 10,00</td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+
+          <div class="container-box-relatorio">
+
+            <div class="perfil">
+              <h3>Despesas</h3>
+            </div>
+
+            <div class="despesas-list table-responsive">
+
+              <table id="despesas-table" class="table dataTable no-footer" role="grid">
+                <thead>
+                  <tr role="row">
+                    <th>Categorias</th>
+                    <th>Porcentual</th>
+                    <th>Valor</th>
+                  </tr>
+                </thead>
+
+                <tfoot>
+                  <tr role="row">
+                    <th style="text-align: center;">Total</th>
+                    <th style="text-align: center;">100%</th>
+                    <th style="text-align: center; color: #d72638; font-weight: bold;">R$ 10,00</th>
+                  </tr>
+                </tfoot>
+
+                <tbody>
+                  <tr role="row">
+                    <td>Carro</td>
+                    <td>16%</td>
+                    <td style="color: #d72638;">R$ 10,00</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
 
         </div>
-      
-      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-      <script src="{% static '/js/graphrender.js' %}"></script>
-      </div>
 
-    </div>
 
-  </div>
-
-</div>
-
-<div class="row box-tabs">
-
-  <div class="col-md-10 box-relatorio-financeiro">
-
-    <div class="container-box-relatorio">
-
-      <div class="perfil">
-        <h2>Receitas</h2>
-      </div>
-
-      <div id="receitas-list" class="table-responsive">
-
-        <table id="receitas-table" class="table dataTable no-footer" role="grid">
-          <thead>
-            <tr role="row">
-              <th>Categorias</th>
-              <th>Porcentual</th>
-              <th>Valor</th>
-            </tr>
-          </thead>
-
-          <tfoot>
-            <tr role="row">
-              <th style="text-align: center;">Total</th>
-              <th style="text-align: center;">100%</th>
-              <th style="text-align: center; color: #129e3f; font-weight: bold;">R$ 10,00</th>
-            </tr>
-          </tfoot>
-          
-          <tbody>
-            <tr role="row">
-              <td>Carro</td>
-              <td>16%</td>
-              <td style="color: #129e3f">R$ 10,00</td>
-            </tr>
-          </tbody>
-        </table>
-        
-      </div>
-
-    </div>
-
-  </div>
-
-</div>
-
-<div class="row box-tabs">
-
-  <div class="col-md-10 box-relatorio-financeiro">
-
-    <div class="container-box-relatorio">
-
-      <div class="perfil">
-        <h2>Despesas</h2>
-      </div>
-
-      <div class="despesas-list table-responsive">
-        
-        <table id="despesas-table" class="table dataTable no-footer" role="grid">
-          <thead>
-            <tr role="row">
-              <th>Categorias</th>
-              <th>Porcentual</th>
-              <th>Valor</th>
-            </tr>
-          </thead>
-
-          <tfoot>
-            <tr role="row">
-              <th style="text-align: center;">Total</th>
-              <th style="text-align: center;">100%</th>
-              <th style="text-align: center; color: #d72638; font-weight: bold;">R$ 10,00</th>
-            </tr>
-          </tfoot>
-
-          <tbody>
-            <tr role="row">
-              <td>Carro</td>
-              <td>16%</td>
-              <td style="color: #d72638;">R$ 10,00</td>
-            </tr>
-          </tbody>
-        </table>
-
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="{% static '/js/graphrender.js' %}"></script>
       </div>
 
     </div>
@@ -177,13 +191,13 @@
 </div>
 
 <script>
-  $(function() {
+  $(function () {
     // Ao carregar a página, mostre o conteúdo da primeira guia e adicione a classe "active" a ela
     $("#tab-relatorio-interno > div:first-child").addClass("active");
     $("#tab-relatorio-interno ul li:first-child a").addClass("active");
 
     // Manipule o clique nas guias
-    $("#tab-relatorio-interno ul li a").click(function(event) {
+    $("#tab-relatorio-interno ul li a").click(function (event) {
       event.preventDefault();
 
       // Remova a classe "active" de todas as guias e oculte todos os conteúdos das guias

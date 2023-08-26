@@ -1,5 +1,8 @@
 import datetime, types, decimal, re
-import collections
+try:
+    from collections.abc import Callable
+except:
+    from collections import Callable
 
 try:
     set
@@ -81,7 +84,7 @@ class Label(Widget):
     def clone(self):
         new = super(Label, self).clone()
 
-        if not isinstance(self._text, collections.Callable):
+        if not isinstance(self._text, Callable):
             new._text = self._text
 
         return new
@@ -314,7 +317,7 @@ class ObjectValue(Label):
         try:
             return eval(expression, global_vars)
         except Exception as e:
-            if not isinstance(self.on_expression_error, collections.Callable):
+            if not isinstance(self.on_expression_error, Callable):
                 raise
 
             return self.on_expression_error(self, e, expression, self.instance)

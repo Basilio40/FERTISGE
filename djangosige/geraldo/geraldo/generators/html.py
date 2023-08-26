@@ -7,7 +7,7 @@ class HTMLGenerator(ReportGenerator):
     on standards."""
     filename = None
 
-    def __init__(self, report, filename):
+    def __init__(self, report, filename, *args, **kwargs):
         super(HTMLGenerator, self).__init__(report, *args, **kwargs)
 
         self.filename = filename

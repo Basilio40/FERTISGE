@@ -7511,3 +7511,47 @@ a.forgot-password-link:hover {
 #tab-relatorio-interno div.active {
   display: block;
 }
+
+.disabled-select {
+  display: inline;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+}
+
+.disabled-select:after {
+  display: none;
+}
+
+.time-label{
+  color: #797979;
+}
+
+.select-label {
+  font-size: 18px;
+  line-height: 34px;
+  color: inherit;
+  font-family: 'circularstd-bold', sans-serif; /* Ajuste o nome da fonte aqui */
+  position: relative;
+  font-weight: 600;
+  
+  text-align: center;
+}
+
+.relatorio-data-box {
+  display: flex;
+  flex-direction: row;
+
+  margin-top: 10px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.graph-canvas {
+  background-color: transparent;
+  width: 80%;
+  height: 400;
+}
