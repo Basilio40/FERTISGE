@@ -11,28 +11,18 @@
         <h2 class="relatorio-title">
           Relatórios
         </h2>
-
-        <h3 class="relatorio-time">
-          Últimos 12 meses
-        </h3>
-
-        <div class="dropdown" style="display: inline-block; float: right; margin-top: 10px;">
-
-          <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">
-            Periodo
-            <span class="caret"></span>
-          </button>
-
-          <ul class="dropdown-menu pull-right">
-            <li>Hoje</li>
-            <li>Esta semana</li>
-            <li>Este mês</li>
-            <li>Últimos 3 meses</li>
-            <li>Últimos 6 meses</li>
-            <li>Últimos 12 meses</li>
-            <li>Este ano</li>
-          </ul>
-
+        
+        <div class="relatorio-data-box">
+          <select name="filter" id="filter" class="btn btn-success dropdown-toggle">
+            <option value="Hoje" class="time-label">Hoje</option>
+            <option value="Esta semana" class="time-label">Esta semana</option>
+            <option value="Este mês" class="time-label">Este mês</option>
+            <option value="Últimos 3 meses" class="time-label">Últimos 3 meses</option>
+            <option value="Últimos 6 meses" class="time-label">Últimos 6 meses</option>
+            <option value="Últimos 12 meses" class="time-label" selected>Últimos 12 meses</option>
+            <option value="Este ano" class="time-label">Este ano</option>
+          </select>
+          
         </div>
 
       </div>
@@ -51,21 +41,21 @@
           </li>
 
         </ul>
+        <div id="tab-relatorio-rece-desp">
 
-        <div id="tab-relatorio-rece-desp" class="active">
-
-          <div class="perfil">
-            <h4>Receitas x Despesas</h4>
+          <div class="container-box-relatorio">
+            <div class="perfil">
+              <h4>Receitas x Despesas</h4>
+            </div>
+            <div class="">
+              <canvas id="graph-rece-desp" class="graph-canvas"></canvas>
+            </div>
           </div>
 
-          <div class="" style="margin-bottom: 40px;">
-            <canvas id="graph-rece-desp" width="800" height="400"></canvas>
-          </div>
-
-          <div class="container-box-relatorio" style="border-top: 2px solid #f0f2f5;">
+          <div class="container-box-relatorio">
 
             <div class="perfil">
-              <h2>Detalhamento</h2>
+              <h3>Detalhamento</h3>
             </div>
 
             <div id="receitas-list" class="table-responsive">
@@ -73,33 +63,25 @@
               <table id="receitas-table" class="table dataTable no-footer" role="grid">
                 <thead>
                   <tr role="row">
-                    <th>período</th>
-                    <th>entradas</th>
-                    <th>saídas</th>
-                    <th>resultado</th>
+                    <th>Categorias</th>
+                    <th>Porcentual</th>
+                    <th>Valor</th>
                   </tr>
                 </thead>
 
+                <tfoot>
+                  <tr role="row">
+                    <th style="text-align: center;">Total</th>
+                    <th style="text-align: center;">100%</th>
+                    <th style="text-align: center; color: #129e3f; font-weight: bold;">R$ 10,00</th>
+                  </tr>
+                </tfoot>
+
                 <tbody>
                   <tr role="row">
-                    <td>31 Jul à 06 Ago</td>
-                    <td>R$ 22.992,00</td>
-                    <td style="color: #d72638">R$ -45.208,95</td>
-                    <td style="color: #d72638">R$ -22.216,95</td>
-                  </tr>
-
-                  <tr role="row">
-                    <td>07 Ago à 13 Ago</td>
-                    <td>R$ 247.442,00</td>
-                    <td style="color: #d72638">R$ -226.602,49</td>
-                    <td style="color: #129e3f">R$ 20.839,51</td>
-                  </tr>
-
-                  <tr role="row">
-                    <td>14 Ago à 20 Ago</td>
-                    <td>R$ 61.600,00</td>
-                    <td style="color: #d72638">R$ -56.831,92</td>
-                    <td style="color: #129e3f">R$ 4.768,08</td>
+                    <td>Carro</td>
+                    <td>16%</td>
+                    <td style="color: #129e3f">R$ 10,00</td>
                   </tr>
                 </tbody>
               </table>
@@ -112,19 +94,21 @@
 
         <div id="tab-relatorio-categoria">
 
-          <div class="perfil">
-            <h4>Categorias</h4>
+          <div class="container-box-relatorio">
+            <div class="perfil">
+              <h3>Categorias</h3>
+            </div>
+
+            <div class="">
+              <canvas id="graph-categorias" class="graph-canvas"></canvas>
+            </div>
+
           </div>
 
-          <div class="" style="margin-bottom: 40px;">
-            <canvas id="graph-categorias" width="800" height="400" style="background-color: #dfdfdf;"></canvas>
-          </div>
-
-          <!-- Receita -->
-          <div class="container-box-relatorio" style="border-top: 2px solid #f0f2f5;">
+          <div class="container-box-relatorio">
 
             <div class="perfil">
-              <h2>Receitas</h2>
+              <h3>Receitas</h3>
             </div>
 
             <div id="receitas-list" class="table-responsive">
@@ -132,85 +116,73 @@
               <table id="receitas-table" class="table dataTable no-footer" role="grid">
                 <thead>
                   <tr role="row">
-                    <th>categorias</th>
-                    <th>percentual</th>
-                    <th>valor</th>
+                    <th>Categorias</th>
+                    <th>Porcentual</th>
+                    <th>Valor</th>
                   </tr>
                 </thead>
 
+                <tfoot>
+                  <tr role="row">
+                    <th style="text-align: center;">Total</th>
+                    <th style="text-align: center;">100%</th>
+                    <th style="text-align: center; color: #129e3f; font-weight: bold;">R$ 10,00</th>
+                  </tr>
+                </tfoot>
+
                 <tbody>
                   <tr role="row">
-                    <td>BOLETO</td>
-                    <td>51,66%</td>
-                    <td style="color: #129e3f">R$ 172.052,00</td>
-                  </tr>
-
-                  <tr role="row">
-                    <td>TRANSFERENCIA</td>
-                    <td>48,04%</td>
-                    <td style="color: #129e3f">R$ 159.982,00</td>
-                  </tr>
-
-                  <tr role="row">
-                    <td>ACERTO</td>
-                    <td>0,30%</td>
-                    <td style="color: #129e3f">R$ 1.000,00</td>
+                    <td>Carro</td>
+                    <td>16%</td>
+                    <td style="color: #129e3f">R$ 10,00</td>
                   </tr>
                 </tbody>
               </table>
 
             </div>
-
           </div>
 
-          <!-- Despesas -->
-          <div class="container-box-relatorio" style="border-top: 2px solid #f0f2f5;">
+          <div class="container-box-relatorio">
 
             <div class="perfil">
-              <h2>Despesas</h2>
+              <h3>Despesas</h3>
             </div>
 
-            <div id="receitas-list" class="table-responsive">
+            <div class="despesas-list table-responsive">
 
-              <table id="receitas-table" class="table dataTable no-footer" role="grid">
+              <table id="despesas-table" class="table dataTable no-footer" role="grid">
                 <thead>
                   <tr role="row">
-                    <th>categorias</th>
-                    <th>percentual</th>
-                    <th>valor</th>
+                    <th>Categorias</th>
+                    <th>Porcentual</th>
+                    <th>Valor</th>
                   </tr>
                 </thead>
 
+                <tfoot>
+                  <tr role="row">
+                    <th style="text-align: center;">Total</th>
+                    <th style="text-align: center;">100%</th>
+                    <th style="text-align: center; color: #d72638; font-weight: bold;">R$ 10,00</th>
+                  </tr>
+                </tfoot>
+
                 <tbody>
                   <tr role="row">
-                    <td>FRETE</td>
-                    <td>20,71%</td>
-                    <td style="color: #d72638">R$ -68.062,00</td>
-                  </tr>
-
-                  <tr role="row">
-                    <td>Financiamento/Compra de Veic...</td>
-                    <td>17,56%</td>
-                    <td style="color: #d72638">R$ -57.708,75</td>
-                  </tr>
-
-                  <tr role="row">
-                    <td>Gastos Cartão de Crédito Empres...</td>
-                    <td>16,32%</td>
-                    <td style="color: #d72638">R$ -53.641,57</td>
+                    <td>Carro</td>
+                    <td>16%</td>
+                    <td style="color: #d72638;">R$ 10,00</td>
                   </tr>
                 </tbody>
               </table>
-
             </div>
-
           </div>
 
         </div>
 
+
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="{% static '/js/graphrender.js' %}"></script>
-
       </div>
 
     </div>
@@ -239,95 +211,3 @@
     });
   });
 </script>
-
-<!-- <div class="row box-tabs">
-
-  <div class="col-md-10 box-relatorio-financeiro">
-
-    <div class="container-box-relatorio">
-
-      <div class="perfil">
-        <h2>Receitas</h2>
-      </div>
-
-      <div id="receitas-list" class="table-responsive">
-
-        <table id="receitas-table" class="table dataTable no-footer" role="grid">
-          <thead>
-            <tr role="row">
-              <th>Categorias</th>
-              <th>Porcentual</th>
-              <th>Valor</th>
-            </tr>
-          </thead>
-
-          <tfoot>
-            <tr role="row">
-              <th style="text-align: center;">Total</th>
-              <th style="text-align: center;">100%</th>
-              <th style="text-align: center; color: #129e3f; font-weight: bold;">R$ 10,00</th>
-            </tr>
-          </tfoot>
-
-          <tbody>
-            <tr role="row">
-              <td>Carro</td>
-              <td>16%</td>
-              <td style="color: #129e3f">R$ 10,00</td>
-            </tr>
-          </tbody>
-        </table>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</div>
-
-<div class="row box-tabs">
-
-  <div class="col-md-10 box-relatorio-financeiro">
-
-    <div class="container-box-relatorio">
-
-      <div class="perfil">
-        <h2>Despesas</h2>
-      </div>
-
-      <div class="despesas-list table-responsive">
-
-        <table id="despesas-table" class="table dataTable no-footer" role="grid">
-          <thead>
-            <tr role="row">
-              <th>Categorias</th>
-              <th>Porcentual</th>
-              <th>Valor</th>
-            </tr>
-          </thead>
-
-          <tfoot>
-            <tr role="row">
-              <th style="text-align: center;">Total</th>
-              <th style="text-align: center;">100%</th>
-              <th style="text-align: center; color: #d72638; font-weight: bold;">R$ 10,00</th>
-            </tr>
-          </tfoot>
-
-          <tbody>
-            <tr role="row">
-              <td>Carro</td>
-              <td>16%</td>
-              <td style="color: #d72638;">R$ 10,00</td>
-            </tr>
-          </tbody>
-        </table>
-
-      </div>
-
-    </div>
-
-  </div>
-
-</div> -->

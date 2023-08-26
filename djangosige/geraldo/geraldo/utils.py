@@ -1,5 +1,8 @@
 import sys
-import collections
+try:
+    from collections.abc import Callable
+except:
+    from collections import Callable
 
 
 
@@ -114,8 +117,8 @@ def get_attr_value(obj, attr_path):
         from collections.abc import Callable
     except ImportError:
         from collections import Callable
-
-    if isinstance(val, collections.abc.Callable):
+        
+    if isinstance(val, Callable):
         val = val()
 
     return val

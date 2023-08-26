@@ -15,6 +15,9 @@ from djangosige.apps.cadastro.models import MinhaEmpresa
 from djangosige.apps.login.models import Usuario
 from djangosige.apps.vendas.models import PedidoVenda, ItensVenda
 
+from djangosige.configs.settings import MEDIA_ROOT
+from os.path import join as join_path
+
 try:
     from .processador_nf import ProcessadorNotaFiscal
 except ImportError:
@@ -168,6 +171,7 @@ class NotaFiscalSaidaListView(NotaFiscalListView):
     permission_codename = 'view_notafiscalsaida'
 
     def view_context(self, context):
+        EmissorNotaFiscal()
         context['title_complete'] = 'NOTAS FISCAIS'
         context['add_url'] = reverse_lazy('fiscal:addnotafiscalsaidaview')
         context['importar_nota_url'] = reverse_lazy(
@@ -429,6 +433,7 @@ class EmitirNotaView(CustomTemplateView):
     permission_codename = ['change_notafiscalsaida', 'emitir_notafiscal']
 
     def emitir_nota(self):
+        import ipdb;ipdb.set_trace()
         processador_nota = ProcessadorNotaFiscal()
         processador_nota.emitir_nota(self.object)
 
@@ -517,6 +522,7 @@ class GerarCopiaNotaView(CustomView):
 class ImportarNotaView(CustomView):
 
     def post(self, request, *args, **kwargs):
+        import ipdb;ipdb.set_trace()
         if len(request.FILES):
             processador_nota = ProcessadorNotaFiscal()
             try:
@@ -945,3 +951,53 @@ class ManifestacaoDestinatarioView(CustomTemplateView):
 
     def form_invalid(self, form):
         return self.render_to_response(self.get_context_data(form=form,))
+
+
+from geraldo.generators import PDFGenerator
+from geraldo.base import Report
+
+class FiscalReport(Report):
+    title="Nota Fiscal"
+
+class EmissorNotaFiscal(PDFGenerator):
+    name = "nota"
+    report = None
+    default_path = join_path(MEDIA_ROOT, "notas")
+    
+    def __init__(self, name="nota"):
+        import ipdb;ipdb.set_trace()
+        from os.path import exists
+        if not exists(self.default_path):
+            from os import makedirs
+            makedirs(self.default_path)
+
+        self.name = name
+        self.report = Report()
+        super(EmissorNotaFiscal, self).__init__(
+            self.report,
+            filename=join_path(self.default_path, self.name + ".pdf"))
+        
+        obj_nota = NotaFiscalSaida.objects.all()[1];
+        proc = ProcessadorNotaFiscal();
+
+        nfe = proc.montar_nota(obj_nota);
+        from pysignfe.nf_e import nf_e;
+        danfe = nf_e();
+
+        arquivo = danfe.gerar_danfe(    
+            nfe.xml, nome_sistema=u'FERTISGE', versao=obj_nota.versao,
+            logo=obj_nota.emit_saida.caminho_completo_logo)
+        with open(join_path(self.default_path, "arquivo.pdf"), "wb") as file:
+            file.write(arquivo)
+
+        with open(join_path(self.default_path, "arquivo.xml"), "w") as file:
+            file.write(nfe.xml)
+        
+    def create_file(self):
+        self.start_canvas()
+
+    def save_file(self):
+        try:
+            self.canvas.save()
+            return True
+        except: return False

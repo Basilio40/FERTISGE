@@ -8,7 +8,10 @@ from reportlab.lib.units import cm
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.lib.fonts import addMapping
-import collections
+try:
+    from collections.abc import Callable
+except:
+    from collections import Callable
 
 try:
     # Try to import pyPdf, a library to combine lots of PDF files
@@ -98,8 +101,6 @@ class PDFGenerator(ReportGenerator):
 
     def execute(self):
         """Generates a PDF file using ReportLab pdfgen package."""
-        super(PDFGenerator, self).execute()
-
         # Check the cache
         if self.cached_before_render():
             return
@@ -165,7 +166,7 @@ class PDFGenerator(ReportGenerator):
             fp = file(self.filename, 'rb')
             content = fp.read()
             fp.close()
-        elif hasattr(self.filename, 'read') and isinstance(self.filename.read, collections.Callable):
+        elif hasattr(self.filename, 'read') and isinstance(self.filename.read, Callable):
             content = self.filename.read()
         else:
             return False
@@ -436,6 +437,7 @@ class PDFGenerator(ReportGenerator):
 
     def generate_graphic(self, graphic, canvas=None):
         """Renders a graphic element"""
+        print("Rendering graphics")
         canvas = canvas or self.canvas
         
         # Calls the before_print event

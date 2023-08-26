@@ -23,14 +23,15 @@ ALLOWED_HOSTS = ['*']
 
 
 
+HIGOR_LOCAL = True
 DATABASES = {
         'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'railway',
         'USER':'postgres',
-        'PASSWORD': 'SfSNwB1lGsPqjhzgiavB',
-        'HOST': 'containers-us-west-139.railway.app',
-        'PORT': '6066',
+        'PASSWORD': 'w10uHqZVKsxvblzdUG5P' if(HIGOR_LOCAL) else 'SfSNwB1lGsPqjhzgiavB',
+        'HOST': 'containers-us-west-126.railway.app' if(HIGOR_LOCAL) else 'containers-us-west-139.railway.app',
+        'PORT': '7362' if(HIGOR_LOCAL) else '6066',
     }
 }
 
@@ -156,7 +157,7 @@ FIXTURE_DIRS = [
     os.path.join(APP_ROOT, 'fixtures'),
 ]
 
-MEDIA_ROOT = os.path.join(APP_ROOT, 'media/')
+MEDIA_ROOT = os.path.join(APP_ROOT, 'media')
 MEDIA_URL = 'media/'
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
