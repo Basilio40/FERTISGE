@@ -1,12 +1,12 @@
 import datetime
 from .base import ReportGenerator
 
-from geraldo.base import cm, TA_CENTER, TA_RIGHT
-from geraldo.utils import get_attr_value, calculate_size
-from geraldo.widgets import Widget, Label, SystemField
-from geraldo.graphics import Graphic, RoundRect, Rect, Line, Circle, Arc,\
+from djangosige.geraldo.geraldo.base import cm, TA_CENTER, TA_RIGHT
+from djangosige.geraldo.geraldo.utils import get_attr_value, calculate_size
+from djangosige.geraldo.geraldo.widgets import Widget, Label, SystemField
+from djangosige.geraldo.geraldo.graphics import Graphic, RoundRect, Rect, Line, Circle, Arc,\
         Ellipse, Image
-from geraldo.exceptions import AbortEvent
+from djangosige.geraldo.geraldo.exceptions import AbortEvent
 
 # In development
 

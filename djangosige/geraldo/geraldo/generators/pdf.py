@@ -1,5 +1,5 @@
 import datetime, os
-from .base import ReportGenerator
+from djangosige.geraldo.geraldo.generators.base import ReportGenerator
 
 from reportlab.pdfgen.canvas import Canvas
 from reportlab.lib.styles import ParagraphStyle
@@ -21,14 +21,14 @@ except ImportError:
 
 DEFAULT_TEMP_DIR = '/tmp/'
 
-from geraldo.utils import get_attr_value, calculate_size
-from geraldo.widgets import Widget, Label, SystemField
-from geraldo.graphics import Graphic, RoundRect, Rect, Line, Circle, Arc,\
+from djangosige.geraldo.geraldo.utils import get_attr_value, calculate_size
+from djangosige.geraldo.geraldo.widgets import Widget, Label, SystemField
+from djangosige.geraldo.geraldo.graphics import Graphic, RoundRect, Rect, Line, Circle, Arc,\
         Ellipse, Image
-from geraldo.barcodes import BarCode
-from geraldo.cache import make_hash_key, get_cache_backend, CACHE_DISABLED
-from geraldo.charts import BaseChart
-from geraldo.exceptions import AbortEvent
+from djangosige.geraldo.geraldo.barcodes import BarCode
+from djangosige.geraldo.geraldo.cache import make_hash_key, get_cache_backend, CACHE_DISABLED
+from djangosige.geraldo.geraldo.charts import BaseChart
+from djangosige.geraldo.geraldo.exceptions import AbortEvent
 
 ####Editado por thiagopena, 
 ####classe usada para a impressao do canhoto vertical da DANFE em formato paisagem

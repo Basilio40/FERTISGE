@@ -1,11 +1,11 @@
 import datetime, csv
 from .base import ReportGenerator
 
-from geraldo.utils import get_attr_value, calculate_size
-from geraldo.widgets import Widget, Label, SystemField, ObjectValue
-from geraldo.graphics import Graphic, RoundRect, Rect, Line, Circle, Arc,\
+from djangosige.geraldo.geraldo.utils import get_attr_value, calculate_size
+from djangosige.geraldo.geraldo.widgets import Widget, Label, SystemField, ObjectValue
+from djangosige.geraldo.geraldo.graphics import Graphic, RoundRect, Rect, Line, Circle, Arc,\
         Ellipse, Image
-from geraldo.exceptions import AbortEvent
+from djangosige.geraldo.geraldo.exceptions import AbortEvent
 
 class CSVGenerator(ReportGenerator):
     """This is a generator to output data in CSV format. This format can be imported as a

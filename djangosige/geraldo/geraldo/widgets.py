@@ -1,16 +1,17 @@
 import datetime, types, decimal, re
 import collections
 
+
 try:
     set
 except NameError:
     from sets import Set as set     # Python 2.3 fallback
 
-from .base import BAND_WIDTH, BAND_HEIGHT, Element, SubReport
-from .utils import get_attr_value, SYSTEM_FIELD_CHOICES, FIELD_ACTION_VALUE, FIELD_ACTION_COUNT,\
+from djangosige.geraldo.geraldo.base import BAND_WIDTH, BAND_HEIGHT, Element, SubReport
+from djangosige.geraldo.geraldo.utils import get_attr_value, SYSTEM_FIELD_CHOICES, FIELD_ACTION_VALUE, FIELD_ACTION_COUNT,\
         FIELD_ACTION_AVG, FIELD_ACTION_MIN, FIELD_ACTION_MAX, FIELD_ACTION_SUM,\
         FIELD_ACTION_DISTINCT_COUNT, cm, black
-from .exceptions import AttributeNotFound
+from djangosige.geraldo.geraldo.exceptions import AttributeNotFound
 
 class Widget(Element):
     """A widget is a value representation on the report"""
@@ -81,7 +82,7 @@ class Label(Widget):
     def clone(self):
         new = super(Label, self).clone()
 
-        if not isinstance(self._text, collections.Callable):
+        if not isinstance(self._text, collections.abc.Callable):
             new._text = self._text
 
         return new

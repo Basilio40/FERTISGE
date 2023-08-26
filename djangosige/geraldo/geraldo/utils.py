@@ -1,6 +1,9 @@
 import sys
 import collections
 
+
+
+
 try:
     import reportlab
 except ImportError:
@@ -107,7 +110,12 @@ def get_attr_value(obj, attr_path):
     if len(parts) > 1:
         val = get_attr_value(val, '.'.join(parts[1:]))
 
-    if isinstance(val, collections.Callable):
+    try:
+        from collections.abc import Callable
+    except ImportError:
+        from collections import Callable
+
+    if isinstance(val, collections.abc.Callable):
         val = val()
 
     return val

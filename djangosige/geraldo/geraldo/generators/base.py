@@ -1,16 +1,16 @@
 import random, shelve, os
 from decimal import Decimal
 
-from geraldo.utils import get_attr_value, calculate_size, memoize
-from geraldo.widgets import Widget, Label, SystemField
-from geraldo.graphics import Graphic, RoundRect, Rect, Line, Circle, Arc,\
+from djangosige.geraldo.geraldo.utils import get_attr_value, calculate_size, memoize
+from djangosige.geraldo.geraldo.widgets import Widget, Label, SystemField
+from djangosige.geraldo.geraldo.graphics import Graphic, RoundRect, Rect, Line, Circle, Arc,\
         Ellipse, Image
-from geraldo.barcodes import BarCode
-from geraldo.base import GeraldoObject, ManyElements, SubReport
-from geraldo.cache import CACHE_BY_QUERYSET, CACHE_BY_RENDER, CACHE_DISABLED,\
+from djangosige.geraldo.geraldo.barcodes import BarCode
+from djangosige.geraldo.geraldo.base import GeraldoObject, ManyElements, SubReport
+from djangosige.geraldo.geraldo.cache import CACHE_BY_QUERYSET, CACHE_BY_RENDER, CACHE_DISABLED,\
         make_hash_key, get_cache_backend
-from geraldo.charts import BaseChart
-from geraldo.exceptions import AbortEvent
+from djangosige.geraldo.geraldo.charts import BaseChart
+from djangosige.geraldo.geraldo.exceptions import AbortEvent
 import collections
 
 class ReportPage(GeraldoObject):

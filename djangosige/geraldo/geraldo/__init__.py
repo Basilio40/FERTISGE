@@ -50,7 +50,7 @@ __license__ = 'GNU Lesser General Public License (LGPL)'
 __url__ = 'http://geraldo.sourceforge.net/'
 
 try:
-  from .base import Report, ReportBand, DetailBand, TableBand, ReportGroup,\
+  from djangosige.geraldo.geraldo.base import Report, ReportBand, DetailBand, TableBand, ReportGroup,\
           SubReport, landscape, GeraldoObject, ManyElements, CROSS_COLS
   from .widgets import Label, ObjectValue, SystemField
   from .widgets import FIELD_ACTION_VALUE, FIELD_ACTION_COUNT, FIELD_ACTION_AVG,\
