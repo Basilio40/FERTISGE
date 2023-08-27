@@ -409,6 +409,7 @@ class OrcamentoVenda(Venda):
     data_vencimento = models.DateField(null=True, blank=True)
     status = models.CharField(
         max_length=1, choices=STATUS_ORCAMENTO_ESCOLHAS, default='0')
+    orcam_manual = models.FileField(upload_to='manual')
 
     class Meta:
         verbose_name = "Orçamento de Venda"

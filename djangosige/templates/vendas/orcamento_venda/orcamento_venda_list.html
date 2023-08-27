@@ -43,6 +43,7 @@
                     <th>Gerar pedido</th>
                     <th>Cancelar</th>
                     <th class="acoes">Ações</th>
+                    <th>Manual</th>
                   </tr>
                 </thead>
 
@@ -88,6 +89,8 @@
                             </a>
                           </td>
 
+
+
                         {% else %}
 
                           <td>
@@ -114,6 +117,13 @@
 
                         </td>
 
+                        <td>
+                          <button type="button" class="btn btn-editar" data-toggle="modal"
+                          data-target="#exampleModal">
+                          <i class="fa fa-file"></i>
+                         </button>
+                        </td>
+
                       </tr>
 
                     {% endfor %}
@@ -134,6 +144,26 @@
 
       </div>
 
+    </div>
+
+    <div class="modal fade" id="exampleModal"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="background: rgba(68, 70, 79, 0.3)">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content" style="background: rgba(114, 137, 218, 0.3)">
+          <div class="modal-header">
+            <h5 class="modal-title titulo_filtrar" id="exampleModalLabel" >PEDIDO/ORÇAMENTO MANUAL</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">DATAS</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="#" method="POST">{% csrf_token %}
+                <input  style="color: aliceblue;" type="file"  class="form-control" name="manual">
+                <button type="submit">salvar</button>
+            </form>
+          </div>
+          
+        </div>
+      </div>
     </div>
 
   </section>
