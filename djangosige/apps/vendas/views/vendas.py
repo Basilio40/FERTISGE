@@ -145,6 +145,9 @@ class OrcamentoVendaListView(VendaListView):
     def view_context(self, context):
         context['title_complete'] = 'ORÇAMENTOS DE VENDA'
         context['add_url'] = reverse_lazy('vendas:addorcamentovendaview')
+        if self.request.method == "POST":
+            manual = self.request.FILES.get('manual')
+            manual.save()
         return context
 
 
