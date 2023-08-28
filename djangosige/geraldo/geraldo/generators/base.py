@@ -11,7 +11,11 @@ from djangosige.geraldo.geraldo.cache import CACHE_BY_QUERYSET, CACHE_BY_RENDER,
         make_hash_key, get_cache_backend
 from djangosige.geraldo.geraldo.charts import BaseChart
 from djangosige.geraldo.geraldo.exceptions import AbortEvent
-import collections
+
+try:
+    from collections.abc import Callable
+except:
+    from collections import Callable
 
 class ReportPage(GeraldoObject):
     rect = None
@@ -109,68 +113,100 @@ class ReportGenerator(GeraldoObject):
                     top=rect_dict['top'] - rect_dict['height'],
                     width=rect_dict['right'] - rect_dict['left'],
                     height=rect_dict['height'],
+                    radius=rect_dict.get('radius', 5),
                     )
             # If border is a number, it is recognized as the stroke width
             if isinstance(b_all, (int, float)):
                 graphic.stroke_width = b_all
 
             self._rendered_pages[-1].add_element(graphic)
-
+        
+        b_top = borders_dict.get('top', None)
         b_left = borders_dict.get('left', None)
-        if b_left:
-            graphic = isinstance(b_left, Graphic) and b_left or Line()
+        b_right = borders_dict.get('right', None)
+        b_bottom = borders_dict.get('bottom', None)
+        
+        if b_top and b_right and b_bottom and b_left:
+            graphic = isinstance(b_left, Graphic) and b_left or RoundRect()
             graphic.set_rect(
-                    left=rect_dict['left'], top=rect_dict['top'] - rect_dict['height'],
-                    right=rect_dict['left'], height=rect_dict['height']
+                    left=rect_dict['left'],
+                    top=rect_dict['top'] - rect_dict['height'],
+                    right=rect_dict['right'],
+                    width=rect_dict['right'] - rect_dict['left'],
+                    height=rect_dict['height'],
+                    radius=0,
                     )
             # If border is a number, it is recognized as the stroke width
             if isinstance(b_left, (int, float)):
                 graphic.stroke_width = b_left
 
             self._rendered_pages[-1].add_element(graphic)
+        
+        else:
+            
+            if b_left:
+                graphic = isinstance(b_left, Graphic) and b_left or Line()
+                graphic.set_rect(
+                        left=rect_dict['left'],
+                        top=rect_dict['top'] - rect_dict['height'],
+                        right=rect_dict['left'],
+                        height=rect_dict['height']
+                        )
+                # If border is a number, it is recognized as the stroke width
+                if isinstance(b_left, (int, float)):
+                    graphic.stroke_width = b_left
 
-        b_top = borders_dict.get('top', None)
-        if b_top:
-            graphic = isinstance(b_top, Graphic) and b_top or Line()
-            graphic.set_rect(
-                    left=rect_dict['left'], top=rect_dict['top'],
-                    right=rect_dict['right'], bottom=rect_dict['top']
-                    )
-            #graphic.set_rect(
-                    #left=rect_dict['left'], top=rect_dict['top'] - rect_dict['height'],
-                    #right=rect_dict['right'], bottom=rect_dict['top'] - rect_dict['height']
-                    #)
-            # If border is a number, it is recognized as the stroke width
-            if isinstance(b_top, (int, float)):
-                graphic.stroke_width = b_top
+                self._rendered_pages[-1].add_element(graphic)
 
-            self._rendered_pages[-1].add_element(graphic)
 
-        b_right = borders_dict.get('right', None)
-        if b_right:
-            graphic = isinstance(b_right, Graphic) and b_right or Line()
-            graphic.set_rect(
-                    left=rect_dict['right'], top=rect_dict['top'] - rect_dict['height'],
-                    right=rect_dict['right'], height=rect_dict['height']
-                    )
-            # If border is a number, it is recognized as the stroke width
-            if isinstance(b_right, (int, float)):
-                graphic.stroke_width = b_right
+            if b_top:
+                graphic = isinstance(b_top, Graphic) and b_top or Line()
+                graphic.set_rect(
+                        left=rect_dict['left'],
+                        top=rect_dict['top'],
+                        right=rect_dict['right'],
+                        bottom=rect_dict['top']
+                        )
+                #graphic.set_rect(
+                        #left=rect_dict['left'], top=rect_dict['top'] - rect_dict['height'],
+                        #right=rect_dict['right'], bottom=rect_dict['top'] - rect_dict['height']
+                        #)
+                # If border is a number, it is recognized as the stroke width
+                if isinstance(b_top, (int, float)):
+                    graphic.stroke_width = b_top
 
-            self._rendered_pages[-1].add_element(graphic)
+                self._rendered_pages[-1].add_element(graphic)
 
-        b_bottom = borders_dict.get('bottom', None)
-        if b_bottom:
-            graphic = isinstance(b_right, Graphic) and b_right or Line()
-            graphic.set_rect(
-                    left=rect_dict['left'], top=rect_dict['top'] - rect_dict['height'],
-                    right=rect_dict['right'], bottom=rect_dict['top'] - rect_dict['height']
-                    )
-            # If border is a number, it is recognized as the stroke width
-            if isinstance(b_bottom, (int, float)):
-                graphic.stroke_width = b_bottom
 
-            self._rendered_pages[-1].add_element(graphic)
+            if b_right:
+                graphic = isinstance(b_right, Graphic) and b_right or Line()
+                graphic.set_rect(
+                        left=rect_dict['right'],
+                        top=rect_dict['top'] - rect_dict['height'],
+                        right=rect_dict['right'],
+                        height=rect_dict['height']
+                        )
+                # If border is a number, it is recognized as the stroke width
+                if isinstance(b_right, (int, float)):
+                    graphic.stroke_width = b_right
+
+                self._rendered_pages[-1].add_element(graphic)
+
+
+            if b_bottom:
+                graphic = isinstance(b_right, Graphic) and b_right or Line()
+                graphic.set_rect(
+                        left=rect_dict['left'],
+                        top=rect_dict['top'] - rect_dict['height'],
+                        right=rect_dict['right'],
+                        bottom=rect_dict['top'] - rect_dict['height']
+                        )
+                # If border is a number, it is recognized as the stroke width
+                if isinstance(b_bottom, (int, float)):
+                    graphic.stroke_width = b_bottom
+
+                self._rendered_pages[-1].add_element(graphic)
+
 
     def make_band_rect(self, band, top_position, left_position):
         """Returns the right band rect on the PDF canvas"""
@@ -200,7 +236,6 @@ class ReportGenerator(GeraldoObject):
         # Doesn't render not visible element
         if not element.visible:
             return
-
         # Widget element
         if isinstance(element, Widget):
             widget = element.clone()
@@ -227,6 +262,7 @@ class ReportGenerator(GeraldoObject):
 
                 temp_height = self.calculate_size(element.top) + self.calculate_size(widget.height)
             elif isinstance(widget, Label):
+                widget.text = widget.text.strip("None")
                 para = self.make_paragraph(widget.text, self.make_paragraph_style(band, widget.style))
 
                 if widget.truncate_overflow:
@@ -926,7 +962,7 @@ class ReportGenerator(GeraldoObject):
 
         if buffer:
             # Write to file stream
-            if hasattr(self.filename, 'write') and isinstance(self.filename.write, collections.Callable):
+            if hasattr(self.filename, 'write') and isinstance(self.filename.write, Callable):
                 self.filename.write(buffer)
                 return True
 

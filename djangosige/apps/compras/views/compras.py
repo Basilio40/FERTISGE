@@ -15,7 +15,7 @@ from djangosige.apps.login.models import Usuario
 from djangosige.configs.settings import MEDIA_ROOT
 # from .report_compras import CompraReport
 
-# from geraldo.generators import PDFGenerator
+# from djangosige.geraldo.geraldo.generators import PDFGenerator
 from datetime import datetime
 import io
 

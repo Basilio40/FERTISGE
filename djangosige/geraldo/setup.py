@@ -9,7 +9,7 @@ except:
     from setuptools import setup, find_packages
 
 from setuptools import setup
-from geraldo.version import __version__
+from djangosige.geraldo.geraldo.version import __version__
 
 setup(
     name = 'Geraldo',

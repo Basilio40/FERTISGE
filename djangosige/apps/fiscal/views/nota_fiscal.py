@@ -11,14 +11,10 @@ from djangosige.apps.base.views_mixins import FormValidationMessageMixin
 from djangosige.apps.fiscal.forms import NotaFiscalSaidaForm, NotaFiscalEntradaForm, AutXMLFormSet, ConfiguracaoNotaFiscalForm, EmissaoNotaFiscalForm, CancelamentoNotaFiscalForm, \
     ConsultarCadastroForm, InutilizarNotasForm, ConsultarNotaForm, BaixarNotaForm, ManifestacaoDestinatarioForm
 from djangosige.apps.fiscal.models import NotaFiscalSaida, NotaFiscalEntrada, NotaFiscal, ConfiguracaoNotaFiscal, AutXML, ErrosValidacaoNotaFiscal, RespostaSefazNotaFiscal
+from djangosige.apps.fiscal.views.processador_nf import ProcessadorNotaFiscal
 from djangosige.apps.cadastro.models import MinhaEmpresa
 from djangosige.apps.login.models import Usuario
 from djangosige.apps.vendas.models import PedidoVenda, ItensVenda
-
-try:
-    from .processador_nf import ProcessadorNotaFiscal
-except ImportError:
-    pass
 
 from decimal import Decimal
 from datetime import datetime

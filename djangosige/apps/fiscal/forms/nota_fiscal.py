@@ -8,7 +8,7 @@ from djangosige.apps.fiscal.models import NotaFiscalSaida, NotaFiscalEntrada, Au
 from djangosige.apps.cadastro.models import Empresa
 
 try:
-    from pysignfe.nfe.manifestacao_destinatario import MD_CONFIRMACAO_OPERACAO, MD_DESCONHECIMENTO_OPERACAO, MD_OPERACAO_NAO_REALIZADA, MD_CIENCIA_OPERACAO
+    from djangosige.PySIGNFe.pysignfe.nfe.manifestacao_destinatario import MD_CONFIRMACAO_OPERACAO, MD_DESCONHECIMENTO_OPERACAO, MD_OPERACAO_NAO_REALIZADA, MD_CIENCIA_OPERACAO
 except ImportError:
     MD_CONFIRMACAO_OPERACAO = u'210200'
     MD_DESCONHECIMENTO_OPERACAO = u'210220'

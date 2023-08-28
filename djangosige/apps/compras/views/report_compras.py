@@ -3,8 +3,8 @@
 # from djangosige.apps.compras.models import ItensCompra, Pagamento
 # # from djangosige.apps.vendas.views.report_vendas import VendaReport, REPORT_FONT_BOLD, REPORT_FONT, DadosProdutos, DadosPagamento
 
-# # from geraldo import ReportBand
-# # from geraldo.widgets import ObjectValue
+# # from djangosige.geraldo.geraldo import ReportBand
+# # from djangosige.geraldo.geraldo.widgets import ObjectValue
 # # from reportlab.lib.units import cm
 
 
