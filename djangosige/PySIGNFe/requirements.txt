@@ -1,0 +1,7 @@
+pyOpenSSL
+pytz
+lxml
+signxml
+reportlab
+cryptography
+six
