@@ -9130,3 +9130,18 @@ label[for="id_ambiente_nacional"] {
 #tab-relatorio-interno div.active {
   display: block;
 }
+
+.canvas-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.canvas-container {
+  display: flex;
+  justify-content: center;
+  
+  position: relative;  
+  height: 40vh;
+  width: 40vw;
+}
