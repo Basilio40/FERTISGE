@@ -437,6 +437,10 @@ class OrcamentoVenda(Venda):
 class PedidoVenda(Venda):
     orcamento = models.ForeignKey(
         'vendas.OrcamentoVenda', related_name="orcamento_pedido", on_delete=models.SET_NULL, null=True, blank=True)
+    
+    group = models.ForeignKey(
+        'vendas.GroupPedidoVenda', related_name="group_pedido", on_delete=models.CASCADE, null=True, blank=True)
+    
     data_entrega = models.DateField(null=True, blank=True)
     status = models.CharField(
         max_length=1, choices=STATUS_PEDIDO_VENDA_ESCOLHAS, default='0')
@@ -457,6 +461,37 @@ class PedidoVenda(Venda):
 
     def edit_url(self):
         return reverse_lazy('vendas:editarpedidovendaview', kwargs={'pk': self.id})
+
+    def __unicode__(self):
+        s = u'Pedido de venda nº %s (%s)' % (
+            self.id, self.get_status_display())
+        return s
+
+    def __str__(self):
+        s = u'Pedido de venda nº %s (%s)' % (
+            self.id, self.get_status_display())
+        return s
+
+
+class GroupPedidoVenda(models.Model):
+    orcamento = models.ForeignKey(
+        'vendas.OrcamentoVenda', related_name="list_orcamento", on_delete=models.SET_NULL, null=True, blank=True)
+        
+    status = models.CharField(
+        max_length=1, choices=STATUS_PEDIDO_VENDA_ESCOLHAS, default='0')
+
+    class Meta:
+        verbose_name = "Multi-Pedidos de Venda"
+        permissions = (
+            ("faturar_pedidovenda", "Pode faturar Pedidos de Venda"),
+        )
+
+    @property
+    def tipo_venda(self):
+        return 'Multi-Pedido'
+
+    def edit_url(self):
+        return reverse_lazy('vendas:EditarGroupPedidoVendaView', kwargs={'pk': self.id})
 
     def __unicode__(self):
         s = u'Pedido de venda nº %s (%s)' % (

@@ -6,7 +6,7 @@ from django.http import HttpResponse
 
 from djangosige.apps.base.custom_views import CustomView, CustomCreateView, CustomListView, CustomUpdateView
 
-from djangosige.apps.vendas.forms import OrcamentoVendaForm, PedidoVendaForm, ItensVendaFormSet, PagamentoFormSet
+from djangosige.apps.vendas.forms import OrcamentoVendaForm, PedidoVendaForm, GroupPedidoVendaForm, ItensVendaFormSet, PagamentoFormSet, PedidoVendaFormSet
 from djangosige.apps.vendas.models import OrcamentoVenda, PedidoVenda, ItensVenda, Pagamento
 from djangosige.apps.cadastro.models import MinhaEmpresa
 from djangosige.apps.login.models import Usuario
@@ -20,6 +20,7 @@ import io
 from .report_vendas import VendaReport
 
 
+#* Adicionar objeto
 class AdicionarVendaView(CustomCreateView):
 
     def get_success_message(self, cleaned_data):
@@ -128,6 +129,84 @@ class AdicionarPedidoVendaView(AdicionarVendaView):
         return super(AdicionarPedidoVendaView, self).post(request, form_class, *args, **kwargs)
 
 
+class AdicionarGroupPedidoVendaView(AdicionarVendaView):
+    form_class = GroupPedidoVendaForm
+    template_name = "vendas/pedido_venda/pedido_venda_add_multi.html"
+    success_url = reverse_lazy('vendas:listapedidovendaview')
+    success_message = "<b>Grupo de pedidos de venda %(id)s </b>adicionado com sucesso."
+    permission_codename = 'add_pedidovenda'
+
+    def view_context(self, context):
+        context['title_complete'] = 'ADICIONAR GRUPO DE PEDIDOS DE VENDA'
+        context['return_url'] = reverse_lazy('vendas:listapedidovendaview')
+        return context
+
+    def get(self, request, *args, **kwargs):
+        form_class = self.get_form_class()
+        #return super(AdicionarGroupPedidoVendaView, self).get(request, form_class, *args, **kwargs)
+        
+        self.object = None
+
+        form = self.get_form(form_class)
+        form.initial['vendedor'] = request.user.first_name or request.user
+        form.initial['data_emissao'] = datetime.today().strftime('%d/%m/%Y')
+
+        produtos_form = ItensVendaFormSet(prefix='produtos_form')
+        pagamento_form = PagamentoFormSet(prefix='pagamento_form')
+        pedidovenda_form = PedidoVendaFormSet(prefix='pedidovenda_form')
+
+        return self.render_to_response(self.get_context_data(form=form,
+                                                             produtos_form=produtos_form,
+                                                             pagamento_form=pagamento_form,
+                                                             pedidovenda_form=pedidovenda_form))
+
+    def post(self, request, *args, **kwargs):
+        form_class = self.get_form_class()
+        #return super(AdicionarGroupPedidoVendaView, self).post(request, form_class, *args, **kwargs)
+        
+        self.object = None
+        # Tirar . dos campos decimais
+        req_post = request.POST.copy()
+
+        for key in req_post:
+            if ('desconto' in key or
+                'quantidade' in key or
+                'valor' in key or
+                'frete' in key or
+                'despesas' in key or
+                'seguro' in key or
+                    'total' in key):
+                req_post[key] = req_post[key].replace('.', '')
+
+        request.POST = req_post
+
+        form = self.get_form(form_class)
+        produtos_form = ItensVendaFormSet(request.POST, prefix='produtos_form')
+        pagamento_form = PagamentoFormSet(request.POST, prefix='pagamento_form')
+        pedidovenda_form = PedidoVendaFormSet(request.POST, prefix='pedidovenda_form')
+
+        if (form.is_valid() and produtos_form.is_valid() and pagamento_form.is_valid() and pedidovenda_form.is_valid()):
+            self.object = form.save(commit=False)
+            self.object.save()
+
+            for pform in produtos_form:
+                if pform.cleaned_data != {}:
+                    itens_venda_obj = pform.save(commit=False)
+                    itens_venda_obj.venda_id = self.object
+                    itens_venda_obj.calcular_pis_cofins()
+                    itens_venda_obj.save()
+
+            pagamento_form.instance = self.object
+            pagamento_form.save()
+
+            return self.form_valid(form)
+
+        return self.form_invalid(form=form,
+                                 produtos_form=produtos_form,
+                                 pagamento_form=pagamento_form)
+
+
+#* Listar objeto
 class VendaListView(CustomListView):
 
     def get_context_data(self, **kwargs):
@@ -145,6 +224,7 @@ class OrcamentoVendaListView(VendaListView):
     def view_context(self, context):
         context['title_complete'] = 'ORÇAMENTOS DE VENDA'
         context['add_url'] = reverse_lazy('vendas:addorcamentovendaview')
+        
         if self.request.method == "POST":
             manual = self.request.FILES.get('manual')
             manual.save()
@@ -186,6 +266,8 @@ class PedidoVendaListView(VendaListView):
     def view_context(self, context):
         context['title_complete'] = 'PEDIDOS DE VENDA'
         context['add_url'] = reverse_lazy('vendas:addpedidovendaview')
+        context['add_mult_url'] = reverse_lazy('vendas:addmultpedidovendaview')
+        
         return context
 
 
@@ -195,6 +277,8 @@ class PedidoVendaAtrasadosListView(PedidoVendaListView):
     def view_context(self, context):
         context['title_complete'] = 'PEDIDOS DE VENDA ATRASADOS'
         context['add_url'] = reverse_lazy('vendas:addpedidovendaview')
+        context['add_mult_url'] = reverse_lazy('vendas:addmultpedidovendaview')
+        
         return context
 
     def get_queryset(self):
@@ -208,12 +292,15 @@ class PedidoVendaEntregaHojeListView(PedidoVendaListView):
         context['title_complete'] = 'PEDIDOS DE VENDA COM ENTREGA DIA ' + \
             datetime.now().date().strftime('%d/%m/%Y')
         context['add_url'] = reverse_lazy('vendas:addpedidovendaview')
+        context['add_mult_url'] = reverse_lazy('vendas:addmultpedidovendaview')
+        
         return context
 
     def get_queryset(self):
         return PedidoVenda.objects.filter(data_entrega=datetime.now().date(), status='0')
 
 
+#* Editar objeto
 class EditarVendaView(CustomUpdateView):
 
     def get_success_message(self, cleaned_data):
@@ -338,6 +425,32 @@ class EditarPedidoVendaView(EditarVendaView):
         return super(EditarPedidoVendaView, self).post(request, form_class, *args, **kwargs)
 
 
+class EditarGroupPedidoVendaView(EditarVendaView):
+    form_class = PedidoVendaForm
+    model = PedidoVenda
+    template_name = "vendas/pedido_venda/pedido_venda_edit.html"
+    success_url = reverse_lazy('vendas:listapedidovendaview')
+    success_message = "<b>Pedido de venda %(id)s </b>editado com sucesso."
+    permission_codename = 'change_pedidovenda'
+
+    def view_context(self, context):
+        context['title_complete'] = 'EDITAR PEDIDO DE VENDA N°' + \
+            str(self.object.id)
+        context['return_url'] = reverse_lazy('vendas:listapedidovendaview')
+        return context
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form_class = self.get_form_class()
+        return super(EditarPedidoVendaView, self).get(request, form_class, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form_class = self.get_form_class()
+        return super(EditarPedidoVendaView, self).post(request, form_class, *args, **kwargs)
+
+
+#* Gerar objeto
 class GerarPedidoVendaView(CustomView):
     permission_codename = ['add_pedidovenda', 'change_pedidovenda', ]
 
@@ -375,6 +488,7 @@ class GerarPedidoVendaView(CustomView):
         return redirect(reverse_lazy('vendas:editarpedidovendaview', kwargs={'pk': novo_pedido.id}))
 
 
+#* Cancelar objeto
 class CancelarOrcamentoVendaView(CustomView):
     permission_codename = 'change_orcamentovenda'
 
@@ -397,6 +511,18 @@ class CancelarPedidoVendaView(CustomView):
         return redirect(reverse_lazy('vendas:editarpedidovendaview', kwargs={'pk': instance.id}))
 
 
+class CancelarGroupPedidoVendaView(CustomView):
+    permission_codename = 'change_pedidovenda'
+
+    def get(self, request, *args, **kwargs):
+        venda_id = kwargs.get('pk', None)
+        instance = PedidoVenda.objects.get(id=venda_id)
+        instance.status = '2'
+        instance.save()
+        return redirect(reverse_lazy('vendas:editarpedidovendaview', kwargs={'pk': instance.id}))
+
+
+#* Copiar objeto
 class GerarCopiaVendaView(CustomView):
 
     def get(self, request, instance, redirect_url, *args, **kwargs):
@@ -443,6 +569,17 @@ class GerarCopiaPedidoVendaView(GerarCopiaVendaView):
         return super(GerarCopiaPedidoVendaView, self).get(request, instance, redirect_url, *args, **kwargs)
 
 
+class GerarCopiaGroupPedidoVendaView(GerarCopiaVendaView):
+    permission_codename = 'add_pedidovenda'
+
+    def get(self, request, *args, **kwargs):
+        venda_id = kwargs.get('pk', None)
+        instance = PedidoVenda.objects.get(id=venda_id)
+        redirect_url = 'vendas:editarpedidovendaview'
+        return super(GerarCopiaPedidoVendaView, self).get(request, instance, redirect_url, *args, **kwargs)
+
+
+#* Gerar PDF
 class GerarPDFVenda(CustomView):
 
     def gerar_pdf(self, title, venda, user_id):
@@ -539,6 +676,21 @@ class GerarPDFOrcamentoVenda(GerarPDFVenda):
 
 
 class GerarPDFPedidoVenda(GerarPDFVenda):
+    permission_codename = 'change_pedidovenda'
+
+    def get(self, request, *args, **kwargs):
+        venda_id = kwargs.get('pk', None)
+
+        if not venda_id:
+            return HttpResponse('Objeto não encontrado.')
+
+        obj = PedidoVenda.objects.get(pk=venda_id)
+        title = 'Pedido de venda nº {}'.format(venda_id)
+
+        return self.gerar_pdf(title, obj, request.user.id)
+
+
+class GerarPDFGroupPedidoVenda(GerarPDFVenda):
     permission_codename = 'change_pedidovenda'
 
     def get(self, request, *args, **kwargs):

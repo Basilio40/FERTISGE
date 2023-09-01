@@ -4,7 +4,7 @@ from django import forms
 # from django.utils.translation import ugettext_lazy as _
 from django.forms import inlineformset_factory
 
-from djangosige.apps.vendas.models import OrcamentoVenda, PedidoVenda, ItensVenda, Venda
+from djangosige.apps.vendas.models import OrcamentoVenda, PedidoVenda,GroupPedidoVenda, ItensVenda, Venda
 
 
 class VendaForm(forms.ModelForm):
@@ -114,6 +114,28 @@ class PedidoVendaForm(VendaForm):
         labels['data_entrega'] = ('Data de Entrega')
         labels['status'] = ('Status')
         labels['orcamento'] = ('Orçamento')
+
+
+class GroupPedidoVendaForm(forms.ModelForm):
+    
+    def __init__(self, *args, **kwargs):
+        super(GroupPedidoVendaForm, self).__init__(*args, **kwargs)
+        
+        self.fields['status'].initial = '0'
+
+    class Meta:
+        model = GroupPedidoVenda        
+        fields = ('orcamento', 'status')
+
+        widgets = {
+            'orcamento': forms.Select(attrs={'class': 'form-control', 'disabled': True}),
+            'status' : forms.Select(attrs={'class': 'form-control', 'disabled': True}),
+
+        }
+        labels = {
+            'status' : ('Status'),
+            'orcamento' : ('Orçamento')
+        }
 
 
 class ItensVendaForm(forms.ModelForm):
@@ -239,3 +261,6 @@ class ItensVendaForm(forms.ModelForm):
 
 ItensVendaFormSet = inlineformset_factory(
     Venda, ItensVenda, form=ItensVendaForm, extra=1, can_delete=True)
+
+PedidoVendaFormSet = inlineformset_factory(
+    GroupPedidoVenda, PedidoVenda, form=PedidoVendaForm, extra=1, can_delete=True)

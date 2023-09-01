@@ -26,6 +26,9 @@ urlpatterns = [
     # vendas/pedidovenda/adicionar/
     path('pedidovenda/adicionar/',
         views.AdicionarPedidoVendaView.as_view(), name='addpedidovendaview'),
+    # vendas/pedidovenda/adicionar-varios/
+    path('vendas/adicionar-varios/',
+        views.AdicionarGroupPedidoVendaView.as_view(), name='addmultpedidovendaview'),
     # vendas/pedidovenda/listapedidovenda
     path('pedidovenda/listapedidovenda/',
         views.PedidoVendaListView.as_view(), name='listapedidovendaview'),
