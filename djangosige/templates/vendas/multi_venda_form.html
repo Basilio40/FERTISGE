@@ -1,0 +1,64 @@
+<div class="" id="tabs">
+
+  <ul class="nav nav-tabs" role="tablist" style="margin-bottom: 20px;">
+    <li role="presentation" class="active"><a href="#tab_informacoes" data-toggle="tab">PEDIDOS</a></li>
+  </ul>
+
+  <!-- Tab INFORMAÇÕES -->
+  <div role="tabpanel" class="tab-pane active" id="tab_informacoes">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <div class="form-line">
+          <label>{{form.status.label}}</label>
+          {% if form.status.errors %}<label class="error">{% for error in form.status.errors %}{{error}}{% endfor %}</label>{% endif %}
+          {{form.status}}
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-6">
+      <div class="form-group">
+        <div class="form-line">
+          <label>{{form.orcamento.label}}</label>
+          {% if form.orcamento.errors %}<label class="error">{% for error in form.orcamento.errors %}{{error}}{% endfor %}</label>{% endif %}
+          {{form.orcamento}}
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-12" style="padding:0px; width: 100%;">
+
+      <h4 style="border-bottom: 1px solid #afabab;">Produtos</h4>
+
+      {% include 'formset/formset_table.html' with formset=pedidovenda_form title='Itens' %}
+
+    </div>
+
+    {% include 'vendas/modal_calculo_imposto.html' %}
+
+  </div>
+  <!-- #Tab INFORMAÇÕES -->
+
+
+</div>
+<!--#Body-->
+
+<script>
+  $(function () {
+    // Ao carregar a página, mostre o conteúdo da primeira guia e adicione a classe "active" a ela
+    $("#tabs > div:first-child").addClass("active");
+
+    // Manipule o clique nas guias
+    $("#tabs ul li a").click(function (event) {
+      event.preventDefault();
+
+      // Remova a classe "active" de todas as guias e oculte todos os conteúdos das guias
+      $("#tabs ul li a").removeClass("active");
+      $("#tabs > div").removeClass("active");
+
+      // Adicione a classe "active" à guia clicada e mostre o conteúdo correspondente
+      $(this).addClass("active");
+      $($(this).attr("href")).addClass("active");
+    });
+  });
+</script>

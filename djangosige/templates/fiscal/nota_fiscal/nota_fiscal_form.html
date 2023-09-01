@@ -617,10 +617,28 @@
         </div>
       </div>
 
+      <div class="col-sm-{% if saida %}3{% else %}4{% endif %}">
+        <div class="form-group">
+          <div class="form-line">
+            <label>{{form.serie.label}}</label>{% if form.serie.field.required %}<strong style="color:red;"> *</strong>{% endif %}
+            {% if form.serie.errors %}<label class="error">{% for error in form.serie.errors %}{{error}}{% endfor %}</label>{% endif %}
+            {{form.serie}}
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-sm-6">
+        <div class="form-group">
+          <div class="form-line">
+            <label>Comissão (%)</label>
+            <span class="form-control display-venda-field" id="comissao_venda"></span>
+          </div>
+        </div>
+      </div>
 
     <div class="col-sm-12 lista">
 
-      <h4 style="border-bottom: 1px solid #afabab;margin-bottom: 25px;">Itens</h4>
+      <h4 style="border-bottom: 1px solid #312525;margin-bottom: 25px;">Itens</h4>
       <table id="itens_table" class="table table-bordered lista-table">
         <thead>
           <tr>
