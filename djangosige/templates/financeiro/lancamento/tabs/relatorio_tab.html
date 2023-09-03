@@ -12,8 +12,8 @@
           Relatórios
         </h2>
 
-        <h3 class="relatorio-time">
-          Últimos 12 meses
+        <h3 class="relatorio-time periodo-label">
+          Selecione o período
         </h3>
 
         <div class="dropdown" style="display: inline-block; float: right; margin-top: 10px;">
@@ -22,16 +22,18 @@
             Periodo
             <span class="caret"></span>
           </button>
-
-          <ul class="dropdown-menu pull-right">
-            <li>Hoje</li>
-            <li>Esta semana</li>
-            <li>Este mês</li>
-            <li>Últimos 3 meses</li>
-            <li>Últimos 6 meses</li>
-            <li>Últimos 12 meses</li>
-            <li>Este ano</li>
-          </ul>
+          <form id="relatorio-filtro" role="form" method="post">
+            {% csrf_token %}
+            <select name="filtro" id="filtro" class="dropdown-menu pull-right">
+              <option value="0">Hoje</option>
+              <option value="1">Esta semana</option>
+              <option value="2">Este mês</option>
+              <option value="3">Últimos 3 meses</option>
+              <option value="4">Últimos 6 meses</option>
+              <option value="5">Últimos 12 meses</option>
+              <option value="6">Este ano</option>
+            </select>
+          </form>
 
         </div>
 
@@ -187,6 +189,22 @@
       // Adicione a classe "active" à guia clicada e mostre o conteúdo correspondente
       $(this).addClass("active");
       $($(this).attr("href")).addClass("active");
+    });
+
+    $("#filtro").on('change ready', function(event){
+      var postData = {
+          'filter': $(this).val(),
+          'csrfmiddlewaretoken': $.Admin.cookies.getCookie('csrftoken'),
+      }
+
+      $.ajax({
+          url: "{% url 'financeiro:inforelatorio' %}",
+          type: "POST",
+          data: postData,
+          dataType: "json",
+          success: relatorio_response_handler,
+      });
+      $('.periodo-label').text($(this).find(":selected").text());
     });
   });
 </script>

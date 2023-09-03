@@ -1,100 +1,3 @@
-const test_data = {
-    entradas: [
-        {
-            data: ["2023-08-06", "2023-08-12",],
-            titulo: "Entradas genérica 1",
-            valor: "1000.00",
-            saldo_final: "0.0",
-        },
-        {
-            data: ["2023-08-13", "2023-08-19"],
-            titulo: "Entradas genérica 2",
-            valor: "200.00",
-            saldo_final: "0.0",
-        },
-        {
-            data: ["2023-08-20", "2023-08-26"],
-            titulo: "Entradas genérica 3",
-            valor: "3000.00",
-            saldo_final: "0.0",
-        },
-        {
-            data: ["2023-08-27", "2023-09-02"],
-            titulo: "Entradas genérica 4",
-            valor: "4000.00",
-            saldo_final: "0.0",
-        },
-        {
-            data: ["2023-09-03", "2023-09-10"],
-            titulo: "Entradas genérica 5",
-            valor: "5000.00",
-            saldo_final: "0.0",
-        },
-    ],
-    saidas: [
-        {
-            data: ["2023-08-06", "2023-08-12",],
-            titulo: "Despesa genérica 1",
-            valor: "1000.00",
-            saldo_final: "0.0",
-        },
-        {
-            data: ["2023-08-13", "2023-08-19"],
-            titulo: "Despesa genérica 2",
-            valor: "2000.00",
-            saldo_final: "0.0",
-        },
-        {
-            data: ["2023-08-20", "2023-08-26"],
-            titulo: "Despesa genérica 3",
-            valor: "3000.00",
-            saldo_final: "0.0",
-        },
-        {
-            data: ["2023-08-27", "2023-09-02"],
-            titulo: "Despesa genérica 4",
-            valor: "4000.00",
-            saldo_final: "0.0",
-        },
-        {
-            data: ["2023-09-03", "2023-09-10"],
-            titulo: "Despesa genérica 5",
-            valor: "500.00",
-            saldo_final: "0.0",
-        },
-    ],
-    categorias: {
-        receitas: [
-            {
-                titulo: "BOLETO",
-                valor: "172052.00",
-            },
-            {
-                titulo: "TRANSFERENCIA",
-                valor: "159982.00",
-            },
-            {
-                titulo: "ACERTO",
-                valor: " 1000.00",
-            },
-        ],
-        despesas: [
-            {
-                titulo: "FRETE",
-                valor: "68062.00",
-            },
-            {
-                titulo: "Financiamento/Compra de Veic...",
-                valor: " 57708.75",
-            },
-            {
-                titulo: "Gastos Cartão de Crédito Empres...",
-                valor: "53641.57",
-            },
-        ],
-    }
-};
-
 // Manipulador para configurar os dados para cada tipo de gráfico
 class RxD_item {
     borderWidth = 0;
@@ -193,37 +96,6 @@ class Despesas extends RxD_item {
     }
 }
 
-// Retorna chave de segurança para interações com o backend
-function get_csrf() {
-    cookies = document.cookie
-    return cookies.split("csrftoken=")[1].split(";")[0]
-}
-
-// Coleta as informações necessário no banco e constroi os gráficos e tabelas
-function get_data(filter) {
-    url = "/financeiro/lancamentos/graphdata/"
-
-    fetchOptions = {
-        method: "POST",
-        headers: {
-            "X-CSRFToken": get_csrf(),
-        },
-        body: {
-            table: document.querySelector("#tab-relatorio").querySelector("div.active").id,
-            filter: filter
-        },
-    };
-
-    fetch(url, fetchOptions).then(
-        (response) => {
-            response.json().then(c)
-        }
-    )
-}
-
-function response_handler(json) {
-
-}
 
 // Renderiza o gráfico
 function render(data) {
@@ -253,67 +125,102 @@ function render(data) {
         }
     }
 
-
-    bar_graph_financeiro = new Chart(context.rece_desp, {
-        type: 'bar',
-        data: {
+    const instances = {}
+    let active_context;
+    Chart.helpers.each(Chart.instances, function(instance){
+        instances[instance.canvas.id] = instance;
+    });
+    
+    active_context = instances[context.rece_desp.canvas.id]
+    if (active_context) { 
+        active_context.data = {
             labels: receitas.map_bar_xaxis(),
             datasets: [receitas.map_bar_yaxis(), despesas.map_bar_yaxis()]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    display: false, // Isso esconde o eixo Y
-                }
+        };
+        active_context.update();
+    }
+    else { 
+        new Chart(context.rece_desp, {
+            type: 'bar',
+            data: {
+                labels: receitas.map_bar_xaxis(),
+                datasets: [receitas.map_bar_yaxis(), despesas.map_bar_yaxis()]
             },
-        }
-    });
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        display: false, // Isso esconde o eixo Y
+                    }
+                },
+            }
+        });
+    }
 
-    doughnut_graph_financeiro_r = new Chart(context.graph_categorias_receitas, {
-        type: 'doughnut',
-        data: { datasets: [cat_receitas.map_doughnut_yaxis()] },
-        options: {
-            plugins: {
-                legend: {
-                    title: {
-                        display: true,
-                        text: cat_receitas.label,
-                        font: {
-                            size: "20px",
-                            weight: '500',
-                            family: "Ruda, sans-serif",
+
+    active_context = instances[context.graph_categorias_receitas.canvas.id]
+    if (active_context) { 
+        active_context.data.datasets = [
+            cat_receitas.map_doughnut_yaxis()];
+        active_context.update();
+    }
+    else { 
+        new Chart(context.graph_categorias_receitas, {
+            type: 'doughnut',
+            data: { datasets:  [cat_receitas.map_doughnut_yaxis()]},
+            options: {
+                plugins: {
+                    legend: {
+                        title: {
+                            display: true,
+                            text: cat_receitas.label,
+                            font: {
+                                size: "20px",
+                                weight: '500',
+                                family: "Ruda, sans-serif",
+                            }
+                        },
+                    },
+                    tooltip: {
+                        callbacks: tooltip_callbacks
+                    },
+                }
+            }
+        });
+    }
+
+    active_context = instances[context.graph_categorias_despesas.canvas.id]
+    if (active_context) {
+        active_context.data.datasets = [
+            cat_despesas.map_doughnut_yaxis()];
+        active_context.update();
+    }
+    else {
+        new Chart(context.graph_categorias_despesas, {
+            type: 'doughnut',
+            data: { datasets: [cat_despesas.map_doughnut_yaxis()] },
+            options: {
+                plugins: {
+                    legend: {
+                        title: {
+                            display: true,
+                            text: cat_despesas.label,
+                            font: {
+                                size: "20px",
+                                weight: '500',
+                                family: "Ruda, sans-serif",
+                            }
                         }
                     },
-                },
-                tooltip: {
-                    callbacks: tooltip_callbacks
-                },
-            }
-        }
-    })
-
-    doughnut_graph_financeiro_d = new Chart(context.graph_categorias_despesas, {
-        type: 'doughnut',
-        data: { datasets: [cat_despesas.map_doughnut_yaxis()] },
-        options: {
-            plugins: {
-                legend: {
-                    title: {
-                        display: true,
-                        text: cat_despesas.label,
-                        font: {
-                            size: "20px",
-                            weight: '500',
-                            family: "Ruda, sans-serif",
-                        }
-                    }
+                    tooltip: {
+                        callbacks: tooltip_callbacks
+                    },
                 }
             }
-        }
-    })
-}
+        })
+    }
 
+}
 
 
 // Base para os geradores de cada tabela
@@ -365,6 +272,11 @@ class table_base {
                 table.tBodies[0].appendChild(this.create_row(this.format, this.data[i]));
             }
         }
+    }
+
+    clear_table(table) { 
+        table.removeChild(table.tBodies[0]);
+        table.appendChild(document.createElement('tbody'));
     }
 
     create_footer(table, dataIndex = undefined) {
@@ -560,8 +472,11 @@ function table_render(data) {
         table_cat_receitas = query[1],
         table_cat_despesas = query[2];
 
+    t_det.clear_table(table_det);
     t_det.create_table(table_det);
+
     [[table_cat_receitas, "receitas"], [table_cat_despesas, "despesas"]].forEach((value) => {
+        t_cat.clear_table(value[0])
         t_cat.create_table(value[0], value[1]);
         t_cat.create_footer(value[0], value[1]);
     })
@@ -569,9 +484,16 @@ function table_render(data) {
 
 }
 
-function main() {
-    render(test_data);
-    table_render(test_data);
-}
 
-main()
+function relatorio_response_handler(json) {
+
+    if(json.status == 200) {
+        render(json.result);
+        table_render(json.result);
+    }
+    else {
+        alert("Ocorreu um erro: " + json.error)
+    }
+
+    return false
+}

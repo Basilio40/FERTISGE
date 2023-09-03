@@ -12,10 +12,6 @@ urlpatterns = [
     # Lista todos lancamentos
     path('lancamentos/', views.LancamentoListView.as_view(),
         name='listalancamentoview'),
-    
-    # Informações lancamento para gerar os gráficos
-    path("lancamentos/graphdata/", views.LancamentoGraphInfo.as_view(), 
-        name="lancamentographdata"),
 
     # Contas a pagar
     # financeiro/contapagar/adicionar/
@@ -93,4 +89,8 @@ urlpatterns = [
     # Fluxo de caixa
     # financeiro/fluxodecaixa
     path('fluxodecaixa/', views.FluxoCaixaView.as_view(), name='fluxodecaixaview'),
+    
+    # Relatorio
+    # financeiro/inforelatorio
+    path('inforelatorio', views.InfoRelatorio.as_view(), name='inforelatorio')
 ]

@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-
 from django.urls import reverse_lazy
 from django.contrib import messages
-from django.shortcuts import redirect
 from django.http import JsonResponse
+from django.shortcuts import redirect
+from django.views.generic import View
 
 from djangosige.apps.base.custom_views import CustomView, CustomCreateView, CustomListView, CustomUpdateView
 
@@ -13,8 +13,9 @@ from djangosige.apps.vendas.models import PedidoVenda
 from djangosige.apps.compras.models import PedidoCompra
 from djangosige.apps.estoque.models import SaidaEstoque, ItensMovimento, ProdutoEstocado
 
+from decimal import Decimal
 from itertools import chain
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 class MovimentoCaixaMixin(object):
@@ -159,7 +160,7 @@ class AdicionarContaPagarView(AdicionarLancamentoBaseView):
                         self).get_context_data(**kwargs)
         context['title_complete'] = 'ADICIONAR CONTA A PAGAR'
         context['return_url'] = reverse_lazy('financeiro:listacontapagarview')
-        
+
         context.update(LancamanetoBoardInfo().get_context_data())
         return context
 
@@ -176,7 +177,7 @@ class AdicionarContaReceberView(AdicionarLancamentoBaseView):
         context['title_complete'] = 'ADICIONAR CONTA A RECEBER'
         context['return_url'] = reverse_lazy(
             'financeiro:listacontareceberview')
-        
+
         context.update(LancamanetoBoardInfo().get_context_data())
         return context
 
@@ -192,7 +193,7 @@ class AdicionarEntradaView(AdicionarLancamentoBaseView):
         context['title_complete'] = 'ADICIONAR RECEBIMENTO'
         context['return_url'] = reverse_lazy(
             'financeiro:listarecebimentosview')
-        
+
         context.update(LancamanetoBoardInfo().get_context_data())
         return context
 
@@ -207,7 +208,7 @@ class AdicionarSaidaView(AdicionarLancamentoBaseView):
         context = super(AdicionarSaidaView, self).get_context_data(**kwargs)
         context['title_complete'] = 'ADICIONAR PAGAMENTO'
         context['return_url'] = reverse_lazy('financeiro:listapagamentosview')
-        
+
         context.update(LancamanetoBoardInfo().get_context_data())
         return context
 
@@ -394,7 +395,7 @@ class LancamentoListBaseView(CustomListView, MovimentoCaixaMixin):
             for key, value in request.POST.items():
                 if value == "on":
                     instance = self.model.objects.get(id=key)
-                    if(instance.movimento_caixa):
+                    if (instance.movimento_caixa):
                         self.remover_valor_movimento_caixa(
                             instance, instance.movimento_caixa, instance.valor_liquido)
                         self.verificar_remocao_movimento(
@@ -412,7 +413,7 @@ class LancamentoListView(LancamentoListBaseView):
         context = super(LancamentoListView, self).get_context_data(**kwargs)
         context['title_complete'] = 'TODOS OS LANÇAMENTOS'
         context['all_lancamentos_saidas'] = Saida.objects.all()
-        
+
         context.update(LancamanetoBoardInfo().get_context_data())
         return context
 
@@ -433,7 +434,7 @@ class LancamentoListView(LancamentoListBaseView):
                     else:
                         raise ValueError(
                             'Entrada/Saida para o lancamento escolhido nao existe.')
-                    if(instance.movimento_caixa):
+                    if (instance.movimento_caixa):
                         self.remover_valor_movimento_caixa(
                             instance, instance.movimento_caixa, instance.valor_liquido)
                         self.verificar_remocao_movimento(
@@ -452,7 +453,7 @@ class ContaPagarListView(LancamentoListBaseView):
         context = super(ContaPagarListView, self).get_context_data(**kwargs)
         context['title_complete'] = 'CONTAS A PAGAR'
         context['add_url'] = reverse_lazy('financeiro:addcontapagarview')
-        
+
         context.update(LancamanetoBoardInfo().get_context_data())
         return context
 
@@ -471,7 +472,7 @@ class ContaPagarAtrasadasListView(LancamentoListBaseView):
                         self).get_context_data(**kwargs)
         context['title_complete'] = 'CONTAS A PAGAR ATRASADAS'
         context['add_url'] = reverse_lazy('financeiro:addcontapagarview')
-        
+
         context.update(LancamanetoBoardInfo().get_context_data())
         return context
 
@@ -488,7 +489,7 @@ class ContaPagarHojeListView(ContaPagarAtrasadasListView):
         context['title_complete'] = 'CONTAS A PAGAR DO DIA ' + \
             datetime.now().date().strftime('%d/%m/%Y')
         context['add_url'] = reverse_lazy('financeiro:addcontapagarview')
-        
+
         context.update(LancamanetoBoardInfo().get_context_data())
         return context
 
@@ -506,7 +507,7 @@ class ContaReceberListView(LancamentoListBaseView):
         context = super(ContaReceberListView, self).get_context_data(**kwargs)
         context['title_complete'] = 'CONTAS A RECEBER'
         context['add_url'] = reverse_lazy('financeiro:addcontareceberview')
-        
+
         context.update(LancamanetoBoardInfo().get_context_data())
         return context
 
@@ -525,7 +526,7 @@ class ContaReceberAtrasadasListView(LancamentoListBaseView):
                         self).get_context_data(**kwargs)
         context['title_complete'] = 'CONTAS A RECEBER ATRASADAS'
         context['add_url'] = reverse_lazy('financeiro:addcontareceberview')
-        
+
         context.update(LancamanetoBoardInfo().get_context_data())
         return context
 
@@ -542,7 +543,7 @@ class ContaReceberHojeListView(ContaReceberAtrasadasListView):
         context['title_complete'] = 'CONTAS A RECEBER DO DIA ' + \
             datetime.now().date().strftime('%d/%m/%Y')
         context['add_url'] = reverse_lazy('financeiro:addcontareceberview')
-        
+
         context.update(LancamanetoBoardInfo().get_context_data())
         return context
 
@@ -560,13 +561,12 @@ class EntradaListView(LancamentoListBaseView):
         context = super(EntradaListView, self).get_context_data(**kwargs)
         context['title_complete'] = 'RECEBIMENTOS'
         context['add_url'] = reverse_lazy('financeiro:addrecebimentoview')
-        
+
         context.update(LancamanetoBoardInfo().get_context_data())
         return context
 
     def get_queryset(self):
         return super(EntradaListView, self).get_queryset(object=Entrada, status=['0', ])
-
 
 
 class SaidaListView(LancamentoListBaseView):
@@ -579,7 +579,7 @@ class SaidaListView(LancamentoListBaseView):
         context = super(SaidaListView, self).get_context_data(**kwargs)
         context['title_complete'] = 'PAGAMENTOS'
         context['add_url'] = reverse_lazy('financeiro:addpagamentoview')
-        
+
         context.update(LancamanetoBoardInfo().get_context_data())
         return context
 
@@ -804,7 +804,7 @@ class FaturarPedidoCompraView(CustomView, MovimentoCaixaMixin):
         return redirect(reverse_lazy('compras:listapedidocompraview'))
 
 
-class LancamanetoBoardInfo:    
+class LancamanetoBoardInfo:
     def get_context_data(self):
         context = {}
 
@@ -814,16 +814,16 @@ class LancamanetoBoardInfo:
 
     def get_valores_saldo(self):
         values = {}
-        
+
         ultimo_movimento = MovimentoCaixa.objects.latest("data_movimento")
         if ultimo_movimento:
             values['total'] = Lancamento.static_format_valor_liquido(ultimo_movimento.saldo_final)
-        
+
         lancamentos = Lancamento.objects.filter(data_vencimento__gte=datetime.now().strftime("%Y-%m-01"))
         if lancamentos:
             from decimal import Decimal
             entradas = [x.lancamento_ptr_id for x in Entrada.objects.all()]
-            
+
             receita = Decimal(0)
             despesas = Decimal(0)
             for conta in lancamentos:
@@ -835,26 +835,26 @@ class LancamanetoBoardInfo:
             values['receita'] = Lancamento.static_format_valor_liquido(receita)
             values['despesas'] = Lancamento.static_format_valor_liquido(despesas)
             values['balanco'] = Lancamento.static_format_valor_liquido(receita - despesas)
-            
+
         return values
-    
+
     def get_lancamentos_table(self):
         from calendar import monthrange
         info = {
             "pagar": {
-                "pendente":[],
+                "pendente": [],
                 "proximo": []
-                },
+            },
 
             "receber": {
-                "pendente":[],
+                "pendente": [],
                 "proximo": []
             }
         }
-        
+
         entradas = [x.lancamento_ptr_id for x in Entrada.objects.all()]
         filter_limit = datetime.now().strftime("%Y-%m-" + str(monthrange(datetime.now().year, datetime.now().month)[-1]))
-        
+
         pe_lancamentos = Lancamento.objects.filter(data_vencimento__lte=filter_limit)
         for conta in pe_lancamentos:
             if not conta.data_pagamento:
@@ -862,8 +862,7 @@ class LancamanetoBoardInfo:
                     info["receber"]["pendente"].append(self.format_lancamento(conta))
                 else:
                     info["pagar"]["pendente"].append(self.format_lancamento(conta))
-            
-        
+
         pr_lancamentos = Lancamento.objects.filter(data_vencimento__gt=filter_limit)
         for conta in pr_lancamentos:
             if not conta.data_pagamento:
@@ -871,69 +870,149 @@ class LancamanetoBoardInfo:
                     info["receber"]["proximo"].append(self.format_lancamento(conta))
                 else:
                     info["pagar"]["proximo"].append(self.format_lancamento(conta))
-            
-        
+
         return info
-    
+
     def format_lancamento(self, obj: Lancamento):
         info = {
             "descricao": obj.descricao,
             "vencimento": obj.data_vencimento.strftime("%d/%m/%Y"),
             "valor": obj.format_valor_liquido()
         }
-    
+
         return info
-    
-class LancamentoGraphInfo(CustomCreateView):
-    
-    def get(self, request, *args, **kwargs):
-        response = { "code": 500 }
-        
-        try:
-            table = "tab-relatorio-rece-desp"
-            filter = datetime.now().strftime("%Y-%m-%d")
-            filter = "2023-08-15"
-            response.update(self.handler(table, filter))
-                    
-        except Exception as e:
-            response["code"] =  599
-            response["error"] =  str(e)
-        
-        return JsonResponse(response)
-    
+
+
+class InfoRelatorio(View):
+    now = datetime.now()
+
+    def monthstart(self, date=None):
+        c_date = self.now if(not date) else date if (isinstance(date, datetime)) else datetime(*date.timetuple()[:-4])
+        return (c_date - timedelta(days=c_date.weekday() + 1)).date() if c_date.weekday() < 6 else c_date.date()
+
+    def summonthday(self, nrange):
+        days = 0
+        cur_t = self.now
+
+        from calendar import monthrange
+        for _ in range(nrange):
+            cur_t = cur_t - timedelta(days=monthrange(cur_t.year, cur_t.month)[-1])
+            days += monthrange(cur_t.year, cur_t.month)[-1]
+
+        return days
+
+    def set_filter_options(self):
+        return {
+            0: ((self.monthstart(), self.now.date()), 7),  # Hoje
+            1: (self.monthstart(), 7),  # Esta semana
+            2: (datetime(self.now.year, self.now.month, 1).date(), 7),  # Este mês
+            3: ((datetime(self.now.year, self.now.month, 1) - timedelta(days=self.summonthday(3))).date(), 30),  # Ultimos 3 meses
+            4: ((datetime(self.now.year, self.now.month, 1) - timedelta(days=self.summonthday(6))).date(), 30),  # Ultimos 6 meses
+            5: ((datetime(self.now.year, self.now.month, 1) - timedelta(days=self.summonthday(12))).date(), 30),  # Ultimos 12 meses
+            6: (datetime(self.now.year, 1, 1).date(), 30),  # Este Ano
+        }
+
     def post(self, request, *args, **kwargs):
-        response = { "code": 500 }
-        
+        response = {"status": 500}
+        filter_options = self.set_filter_options()
+
         try:
-            table = request.POST.get("table")
             filter = request.POST.get("filter")
-            
-            if table and filter:
-                response.update(self.handler(table, filter))
-                    
+
+            if filter:
+                response.update(self.handler(filter_options[int(filter)]))
+
         except Exception as e:
-            response["code"] =  599
-            response["error"] =  str(e)
-        
+            response["code"] = 599
+            response["status"] = str(e)
+
         return JsonResponse(response)
-    
-    def handler(self, table, filter):
+
+    def handler(self, filter):
         data = {}
-        
-        if table == "tab-relatorio-rece-desp":
-            if isinstance(filter, (list, tuple)):
-                data["result"] = self.serialize_obj(MovimentoCaixa.objects.filter(data_movimento__gte=filter[0], data_movimento__lte=filter[1]))
-                
-            else:
-                data["result"] = self.serialize_obj(MovimentoCaixa.objects.filter(data_movimento=filter))
-                
-                data["code"] = 200
-                    
+
+        data["result"] = self.serialize_obj(filter[0], filter[1])
+        data["status"] = 200
+
         return data
-    
-    
-    def serialize_obj(self, mov):
-        data = {}
+
+    def serialize_obj(self, date, step):
+        if(isinstance(date, (list, tuple))):
+            inicio = date[0]
+            fim = date[1]
+            
+            mov = MovimentoCaixa.objects.filter(data_movimento__gte=date[0], data_movimento__lte=date[1])
+        else:
+            inicio = date
+            fim = datetime.now()
+            
+            mov = MovimentoCaixa.objects.filter(data_movimento__gte=date)
+
+        data = {
+            "entradas": [],
+            "saidas": [],
+            "categorias": {
+                "receitas": [],
+                "despesas": [],
+            },
+        }
+                
+        def split_date():
+            ranges = []
+            cur_date = self.monthstart(inicio)
+            fim_date = self.monthstart(fim)
+
+            while cur_date <= fim_date:
+                ranges.append(
+                    (cur_date, cur_date + timedelta(days=step - 1))
+                )
+                cur_date = cur_date + timedelta(days=step)
+
+            return ranges
+
+        def set_empty_value(i, f):
+            item = {}
+            item["data"] = (str(i), str(f))
+            item["valor"] = Decimal("0")
+            
+            return item
+            
+        def set_values(i, f, _class, cur_mov):
+            item = {}
+            item["data"] = (str(i), str(f))
+            item["valor"] = abs(sum([x.entradas if(_class == Entrada) else x.saidas for x in cur_mov]))
+            
+            item["saldo_final"] = cur_mov.latest("data_movimento").saldo_final
+            
+            return item
         
-        data["deu certo"] = True
+        def set_categoria(obj):
+            item = {}
+            
+            item["titulo"] = obj.descricao
+            item["valor"] = abs(obj.valor_total)
+            
+            return item
+
+        for i, f in split_date():
+            cur_mov = mov.filter(data_movimento__gte=i, data_movimento__lte=f)
+            
+            if(cur_mov):
+                data['entradas'].append(set_values(i, f, Entrada, cur_mov))
+                data['saidas'].append(set_values(i, f, Saida, cur_mov))
+            
+                for receita in Saida.objects.filter(movimento_caixa__in=cur_mov):
+                    data['categorias']["receitas"].append(
+                        set_categoria(receita)
+                    )
+                    
+                for despesas in Entrada.objects.filter(movimento_caixa__in=cur_mov):
+                    data['categorias']["despesas"].append(
+                        set_categoria(despesas)
+                    )
+            else:
+                data['entradas'].append(set_empty_value(i, f))
+                data['saidas'].append(set_empty_value(i, f))
+                
+
         return data
