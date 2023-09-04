@@ -24,7 +24,8 @@
                 <span>ADICIONAR</span>
               </a>
 
-              <a href="{{add_mult_url}}" class="btn btn-success add-button" style="margin-top: 10px;">
+              <a href="{{add_mult_url}}" class="btn btn-success add-button"
+                style="margin-top: 10px; width: 200px!important;">
                 <i class="material-icons">&#xE148;</i>
                 <span> ADICIONAR GRUPO </span>
               </a>
@@ -37,7 +38,7 @@
 
             <div class="table-responsive">
 
-              <table id="lista-database" class="table table-bordered table-striped lista-table">
+              <table id="lista-database" class="table">
                 <thead>
                   <tr>
                     <th>#ID</th>
@@ -45,26 +46,37 @@
                     <th>Cliente</th>
                     <th>Data de entrega</th>
                     <th>Total</th>
-                    <th>Remover</th>
+                    <th>Ações</th>
                   </tr>
                 </thead>
 
                 <tbody>
                   {% if all_pedidos%}
+
                   {% for pedido in all_pedidos %}
-                  <tr class="clickable-row" data-href="{% url 'vendas:editarpedidovendaview' pedido.id %}">
+                  <tr>
                     <td>{{pedido.id}}</td>
                     <td><b>{{pedido.get_status_display}}</b></td>
                     <td>{{pedido.cliente|default_if_none:""}}</td>
                     <td>{{pedido.format_data_entrega|default_if_none:""}}</td>
                     <td>{{pedido.format_valor_total}}</td>
-                    <td class="lista-remove">
+                    <td class="lista-remove" style="justify-content: center!important;">
+
+                      <a href="{% url 'vendas:editarpedidovendaview' pedido.id %}" class="btn btn-editar">
+                        <i class="fa fa-pencil"></i>
+                      </a>
+
                       <input type="checkbox" name="{{pedido.id}}" id="remover-entrada-{{pedido.id}}" />
-                      <label class="remove-entry-label" for="remover-entrada-{{pedido.id}}"></label>
+                      <label class="remove-entry-label btn btn-excluir" for="remover-entrada-{{pedido.id}}">
+                        <i class="fa fa-trash"></i>
+                      </label>
+
                     </td>
                   </tr>
                   {% endfor %}
+
                   {%else%}
+
                   {%endif%}
                 </tbody>
               </table>

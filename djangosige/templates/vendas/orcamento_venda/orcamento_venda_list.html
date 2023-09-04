@@ -35,7 +35,7 @@
 
                 <thead>
                   <tr>
-                    <th>#ID</th>                   
+                    <th>#ID</th>
                     <th>Status</th>
                     <th>Cliente</th>
                     <th>Data de vencimento</th>
@@ -51,82 +51,81 @@
 
                   {% if all_orcamentos%}
 
-                    {% for orcamento in all_orcamentos %}
+                  {% for orcamento in all_orcamentos %}
 
-                      <tr>
+                  <tr>
 
-                        <td>
-                          {{orcamento.id}}
-                        </td>
+                    <td>
+                      {{orcamento.id}}
+                    </td>
 
-                        <td>
-                          <b>{{orcamento.get_status_display}}</b>
-                        </td>
+                    <td>
+                      <b>{{orcamento.get_status_display}}</b>
+                    </td>
 
-                        <td>
-                          {{orcamento.cliente|default_if_none:""}}
-                        </td>
+                    <td>
+                      {{orcamento.cliente|default_if_none:""}}
+                    </td>
 
-                        <td>
-                          {{orcamento.format_data_vencimento|default_if_none:""}}
-                        </td>
+                    <td>
+                      {{orcamento.format_data_vencimento|default_if_none:""}}
+                    </td>
 
-                        <td>
-                          {{orcamento.format_valor_total}}
-                        </td>
+                    <td>
+                      {{orcamento.format_valor_total}}
+                    </td>
 
-                        {% if orcamento.status == '0' %}
+                    {% if orcamento.status == '0' %}
 
-                          <td class="green_td">
-                            <a href="{% url 'vendas:gerarpedidovenda' orcamento.id %}" class="prevent-click-row">
-                              <i class="material-icons icon" style="color: green;">&#xE86C;</i>
-                            </a>
-                          </td>
+                    <td class="green_td">
+                      <a href="{% url 'vendas:gerarpedidovenda' orcamento.id %}" class="prevent-click-row">
+                        <i class="material-icons icon" style="color: green;">&#xE86C;</i>
+                      </a>
+                    </td>
 
-                          <td class="red_td">
-                            <a href="{% url 'vendas:cancelarorcamentovenda' orcamento.id %}" class="prevent-click-row">
-                              <i class="material-icons icon" style="color: red">&#xE033;</i>
-                            </a>
-                          </td>
+                    <td class="red_td">
+                      <a href="{% url 'vendas:cancelarorcamentovenda' orcamento.id %}" class="prevent-click-row">
+                        <i class="material-icons icon" style="color: red">&#xE033;</i>
+                      </a>
+                    </td>
 
 
 
-                        {% else %}
+                    {% else %}
 
-                          <td>
+                    <td>
 
-                          </td>
+                    </td>
 
-                          <td>
+                    <td>
 
-                          </td>
+                    </td>
 
-                        {% endif %}
+                    {% endif %}
 
-                        <td class="lista-remove">
+                    <td class="lista-remove">
 
-                          <!-- editar fornecedor -->
-                          <a href="{% url 'vendas:editarorcamentovendaview' orcamento.id %}" class="btn btn-editar">
-                            <i class="fa fa-pencil"></i>
-                          </a>
+                      <!-- editar fornecedor -->
+                      <a href="{% url 'vendas:editarorcamentovendaview' orcamento.id %}" class="btn btn-editar">
+                        <i class="fa fa-pencil"></i>
+                      </a>
 
-                          <!-- Excluir fornecedor -->
-                          <a href="" class="btn btn-excluir">
-                            <i class="fa fa-trash"></i>
-                          </a>
+                      <!-- Excluir fornecedor -->
+                      <a href="" class="btn btn-excluir">
+                        <i class="fa fa-trash"></i>
+                      </a>
 
-                        </td>
+                    </td>
 
-                        <td>
-                          <button type="button" class="btn btn-editar" data-toggle="modal"
-                          data-target="#exampleModal">
-                          <i class="fa fa-file"></i>
-                         </button>
-                        </td>
+                    <td>
+                      <button type="button" class="btn btn-editar" data-toggle="modal" data-target="#exampleModal">
+                        <i class="fa fa-file"></i>
+                      </button>
+                    </td>
 
-                      </tr>
+                  </tr>
 
-                    {% endfor %}
+                  {% endfor %}
 
                   {%else%}
 
@@ -146,24 +145,33 @@
 
     </div>
 
-    <div class="modal fade" id="exampleModal"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="background: rgba(68, 70, 79, 0.3)">
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true" style="background: transparent!important; box-shadow: none!important;">
+
       <div class="modal-dialog" role="document">
-        <div class="modal-content" style="background: rgba(114, 137, 218, 0.3)">
-          <div class="modal-header">
-            <h5 class="modal-title titulo_filtrar" id="exampleModalLabel" >PEDIDO/ORÇAMENTO MANUAL</h5>
+
+        <div class="modal-content" style="background: white!important; box-shadow: none!important;">
+
+          <div class="modal-header" style="display: flex; align-items: center;">
+            <h5 class="modal-title titulo_filtrar" id="exampleModalLabel" style="margin-right: auto;">PEDIDO/ORÇAMENTO
+              MANUAL</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">DATAS</span>
+              <span aria-hidden="true">X</span>
             </button>
           </div>
+
           <div class="modal-body">
-            <form action="#" method="POST">{% csrf_token %}
-                <input  style="color: aliceblue;" type="file"  class="form-control" name="manual">
-                <button type="submit">salvar</button>
+            <form action="#" method="POST">
+              {% csrf_token %}
+              <input style="color: aliceblue;" type="file" class="form-control" name="manual">
+              <button type="submit" style="display: flex; margin-top: 10px; margin-inline-start: auto;">salvar</button>
             </form>
           </div>
-          
+
         </div>
+
       </div>
+
     </div>
 
   </section>

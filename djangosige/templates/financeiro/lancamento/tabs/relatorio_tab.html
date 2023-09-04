@@ -100,10 +100,10 @@
 
           <div class="canvas-list" style="margin-bottom: 40px;">
             <div class="canvas-container">
-              <canvas id="graph-categorias-receitas" ></canvas>
+              <canvas id="graph-categorias-receitas"></canvas>
             </div>
             <div class="canvas-container">
-              <canvas id="graph-categorias-despesas" ></canvas>
+              <canvas id="graph-categorias-despesas"></canvas>
             </div>
           </div>
 
@@ -191,18 +191,18 @@
       $($(this).attr("href")).addClass("active");
     });
 
-    $("#filtro").on('change ready', function(event){
+    $("#filtro").on('change ready', function (event) {
       var postData = {
-          'filter': $(this).val(),
-          'csrfmiddlewaretoken': $.Admin.cookies.getCookie('csrftoken'),
+        'filter': $(this).val(),
+        'csrfmiddlewaretoken': $.Admin.cookies.getCookie('csrftoken'),
       }
 
       $.ajax({
-          url: "{% url 'financeiro:inforelatorio' %}",
-          type: "POST",
-          data: postData,
-          dataType: "json",
-          success: relatorio_response_handler,
+        url: "{% url 'financeiro:inforelatorio' %}",
+        type: "POST",
+        data: postData,
+        dataType: "json",
+        success: relatorio_response_handler,
       });
       $('.periodo-label').text($(this).find(":selected").text());
     });
