@@ -1,7 +1,7 @@
 <div class="formset-box">
 
   {% for form in formset %}
-  <div id="{{formset.prefix}}-{{forloop.counter0}}" class="formset" style="overflow-x: scroll;">
+  <div id="{{formset.prefix}}-{{forloop.counter0}}" class="formset" style="overflow-x: scroll; margin-bottom: 20px;">
 
     <table class="table table-responsive table-bordered table-striped form-table">
 
@@ -16,17 +16,17 @@
 
             {% if field.errors %}
 
-              <label class="error error-table">
+            <label class="error error-table">
 
-                {% for error in field.errors %}
-                  {{error}}
-                {% endfor %}
+              {% for error in field.errors %}
+              {{error}}
+              {% endfor %}
 
-              </label>
+            </label>
 
             {% endif %}
-          </th>      
-          
+          </th>
+
           {% endfor %}
 
           <th class="center-text" style="vertical-align: inherit;">Remover</th>
@@ -35,19 +35,19 @@
       </thead>
 
       <tbody>
-       <tr>
+        <tr>
 
           {% for field in form.visible_fields %}
 
-            <td class="field-td" style="vertical-align: inherit;">
-              {{field}}
-            </td>
+          <td class="field-td" style="vertical-align: inherit;">
+            {{field}}
+          </td>
 
           {% endfor %}
 
           <td style="vertical-align: inherit;">
             <a class="remove-formset">
-              <i class="material-icons icon" style="color: red;">delete</i>
+              <i class="material-icons icon" style="color: red; width: 100px;">delete</i>
             </a>
           </td>
 
@@ -58,7 +58,7 @@
 
     {{ form.id }}
 
-    <div class="col-sm-12">
+    <div class="col-sm-12" style="padding-left: 0px; margin-bottom: 10px;">
       <a class="btn btn-xs add-formset" style="margin-bottom: 0px;">Adicionar novo</a>
     </div>
   </div>

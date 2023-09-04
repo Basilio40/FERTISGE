@@ -3840,3 +3840,11 @@ ul.chat-available-user li a:hover {
 .li-tab-relatorio a {
     color: #000;
 }
+
+.field-td>* {
+    width: 150px !important;
+}
+
+.field-td [type="checkbox"] {
+    position: inherit;
+}
