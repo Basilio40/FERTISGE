@@ -3,46 +3,36 @@
 {%block content%}
 <section id="main-content">
   <section class="wrapper">
-    <h3>{{title_complete|title}}</h3>
-    <div class="row">
-      <div class="col-md-12">
 
-    {% include 'base/title_header.html' %}
+    <!--Header-->
+    <div class="body">
 
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-      <div class="row">
-        <div class="card">
+      <h2>
+        <a href="{{return_url}}">
+          <i class="material-icons">&#xE5C4;</i>
+        </a>
+        {{title_complete}}
+      </h2>
 
-          <!--Header-->
-          <div class="body">
-
-            <h2>
-              <a href="{{return_url}}"><i class="material-icons">&#xE5C4;</i></a>{{title_complete}}
-            </h2>
-            <div><small>Campos marcados com <strong style="color:red;">*</strong> são obrigatórios.</small></div>
-
-          </div>
-          <!--# Header-->
-
-          <form role="form" action="" method="post">
-            {% csrf_token %}
-            
-            {% include 'estoque/movimento/movimento_estoque_form.html' %}
-
-          </form>
-
-        </div>
-      </div>
     </div>
+    <!--# Header-->
 
-  </div>
+    <form role="form" action="" method="post">
+
+      {% csrf_token %}
+
+      {% include 'estoque/movimento/movimento_estoque_form.html' %}
+
+    </form>
+
+  </section>
 </section>
 
 
 {%endblock%}
 
 {% block js %}
-    
-  {% include 'estoque/movimento/movimento_estoque_jsblock.html' %}
-  
+
+{% include 'estoque/movimento/movimento_estoque_jsblock.html' %}
+
 {% endblock %}

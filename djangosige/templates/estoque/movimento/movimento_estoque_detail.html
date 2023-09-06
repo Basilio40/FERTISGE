@@ -1,21 +1,24 @@
 {%extends 'base/base.html'%}
 
-{%block title%}{{title_complete|title}}{%endblock%}
 {%block content%}
-<section class="content">
-  <div class="container-fluid">
+<section id="main-content">
 
-    {% include 'base/title_header.html' %}
+  <section class="wrapper">
 
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-      <div class="row">
-        <div class="card">
+    <div class="row">
+
+      <div class="col-md-12">
+
+        <div class="content-panel" style="background-color: transparent!important;">
 
           <!--Header-->
-          <div class="header">
+          <div class="body">
 
             <h2>
-              <a href="{{return_url}}"><i class="material-icons">&#xE5C4;</i></a>{{title_complete}}
+              <a href="{{return_url}}">
+                <i class="material-icons">&#xE5C4;</i>
+              </a>
+              {{title_complete}}
             </h2>
 
           </div>
@@ -23,16 +26,20 @@
 
           <form id="compra_form_edit" role="form" action="" method="post">
             {% csrf_token %}
-            
+
             <!-- Body-->
             <div class="body">
-              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <ul class="nav nav-tabs" role="tablist">
-                  <li role="presentation" class="active"><a href="#tab_dados_gerais" data-toggle="tab">DADOS GERAIS</a></li>
-                  <li role="presentation"><a href="#tab_itens" data-toggle="tab">ITENS</a></li>
-                </ul>
 
-                <div class="tab-content">
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+                <div id="tabs" class="tab-content">
+
+                  <ul class="nav nav-tabs" role="tablist" style="margin-bottom: 20px;">
+                    <li role="presentation" class="active">
+                      <a href="#tab_dados_gerais" data-toggle="tab">DADOS GERAIS</a>
+                    </li>
+                    <li role="presentation"><a href="#tab_itens" data-toggle="tab">ITENS</a></li>
+                  </ul>
 
                   <!-- Tab DADOS GERAIS -->
                   <div role="tabpanel" class="tab-pane active" id="tab_dados_gerais">
@@ -40,7 +47,15 @@
                     <div class="col-sm-6">
                       <div class="form-group">
                         <div class="form-line">
-                          <label>{% if object.get_tipo == 'Entrada' %}Data da entrada{% elif object.get_tipo == 'Saída' %}Data da saída{% elif object.get_tipo == 'Transferência'  %}Data da transferência{% endif %}</label>
+                          <label>
+                            {% if object.get_tipo == 'Entrada' %}
+                            Data da entrada
+                            {% elif object.get_tipo == 'Saída'%}
+                            Data da saída
+                            {% elif object.get_tipo == 'Transferência' %}
+                            Data da transferência
+                            {% endif%}
+                          </label>
                           <span class="form-control">{{object.data_movimento}}</span>
                         </div>
                       </div>
@@ -65,7 +80,13 @@
                           <div class="form-line">
                             <span class="form-control">{{object.pedido_compra}}</span>
                           </div>
-                          <a class="input-group-addon newwindow" title="Editar {{object.pedido_compra}}" href="{% url 'compras:editarpedidocompraview' object.pedido_compra.id %}"><i class="material-icons add-new-icon"  style="color: #248fbf;" title="Editar {{object.pedido_compra}}">&#xE8B6;</i></a>
+                          <a class="input-group-addon newwindow" title="Editar {{object.pedido_compra}}"
+                            href="{% url 'compras:editarpedidocompraview' object.pedido_compra.id %}">
+                            <i class="material-icons add-new-icon" style="color: #248fbf;"
+                              title="Editar {{object.pedido_compra}}">
+                              &#xE8B6;
+                            </i>
+                          </a>
                         </div>
                       </div>
                     </div>
@@ -79,7 +100,13 @@
                           <div class="form-line">
                             <span class="form-control">{{object.pedido_venda}}</span>
                           </div>
-                          <a class="input-group-addon newwindow" title="Editar {{object.pedido_venda}}" href="{% url 'vendas:editarpedidovendaview' object.pedido_venda.id %}"><i class="material-icons add-new-icon"  style="color: #248fbf;" title="Editar {{object.pedido_venda}}">&#xE8B6;</i></a>
+                          <a class="input-group-addon newwindow" title="Editar {{object.pedido_venda}}"
+                            href="{% url 'vendas:editarpedidovendaview' object.pedido_venda.id %}">
+                            <i class="material-icons add-new-icon" style="color: #248fbf;"
+                              title="Editar {{object.pedido_venda}}">
+                              &#xE8B6;
+                            </i>
+                          </a>
                         </div>
                       </div>
                     </div>
@@ -93,7 +120,13 @@
                           <div class="form-line">
                             <span class="form-control">{{object.local_orig}}</span>
                           </div>
-                          <a class="input-group-addon popup" title="Editar {{object.local_orig}}" href="{% url 'estoque:editarlocalview' object.local_orig.id %}"><i class="material-icons add-new-icon" style="color: #248fbf;" title="Editar {{object.local_orig}}">&#xE8B6;</i></a>
+                          <a class="input-group-addon popup" title="Editar {{object.local_orig}}"
+                            href="{% url 'estoque:editarlocalview' object.local_orig.id %}">
+                            <i class="material-icons add-new-icon" style="color: #248fbf;"
+                              title="Editar {{object.local_orig}}">
+                              &#xE8B6;
+                            </i>
+                          </a>
                         </div>
                       </div>
                     </div>
@@ -107,7 +140,13 @@
                           <div class="form-line">
                             <span class="form-control">{{object.local_dest}}</span>
                           </div>
-                          <a class="input-group-addon popup" title="Editar {{object.local_dest}}" href="{% url 'estoque:editarlocalview' object.local_dest.id %}"><i class="material-icons add-new-icon" style="color: #248fbf;" title="Editar {{object.local_dest}}">&#xE8B6;</i></a>
+                          <a class="input-group-addon popup" title="Editar {{object.local_dest}}"
+                            href="{% url 'estoque:editarlocalview' object.local_dest.id %}">
+                            <i class="material-icons add-new-icon" style="color: #248fbf;"
+                              title="Editar {{object.local_dest}}">
+                              &#xE8B6;
+                            </i>
+                          </a>
                         </div>
                       </div>
                     </div>
@@ -121,7 +160,13 @@
                           <div class="form-line">
                             <span class="form-control">{{object.fornecedor}}</span>
                           </div>
-                          <a class="input-group-addon newwindow" title="Editar {{object.fornecedor}}" href="{% url 'cadastro:editarfornecedorview' object.fornecedor.id %}"><i class="material-icons add-new-icon" style="color: #248fbf;" title="Editar {{object.fornecedor}}">&#xE8B6;</i></a>
+                          <a class="input-group-addon newwindow" title="Editar {{object.fornecedor}}"
+                            href="{% url 'cadastro:editarfornecedorview' object.fornecedor.id %}">
+                            <i class="material-icons add-new-icon" style="color: #248fbf;"
+                              title="Editar {{object.fornecedor}}">
+                              &#xE8B6;
+                            </i>
+                          </a>
                         </div>
                       </div>
                     </div>
@@ -135,7 +180,13 @@
                           <div class="form-line">
                             <span class="form-control">{{object.local_estoque_orig}}</span>
                           </div>
-                          <a class="input-group-addon popup" title="Editar {{object.local_estoque_orig}}" href="{% url 'estoque:editarlocalview' object.local_estoque_orig.id %}"><i class="material-icons add-new-icon" style="color: #248fbf;" title="Editar {{object.local_estoque_orig}}">&#xE8B6;</i></a>
+                          <a class="input-group-addon popup" title="Editar {{object.local_estoque_orig}}"
+                            href="{% url 'estoque:editarlocalview' object.local_estoque_orig.id %}">
+                            <i class="material-icons add-new-icon" style="color: #248fbf;"
+                              title="Editar {{object.local_estoque_orig}}">
+                              &#xE8B6;
+                            </i>
+                          </a>
                         </div>
                       </div>
                     </div>
@@ -149,18 +200,25 @@
                           <div class="form-line">
                             <span class="form-control">{{object.local_estoque_dest}}</span>
                           </div>
-                          <a class="input-group-addon popup" title="Editar {{object.local_estoque_dest}}" href="{% url 'estoque:editarlocalview' object.local_estoque_dest.id %}"><i class="material-icons add-new-icon" style="color: #248fbf;" title="Editar {{object.local_estoque_dest}}">&#xE8B6;</i></a>
+                          <a class="input-group-addon popup" title="Editar {{object.local_estoque_dest}}"
+                            href="{% url 'estoque:editarlocalview' object.local_estoque_dest.id %}">
+                            <i class="material-icons add-new-icon" style="color: #248fbf;"
+                              title="Editar {{object.local_estoque_dest}}">
+                              &#xE8B6;
+                            </i>
+                          </a>
                         </div>
                       </div>
                     </div>
                     {% endif %}
 
-
                     <div class="col-sm-6">
                       <div class="form-group">
                         <div class="form-line">
                           <label>Observações</label>
-                          <textarea class="form-control" style="background-color:#e1e4e8;" readonly="True">{% if object.observacoes %}{{object.observacoes}}{% endif %}</textarea>
+                          <textarea class="form-control" style="background-color:#e1e4e8;" readonly="True">
+                              {% if object.observacoes %}{{object.observacoes}}{% endif %}
+                            </textarea>
                         </div>
                       </div>
                     </div>
@@ -191,10 +249,12 @@
                     </div>
 
 
-                    <div class="col-sm-12 lista" style="padding:0px;">
+                    <div class="col-sm-12 lista" style="padding:0px; width: 100%!important;">
 
-                      <h4 style="border-bottom: 1px solid #afabab;">Itens movimentados</h4>
-                      <table class="table table-bordered lista-table">
+                      <h4 style="border-bottom: 1px solid #afabab; margin-bottom: 10px; margin-left: 0px!important;">
+                        Itens movimentados</h4>
+
+                      <table class="table" style="background-color: white;">
                         <thead>
                           <tr>
                             <th>Produto</th>
@@ -225,18 +285,41 @@
 
 
               </div>
+
             </div>
             <!--#Body-->
 
           </form>
 
         </div>
+
       </div>
+
     </div>
 
-  </div>
+  </section>
+
 </section>
 
+<script>
+  $(function () {
+    // Ao carregar a página, mostre o conteúdo da primeira guia e adicione a classe "active" a ela
+    $("#tabs > div:first-child").addClass("active");
+
+    // Manipule o clique nas guias
+    $("#tabs ul li a").click(function (event) {
+      event.preventDefault();
+
+      // Remova a classe "active" de todas as guias e oculte todos os conteúdos das guias
+      $("#tabs ul li a").removeClass("active");
+      $("#tabs > div").removeClass("active");
+
+      // Adicione a classe "active" à guia clicada e mostre o conteúdo correspondente
+      $(this).addClass("active");
+      $($(this).attr("href")).addClass("active");
+    });
+  });
+</script>
 
 {%endblock%}
 
