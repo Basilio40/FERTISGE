@@ -360,6 +360,29 @@
         </div>
       </div>
 
+      {% if form.comissao %}
+      <div class="col-sm-6">
+        <div class="form-group">
+          <div class="form-line">
+            <label {% for error in form.impostos.errors %}title="{{error}}" {% endfor %}>{{form.comissao.label}}</label>
+            {% if form.comissao.errors %}<label class="error"></label>{% endif %}
+            {{form.comissao}}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="form-group">
+          <div class="form-line">
+            <div hidden>teste</div>
+            <label class="">Valor total da Comissão (R$)</label>
+            <input disabled type="text" name="comissao_total" value="{{ form.comissao.value|default:'0,00' }}"
+              class="form-control decimal-mask" id="id_comissao_total">
+          </div>
+        </div>
+      </div>
+      {% endif %}
+
     </div>
 
     <div class="col-sm-12" style="padding:0px; width: 100%;">

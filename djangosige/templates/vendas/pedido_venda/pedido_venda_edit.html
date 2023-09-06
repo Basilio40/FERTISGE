@@ -55,8 +55,16 @@
 
               {% csrf_token %}
 
-              {% include 'vendas/venda_form.html' %}
+              <div class="body col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-bottom: 15px;">
 
+                {% include 'vendas/venda_form.html' %}
+                
+              </div>
+  
+              <button class="btn btn-success foot-btn d-flex align-items-center" type="submit"  style="margin-left: 15px;">
+                <i class="material-icons">&#xE148;</i>
+                <span> SALVAR</span>
+              </button>
             </form>
 
           </div>

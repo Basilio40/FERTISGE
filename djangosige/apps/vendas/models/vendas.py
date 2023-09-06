@@ -2,7 +2,7 @@
 
 from django.db import models
 from django.template.defaultfilters import date
-from django.core.validators import MinValueValidator
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.urls import reverse_lazy
 
 from decimal import Decimal
@@ -438,12 +438,16 @@ class PedidoVenda(Venda):
     orcamento = models.ForeignKey(
         'vendas.OrcamentoVenda', related_name="orcamento_pedido", on_delete=models.SET_NULL, null=True, blank=True)
     
+    
     group = models.ForeignKey(
         'vendas.GroupPedidoVenda', related_name="group_pedido", on_delete=models.CASCADE, null=True, blank=True)
     
     data_entrega = models.DateField(null=True, blank=True)
     status = models.CharField(
         max_length=1, choices=STATUS_PEDIDO_VENDA_ESCOLHAS, default='0')
+
+    comissao = models.DecimalField(max_digits=5, decimal_places=2, default=Decimal('0.00'), validators=[
+                                   MinValueValidator(Decimal('0.00')), MaxValueValidator(Decimal('100.00'))])
 
     class Meta:
         verbose_name = "Pedido de Venda"

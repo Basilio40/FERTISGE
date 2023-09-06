@@ -1070,7 +1070,7 @@ $.Admin.vendaForm = {
         });
 
         //Atualiza o valor total da venda ao modificar o total dos itens, ou qualquer campo total(tipo_desconto, desconto, frete, etc.)
-        $(document).on('change keyup paste', 'input[id$=-subtotal],#id_tipo_desconto,#id_desconto,#id_frete,#id_despesas,#id_seguro', function(){
+        $(document).on('change keyup paste', 'input[id$=-subtotal],#id_tipo_desconto,#id_desconto,#id_frete,#id_despesas,#id_seguro,#id_comissao', function(){
             _this.setTotalFields();
         });
 
@@ -1605,6 +1605,7 @@ $.Admin.vendaForm = {
     setTotalFields: function(){
         var tipo_desconto = $('#id_tipo_desconto');
         var desconto = $('#id_desconto');
+        var comissao = $('#id_comissao');
         var vtotal = 0;
         var vtotal_sem_imposto = 0;
         var adicionais = 0;
@@ -1644,6 +1645,11 @@ $.Admin.vendaForm = {
             $('#id_total_sem_imposto').val(vtotal_sem_imposto.toString().replace(/\./g,','));
             $('#id_valor_total').val(vtotal.replace(/\./g,','));
             $('#id_valor_total_display').text(vtotal.replace(/\./g,','));
+
+            if(comissao){
+                $('#id_comissao_total').val(
+                    parseFloat(parseFloat(vtotal) * (parseFloat(comissao.val().replace(/\./g,'').replace(',','.')) / 100)).toFixed(2).replace(/\./g,','));
+                }
         }
     },
 

@@ -102,7 +102,8 @@ class PedidoVendaForm(VendaForm):
     class Meta(VendaForm.Meta):
         model = PedidoVenda
         fields = VendaForm.Meta.fields + \
-            ('data_entrega', 'status', 'orcamento',)
+            ('data_entrega', 'status', 'orcamento', 'comissao',)
+
         widgets = VendaForm.Meta.widgets
         widgets['data_entrega'] = forms.DateInput(
             attrs={'class': 'form-control datepicker'})
@@ -110,10 +111,14 @@ class PedidoVendaForm(VendaForm):
             attrs={'class': 'form-control', 'disabled': True})
         widgets['orcamento'] = forms.Select(
             attrs={'class': 'form-control', 'disabled': True})
+        widgets['comissao'] = forms.TextInput(
+            attrs={'class': 'form-control decimal-mask', 'min': 0, 'max': 100})
+        
         labels = VendaForm.Meta.labels
         labels['data_entrega'] = ('Data de Entrega')
         labels['status'] = ('Status')
         labels['orcamento'] = ('Orçamento')
+        labels['comissao'] = ('Comissão (%)')
 
 
 class GroupPedidoVendaForm(forms.ModelForm):
