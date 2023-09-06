@@ -722,6 +722,35 @@ class FaturarPedidoVendaView(CustomView, MovimentoCaixaMixin):
             if self.atualizar_estoque(request, pedido):
                 return redirect(request.META['HTTP_REFERER'])
 
+        if(pedido.comissao):
+            saida = Saida()
+            saida.cliente = pedido.cliente
+            saida.valor_total
+            
+            saida.status = '1'
+            saida.data_vencimento = pedido.data_emissao + timedelta(days=30)
+            saida.descricao = 'Comissão referente ao pedido de venda nº{}'.format(
+                str(pedido.id))
+            
+            saida.valor_total = pedido.valor_total * pedido.comissao
+            saida.valor_liquido = pedido.valor_total * pedido.comissao
+            saida.save()
+            mvmt = None
+            created = None
+            
+            mvmt, created = MovimentoCaixa.objects.get_or_create(
+                    data_movimento=saida.data_vencimento)
+
+            if mvmt:
+                if created:
+                    self.atualizar_saldos(mvmt)
+
+                self.adicionar_novo_movimento_caixa(
+                    lancamento=saida, novo_movimento=mvmt)
+                mvmt.save()
+                saida.movimento_caixa = mvmt
+                saida.save()
+
         for pagamento in pagamentos:
             entrada = Entrada()
             entrada.cliente = pedido.cliente
@@ -813,6 +842,7 @@ class LancamanetoBoardInfo:
         return context
 
     def get_valores_saldo(self):
+        from decimal import Decimal
         values = {}
 
         ultimo_movimento = MovimentoCaixa.objects.latest("data_movimento")
@@ -821,7 +851,6 @@ class LancamanetoBoardInfo:
 
         lancamentos = Lancamento.objects.filter(data_vencimento__gte=datetime.now().strftime("%Y-%m-01"))
         if lancamentos:
-            from decimal import Decimal
             entradas = [x.lancamento_ptr_id for x in Entrada.objects.all()]
 
             receita = Decimal(0)
@@ -835,6 +864,9 @@ class LancamanetoBoardInfo:
             values['receita'] = Lancamento.static_format_valor_liquido(receita)
             values['despesas'] = Lancamento.static_format_valor_liquido(despesas)
             values['balanco'] = Lancamento.static_format_valor_liquido(receita - despesas)
+        else:
+            values['receita'] = values['despesas'] = \
+                values['balanco'] = Lancamento.static_format_valor_liquido(Decimal(0))
 
         return values
 
@@ -903,13 +935,13 @@ class InfoRelatorio(View):
 
     def set_filter_options(self):
         return {
-            0: ((self.monthstart(), self.now.date()), 7),  # Hoje
+            0: ((self.now.date(), self.now.date() + timedelta(1)), 0),  # Hoje
             1: (self.monthstart(), 7),  # Esta semana
             2: (datetime(self.now.year, self.now.month, 1).date(), 7),  # Este mês
-            3: ((datetime(self.now.year, self.now.month, 1) - timedelta(days=self.summonthday(3))).date(), 30),  # Ultimos 3 meses
-            4: ((datetime(self.now.year, self.now.month, 1) - timedelta(days=self.summonthday(6))).date(), 30),  # Ultimos 6 meses
-            5: ((datetime(self.now.year, self.now.month, 1) - timedelta(days=self.summonthday(12))).date(), 30),  # Ultimos 12 meses
-            6: (datetime(self.now.year, 1, 1).date(), 30),  # Este Ano
+            3: ((datetime(self.now.year, self.now.month, 1) - timedelta(days=self.summonthday(3))).date(), 14),  # Ultimos 3 meses
+            4: ((datetime(self.now.year, self.now.month, 1) - timedelta(days=self.summonthday(6))).date(), 21),  # Ultimos 6 meses
+            5: ((datetime(self.now.year, self.now.month, 1) - timedelta(days=self.summonthday(12))).date(), 28),  # Ultimos 12 meses
+            6: (datetime(self.now.year, 1, 1).date(), 28),  # Este Ano
         }
 
     def post(self, request, *args, **kwargs):
@@ -918,7 +950,6 @@ class InfoRelatorio(View):
 
         try:
             filter = request.POST.get("filter")
-
             if filter:
                 response.update(self.handler(filter_options[int(filter)]))
 
@@ -940,12 +971,12 @@ class InfoRelatorio(View):
         if(isinstance(date, (list, tuple))):
             inicio = date[0]
             fim = date[1]
-            
+
             mov = MovimentoCaixa.objects.filter(data_movimento__gte=date[0], data_movimento__lte=date[1])
         else:
             inicio = date
             fim = datetime.now()
-            
+
             mov = MovimentoCaixa.objects.filter(data_movimento__gte=date)
 
         data = {
@@ -956,63 +987,65 @@ class InfoRelatorio(View):
                 "despesas": [],
             },
         }
-                
+
         def split_date():
             ranges = []
-            cur_date = self.monthstart(inicio)
-            fim_date = self.monthstart(fim)
+            
+            if(step):    
+                cur_date = self.monthstart(inicio)
+                fim_date = self.monthstart(fim)
+                while cur_date <= fim_date:
+                    ranges.append(
+                        (cur_date, cur_date + timedelta(days=step - 1))
+                    )
+                    cur_date = cur_date + timedelta(days=step)
 
-            while cur_date <= fim_date:
-                ranges.append(
-                    (cur_date, cur_date + timedelta(days=step - 1))
-                )
-                cur_date = cur_date + timedelta(days=step)
-
-            return ranges
+                return ranges
+            else:
+                return [(inicio, fim)]
 
         def set_empty_value(i, f):
             item = {}
             item["data"] = (str(i), str(f))
             item["valor"] = Decimal("0")
-            
+
             return item
-            
+
         def set_values(i, f, _class, cur_mov):
             item = {}
             item["data"] = (str(i), str(f))
             item["valor"] = abs(sum([x.entradas if(_class == Entrada) else x.saidas for x in cur_mov]))
-            
+
             item["saldo_final"] = cur_mov.latest("data_movimento").saldo_final
-            
+
             return item
-        
+
         def set_categoria(obj):
             item = {}
-            
+
             item["titulo"] = obj.descricao
             item["valor"] = abs(obj.valor_total)
-            
+
             return item
 
         for i, f in split_date():
             cur_mov = mov.filter(data_movimento__gte=i, data_movimento__lte=f)
-            
+
             if(cur_mov):
                 data['entradas'].append(set_values(i, f, Entrada, cur_mov))
                 data['saidas'].append(set_values(i, f, Saida, cur_mov))
-            
-                for receita in Saida.objects.filter(movimento_caixa__in=cur_mov):
+
+                for receita in Entrada.objects.filter(movimento_caixa__in=cur_mov):
                     data['categorias']["receitas"].append(
                         set_categoria(receita)
                     )
-                    
-                for despesas in Entrada.objects.filter(movimento_caixa__in=cur_mov):
+
+                for despesas in Saida.objects.filter(movimento_caixa__in=cur_mov):
                     data['categorias']["despesas"].append(
                         set_categoria(despesas)
                     )
             else:
                 data['entradas'].append(set_empty_value(i, f))
                 data['saidas'].append(set_empty_value(i, f))
-                
 
         return data

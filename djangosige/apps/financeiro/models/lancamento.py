@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
-from django.core.validators import MinValueValidator, MaxValueValidator
+from django.core.validators import MinValueValidator
 from decimal import Decimal
 from django.urls import reverse_lazy
 from django.template.defaultfilters import date
@@ -34,8 +34,6 @@ class Lancamento(models.Model):
                                      MinValueValidator(Decimal('0.00'))], default=Decimal('0.00'))
     juros = models.DecimalField(max_digits=13, decimal_places=2, validators=[
                                 MinValueValidator(Decimal('0.00'))], default=Decimal('0.00'))
-    comissao = models.DecimalField(max_digits=5, decimal_places=2, default=Decimal('0.00'), validators=[
-                                   MinValueValidator(Decimal('0.00')), MaxValueValidator(Decimal('100.00'))])
     valor_liquido = models.DecimalField(max_digits=13, decimal_places=2, validators=[
                                         MinValueValidator(Decimal('0.00'))], default=Decimal('0.00'))
     movimentar_caixa = models.BooleanField(default=True)
