@@ -3843,7 +3843,7 @@
   }
 
   .form-control {
-    margin-bottom: 30px;
+    margin-bottom: 30px !important;
   }
 
   .box-forgot-password-link {
@@ -3859,6 +3859,7 @@
     color: #ffffff;
     text-decoration: none;
     border-radius: 5px;
+    font-size: 15px;
   }
 </style>
 
@@ -3890,7 +3891,7 @@
             LOGIN
           </h2>
 
-          <div class="login-wrap">
+          <div class="login-wrap" style="margin-top: 10px;">
 
             <input type="text" class="form-control" placeholder="User ID" autofocus name="username">
 
@@ -3908,11 +3909,11 @@
 
             </label> -->
 
-            <div class="box-forgot-password-link">
+            <div class="box-forgot-password-link" style="margin-bottom: 20px;">
               <a class="forgot-password-link" data-toggle="modal" href="login.html#myModal">Esqueceu a senha?</a>
             </div>
 
-            <button class="btn btn-theme btn-block" href="{% url 'base:index'%}" type="submit">
+            <button class="btn btn-theme btn-block" style="width: 100%;" href="{% url 'base:index'%}" type="submit">
               <i class="fa fa-lock"></i> Login
             </button>
 
