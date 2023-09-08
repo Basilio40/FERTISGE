@@ -21,67 +21,71 @@
               <div class="body col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-bottom: 15px;">
 
                 <h2>
-                  <a href="{{return_url}}"></a>{{title_complete}}
+                  <a href="{{return_url}}">
+                    <i class="material-icons">&#xE5C4;</i>
+                  </a>
+                  {{title_complete}}
                 </h2>
 
                 <div class="" id="tabs">
 
                   {% include 'cadastro/pessoa_tab_list.html' %}
-                
+
                   <!-- <div class="tab-content"> -->
-                    <!-- Tab informacoes gerais -->
-                    <div role="tabpanel" class="tab-pane active" id="tab_inf_gerais">
-                      {{object}}
-                      {% if tipo_pessoa == 'cliente' %}
-                      {% include 'cadastro/cliente/cliente_tab_inf_gerais.html' %}
-                      {% elif tipo_pessoa == 'empresa' %}
-                      {% include 'cadastro/empresa/empresa_tab_inf_gerais.html' %}
-                      {% elif tipo_pessoa == 'fornecedor' %}
-                      {% include 'cadastro/fornecedor/fornecedor_tab_inf_gerais.html' %}
-                      {% elif tipo_pessoa == 'transportadora' %}
-                      {% include 'cadastro/transportadora/transportadora_tab_inf_gerais.html' %}
-                      {% endif %}
-                    </div>
-                    <!-- #Tab informacoes gerais -->
-                
-                    {% if tipo_pessoa == 'transportadora' %}
-                    <div role="tabpanel" class="tab-pane formset-tab" id="tab_veiculo">
-                      {% include 'formset/formset.html' with formset=veiculo_form title='Veículo' %}
-                    </div>
+                  <!-- Tab informacoes gerais -->
+                  <div role="tabpanel" class="tab-pane active" id="tab_inf_gerais">
+                    {{object}}
+                    {% if tipo_pessoa == 'cliente' %}
+                    {% include 'cadastro/cliente/cliente_tab_inf_gerais.html' %}
+                    {% elif tipo_pessoa == 'empresa' %}
+                    {% include 'cadastro/empresa/empresa_tab_inf_gerais.html' %}
+                    {% elif tipo_pessoa == 'fornecedor' %}
+                    {% include 'cadastro/fornecedor/fornecedor_tab_inf_gerais.html' %}
+                    {% elif tipo_pessoa == 'transportadora' %}
+                    {% include 'cadastro/transportadora/transportadora_tab_inf_gerais.html' %}
                     {% endif %}
-                
-                    <!-- Tab endereco -->
-                    <div role="tabpanel" class="tab-pane formset-tab" id="tab_endereco">
-                      {% include 'formset/formset.html' with formset=endereco_form title='Endereço' %}
-                    </div>
-                    <!-- #Tab endereco -->
-                
-                    <!-- Tab contato -->
-                    <div role="tabpanel" class="tab-pane formset-tab" id="tab_contato">
-                      {% for formset in formsets %}
-                        {% include 'formset/formset_fields.html' %}
-                      {% endfor %}
-                    </div>
-                    <!-- #Tab contato -->
-                
-                    <!-- Tab banco -->
-                    <div role="tabpanel" class="tab-pane formset-tab" id="tab_banco">
-                      {% include 'formset/formset.html' with formset=banco_form title='Dados Bancários' %}
-                    </div>
-                    <!-- #Tab banco -->
-                
-                    <!-- Tab documentos adicionais -->
-                    <div role="tabpanel" class="tab-pane formset-tab" id="tab_documento">
-                      {% include 'formset/formset.html' with formset=documento_form title='Documentos Adicionais' %}
-                    </div>
-                    <!-- #Tab documentos adicionais -->
-                
+                  </div>
+                  <!-- #Tab informacoes gerais -->
+
+                  {% if tipo_pessoa == 'transportadora' %}
+                  <div role="tabpanel" class="tab-pane formset-tab" id="tab_veiculo">
+                    {% include 'formset/formset.html' with formset=veiculo_form title='Veículo' %}
+                  </div>
+                  {% endif %}
+
+                  <!-- Tab endereco -->
+                  <div role="tabpanel" class="tab-pane formset-tab" id="tab_endereco">
+                    {% include 'formset/formset.html' with formset=endereco_form title='Endereço' %}
+                  </div>
+                  <!-- #Tab endereco -->
+
+                  <!-- Tab contato -->
+                  <div role="tabpanel" class="tab-pane formset-tab" id="tab_contato">
+                    {% for formset in formsets %}
+                    {% include 'formset/formset_fields.html' %}
+                    {% endfor %}
+                  </div>
+                  <!-- #Tab contato -->
+
+                  <!-- Tab banco -->
+                  <div role="tabpanel" class="tab-pane formset-tab" id="tab_banco">
+                    {% include 'formset/formset.html' with formset=banco_form title='Dados Bancários' %}
+                  </div>
+                  <!-- #Tab banco -->
+
+                  <!-- Tab documentos adicionais -->
+                  <div role="tabpanel" class="tab-pane formset-tab" id="tab_documento">
+                    {% include 'formset/formset.html' with formset=documento_form title='Documentos Adicionais' %}
+                  </div>
+                  <!-- #Tab documentos adicionais -->
+
                   <!-- </div> -->
                 </div>
 
               </div>
 
-              <button class="btn btn-success foot-btn d-flex align-items-center" type="submit"  style="margin-left: 15px;">
+              <button class="btn btn-success foot-btn d-flex align-items-center" type="submit"
+                style="margin-left: 15px;">
                 <i class="material-icons">&#xE148;</i>
                 <span> SALVAR</span>
               </button>
@@ -106,25 +110,25 @@
 {%endblock%}
 
 {% block js %}
-  
-  {% if tipo_pessoa == 'cliente' %}
 
-  {% include 'cadastro/cliente/cliente_blockjs.html' %} 
+{% if tipo_pessoa == 'cliente' %}
 
-  {% elif tipo_pessoa == 'empresa' %}
+{% include 'cadastro/cliente/cliente_blockjs.html' %}
 
-  {% include 'cadastro/empresa/empresa_blockjs.html' %}
+{% elif tipo_pessoa == 'empresa' %}
 
-  {% elif tipo_pessoa == 'fornecedor' %}
+{% include 'cadastro/empresa/empresa_blockjs.html' %}
 
-  {% include 'cadastro/fornecedor/fornecedor_blockjs.html' %}
+{% elif tipo_pessoa == 'fornecedor' %}
 
-  {% elif tipo_pessoa == 'transportadora' %}
+{% include 'cadastro/fornecedor/fornecedor_blockjs.html' %}
 
-  {% include 'cadastro/transportadora/transportadora_blockjs.html' %}
+{% elif tipo_pessoa == 'transportadora' %}
 
-  {% endif %}
+{% include 'cadastro/transportadora/transportadora_blockjs.html' %}
 
-  {% include 'cadastro/pessoa_blockjs.html' %}
-  
+{% endif %}
+
+{% include 'cadastro/pessoa_blockjs.html' %}
+
 {% endblock %}

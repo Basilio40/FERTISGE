@@ -4,7 +4,7 @@
 <section id="main-content">
   <section class="wrapper">
 
-    <h3>{% include 'base/title_header.html' %}</h3>
+    <h2>Listagem</h2>
 
     <div class="row">
       <div class="col-md-12">
@@ -13,12 +13,13 @@
           <h4>Unidades cadastradas</h4>
 
           <form action="" method="post">
-            
+
             {% csrf_token %}
 
             <div class="header-btn">
 
-              <a href="{% url 'cadastro:addunidadeview' %}" class="btn btn-success add-button" title="Adicionar unidade">
+              <a href="{% url 'cadastro:addunidadeview' %}" class="btn btn-success add-button"
+                title="Adicionar unidade">
                 <i class="material-icons">&#xE148;</i>
                 <span> ADICIONAR</span>
               </a>
@@ -35,7 +36,7 @@
 
                 <thead>
                   <tr>
-                    <th>#ID</th>                   
+                    <th>#ID</th>
                     <th>Sigla</th>
                     <th>Descrição</th>
                     <th class="acoes">Ações</th>
@@ -46,33 +47,33 @@
 
                   {% if all_unidades%}
 
-                    {% for unidade in all_unidades %}
+                  {% for unidade in all_unidades %}
 
-                      <tr>
+                  <tr>
 
-                        <td>{{unidade.id}}</td>
+                    <td>{{unidade.id}}</td>
 
-                        <td>{{unidade.sigla_unidade}}</td>
+                    <td>{{unidade.sigla_unidade}}</td>
 
-                        <td>{{unidade.unidade_desc}}</td>
+                    <td>{{unidade.unidade_desc}}</td>
 
-                        <td class="lista-remove">
+                    <td class="lista-remove">
 
-                            <!-- editar fornecedor -->
-                            <a href="{% url 'cadastro:editarunidadeview' unidade.id %}" class="btn btn-editar">
-                              <i class="fa fa-pencil"></i>
-                            </a>
+                      <!-- editar fornecedor -->
+                      <a href="{% url 'cadastro:editarunidadeview' unidade.id %}" class="btn btn-editar">
+                        <i class="fa fa-pencil"></i>
+                      </a>
 
-                            <!-- Excluir fornecedor -->
-                            <a href="" class="btn btn-excluir">
-                              <i class="fa fa-trash"></i>
-                            </a>
+                      <!-- Excluir fornecedor -->
+                      <a href="" class="btn btn-excluir">
+                        <i class="fa fa-trash"></i>
+                      </a>
 
-                        </td>
+                    </td>
 
-                      </tr>
+                  </tr>
 
-                    {% endfor %}
+                  {% endfor %}
 
                   {%else%}
 

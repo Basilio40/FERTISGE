@@ -4,7 +4,7 @@
 <section id="main-content">
   <section class="wrapper">
 
-    <h3>Listagem</h3>
+    <h2>Listagem</h2>
 
     <div class="row">
       <div class="col-md-12">
@@ -20,10 +20,10 @@
 
               {% if saida %}
 
-                <a href="{{add_url}}" class="btn btn-success add-button">
-                  <i class="material-icons">&#xE148;</i>
-                  <span> NOVA NOTA</span>
-                </a>
+              <a href="{{add_url}}" class="btn btn-success add-button">
+                <i class="material-icons">&#xE148;</i>
+                <span> NOVA NOTA</span>
+              </a>
 
               {% endif %}
 
@@ -31,7 +31,7 @@
                 <i class="material-icons">&#xE884;</i>
                 <span>IMPORTAR NOTA</span>
               </a>
-            
+
             </div>
 
             {% include 'base/msg_sucesso.html' %}
@@ -63,67 +63,67 @@
 
                   {% if all_notas%}
 
-                    {% for nota in all_notas %}
+                  {% for nota in all_notas %}
 
-                      <tr>
+                  <tr>
 
-                        <td>
-                          {{nota.id}}
-                        </td>
+                    <td>
+                      {{nota.id}}
+                    </td>
 
-                        <td>
-                          {{nota.get_mod_display}}
-                        </td>
+                    <td>
+                      {{nota.get_mod_display}}
+                    </td>
 
-                        <td>
-                          {{nota.serie}}/{% if saida %}{{nota.n_nf_saida}}{% elif entrada %}{{nota.n_nf_entrada}}{% endif %}
-                        </td>
+                    <td>
+                      {{nota.serie}}/{% if saida %}{{nota.n_nf_saida}}{% elif entrada %}{{nota.n_nf_entrada}}{% endif %}
+                    </td>
 
-                        <td>
-                          {{nota.format_data_emissao|default_if_none:""}}
-                        </td>
+                    <td>
+                      {{nota.format_data_emissao|default_if_none:""}}
+                    </td>
 
-                        <td>
-                          {% if saida %}{{nota.dest_saida}}{% elif entrada %}{{nota.emit_entrada}}{% endif %}
-                        </td>
+                    <td>
+                      {% if saida %}{{nota.dest_saida}}{% elif entrada %}{{nota.emit_entrada}}{% endif %}
+                    </td>
 
-                        <td>
-                          {{nota.get_status_nfe_display}}
-                        </td>
+                    <td>
+                      {{nota.get_status_nfe_display}}
+                    </td>
 
-                        <td class="lista-remove">
+                    <td class="lista-remove">
 
-                          {% if saida %}
+                      {% if saida %}
 
-                            <!-- editar fornecedor -->
-                            <a href="{% url 'fiscal:editarnotafiscalsaidaview' nota.id %}" class="btn btn-editar">
-                              <i class="fa fa-pencil"></i>
-                            </a>
+                      <!-- editar fornecedor -->
+                      <a href="{% url 'fiscal:editarnotafiscalsaidaview' nota.id %}" class="btn btn-editar">
+                        <i class="fa fa-pencil"></i>
+                      </a>
 
-                            <!-- Excluir fornecedor -->
-                            <a href="" class="btn btn-excluir">
-                              <i class="fa fa-trash"></i>
-                            </a>
+                      <!-- Excluir fornecedor -->
+                      <a href="" class="btn btn-excluir">
+                        <i class="fa fa-trash"></i>
+                      </a>
 
-                          {% elif entrada %}
+                      {% elif entrada %}
 
-                            <!-- editar fornecedor -->
-                            <a href="{% url 'fiscal:editarnotafiscalentradaview' nota.id %}" class="btn btn-editar">
-                              <i class="fa fa-pencil"></i>
-                            </a>
+                      <!-- editar fornecedor -->
+                      <a href="{% url 'fiscal:editarnotafiscalentradaview' nota.id %}" class="btn btn-editar">
+                        <i class="fa fa-pencil"></i>
+                      </a>
 
-                            <!-- Excluir fornecedor -->
-                            <a href="" class="btn btn-excluir">
-                              <i class="fa fa-trash"></i>
-                            </a>
+                      <!-- Excluir fornecedor -->
+                      <a href="" class="btn btn-excluir">
+                        <i class="fa fa-trash"></i>
+                      </a>
 
-                          {% endif %}
+                      {% endif %}
 
-                        </td>
+                    </td>
 
-                      </tr>
+                  </tr>
 
-                    {% endfor %}
+                  {% endfor %}
 
                   {%else%}
 
@@ -152,23 +152,23 @@
 {%endblock%}
 
 {% block js %}
-  {% include 'base/load_jqueryui.html' %}
+{% include 'base/load_jqueryui.html' %}
 
-  {% include 'base/tooltip_js.html' %}
-    
-   <script type="text/javascript">
-    $('body').on('click', '#importar_nota', function(){
-      $('.importar_nota_modal').modal('show');
-    });
+{% include 'base/tooltip_js.html' %}
 
-    $('form[id=form_importar_nota]').on('submit', function(){
-        $('.page-loader-wrapper').show();
-        '{% if entrada %}'
-        $('.loader .loader-message').text('Importando nota fiscal do fornecedor, aguarde...');
-        '{% elif saida %}'
-        $('.loader .loader-message').text('Importando nota fiscal, aguarde...');
-        '{% endif %}'
-    });
-  </script>
-  
+<script type="text/javascript">
+  $('body').on('click', '#importar_nota', function () {
+    $('.importar_nota_modal').modal('show');
+  });
+
+  $('form[id=form_importar_nota]').on('submit', function () {
+    $('.page-loader-wrapper').show();
+    '{% if entrada %}'
+    $('.loader .loader-message').text('Importando nota fiscal do fornecedor, aguarde...');
+    '{% elif saida %}'
+    $('.loader .loader-message').text('Importando nota fiscal, aguarde...');
+    '{% endif %}'
+  });
+</script>
+
 {% endblock %}

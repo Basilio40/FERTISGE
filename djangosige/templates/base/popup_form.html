@@ -6,54 +6,59 @@
 
 {%block content%}
 
-	<section id="main-content">
-		<section class="wrapper" style="margin-left: 15px;">
-			
-			<h2>{{titulo}}</h2>
+<section id="main-content">
+	<section class="wrapper" style="margin-left: 25px; margin-top: 80px;">
 
-			<div class="row">
-				<div class="col-md-12">
+		<h2>
+			<!-- <a href="{{return_url}}">
+				<i class="material-icons">&#xE5C4;</i>
+			</a> -->
+			{{titulo}}
+		</h2>
 
-					<form id="popupform" role="form" action="" method="post">
+		<div class="row">
+			<div class="col-md-12">
 
-						{% csrf_token %}
+				<form id="popupform" role="form" action="" method="post">
 
-						{% for field in form %}
+					{% csrf_token %}
 
-							<div class="form-group">
+					{% for field in form %}
 
-								<label>{{field.label}}</label>
+					<div class="form-group">
 
-								{% if field.errors %}
-									<label class="error">
-									{% for error in field.errors %}
-										{{error}}
-									{% endfor %}
-									</label>
-								{% endif %}
+						<label>{{field.label}}</label>
 
-								<div class="input-group">
-									<div class="form-line">
-										{{field}}
-									</div>
-								</div>
+						{% if field.errors %}
+						<label class="error">
+							{% for error in field.errors %}
+							{{error}}
+							{% endfor %}
+						</label>
+						{% endif %}
 
+						<div class="input-group">
+							<div class="form-line">
+								{{field}}
 							</div>
+						</div>
 
-						{% endfor %}
+					</div>
 
-							<button class="btn btn-success foot-btn" type="submit">
-								<i class="material-icons">&#xE148;</i>
-								<span> SALVAR</span>
-							</button>
+					{% endfor %}
 
-						</form>
+					<button class="btn btn-success foot-btn" type="submit">
+						<i class="material-icons">&#xE148;</i>
+						<span> SALVAR</span>
+					</button>
 
-				</div>
+				</form>
+
 			</div>
+		</div>
 
-		</section>
 	</section>
+</section>
 
 {%endblock%}
 

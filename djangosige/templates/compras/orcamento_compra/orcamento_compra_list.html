@@ -4,7 +4,7 @@
 <section id="main-content">
   <section class="wrapper">
 
-    <h3>Listagem</h3>
+    <h2>Listagem</h2>
 
     <div class="row">
       <div class="col-md-12">
@@ -32,10 +32,10 @@
             <div class="table-responsive">
 
               <table id="lista-database" class="table">
-                
+
                 <thead>
                   <tr>
-                    <th>#ID</th>                   
+                    <th>#ID</th>
                     <th>Status</th>
                     <th>Fornecedor</th>
                     <th>Data de vencimento</th>
@@ -50,78 +50,78 @@
 
                   {% if all_orcamentos%}
 
-                    {% for orcamento in all_orcamentos %}
+                  {% for orcamento in all_orcamentos %}
 
-                      <tr>
+                  <tr>
 
-                        <td>
-                          {{orcamento.id}}
-                        </td>
+                    <td>
+                      {{orcamento.id}}
+                    </td>
 
-                        <td>
-                          <b>{{orcamento.get_status_display}}</b>
-                        </td>
+                    <td>
+                      <b>{{orcamento.get_status_display}}</b>
+                    </td>
 
-                        <td>
-                          {{orcamento.fornecedor|default_if_none:""}}
-                        </td>
+                    <td>
+                      {{orcamento.fornecedor|default_if_none:""}}
+                    </td>
 
-                        <td>
-                          {{orcamento.format_data_vencimento|default_if_none:""}}
-                        </td>
+                    <td>
+                      {{orcamento.format_data_vencimento|default_if_none:""}}
+                    </td>
 
-                        <td>
-                          {{orcamento.format_valor_total}}
-                        </td>
+                    <td>
+                      {{orcamento.format_valor_total}}
+                    </td>
 
-                        {% if orcamento.status == '0' %}
+                    {% if orcamento.status == '0' %}
 
-                          <td class="green_td">
-                            <a href="{% url 'compras:gerarpedidocompra' orcamento.id %}" class="prevent-click-row">
-                              <i class="material-icons icon" style="color: green;">description</i>
-                            </a>
-                          </td>
-                          
-                          <td class="red_td">
-                            <a href="{% url 'compras:cancelarorcamentocompra' orcamento.id %}" class="prevent-click-row">
-                              <i class="material-icons icon" style="color: red;">&#xE033;</i>
-                            </a>
-                          </td>                        
+                    <td class="green_td">
+                      <a href="{% url 'compras:gerarpedidocompra' orcamento.id %}" class="prevent-click-row">
+                        <i class="material-icons icon" style="color: green;">description</i>
+                      </a>
+                    </td>
 
-                        {% else %}
+                    <td class="red_td">
+                      <a href="{% url 'compras:cancelarorcamentocompra' orcamento.id %}" class="prevent-click-row">
+                        <i class="material-icons icon" style="color: red;">&#xE033;</i>
+                      </a>
+                    </td>
 
-                          <td>
+                    {% else %}
 
-                          </td>
+                    <td>
 
-                          <td>
+                    </td>
 
-                          </td>
+                    <td>
 
-                        {% endif %}
+                    </td>
 
-                        <td class="lista-remove">
+                    {% endif %}
 
-                          <!-- editar fornecedor -->
-                          <a href="{% url 'compras:editarorcamentocompraview' orcamento.id %}" class="btn btn-editar">
-                            <i class="fa fa-pencil"></i>
-                          </a>
+                    <td class="lista-remove">
 
-                          <!-- Excluir fornecedor -->
-                          <a href="" class="btn btn-excluir">
-                            <i class="fa fa-trash"></i>
-                          </a>
+                      <!-- editar fornecedor -->
+                      <a href="{% url 'compras:editarorcamentocompraview' orcamento.id %}" class="btn btn-editar">
+                        <i class="fa fa-pencil"></i>
+                      </a>
 
-                        </td>
+                      <!-- Excluir fornecedor -->
+                      <a href="" class="btn btn-excluir">
+                        <i class="fa fa-trash"></i>
+                      </a>
 
-                      </tr>
+                    </td>
 
-                    {% endfor %}
+                  </tr>
+
+                  {% endfor %}
 
                   {%else%}
 
                   {%endif%}
-                  
+
                 </tbody>
 
               </table>

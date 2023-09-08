@@ -2,58 +2,58 @@
 
 {%block content%}
 
-  <section id="main-content">
-    <section class="wrapper">
+<section id="main-content">
+  <section class="wrapper">
 
-      <h3>{% include 'base/title_header.html' %}</h3>
+    <h2>Listagem</h2>
 
-      <div class="row">
-        <div class="col-md-12">
-          <div class="content-panel">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="content-panel">
 
-            <h4>{{title_complete}}</h4>
+          <h4>{{title_complete}}</h4>
 
-            <form action="" method="post">
-              {% csrf_token %}
-      
-              <div class="header-btn">
-                <a href="{{add_url}}" class="btn btn-success add-button">
-                  <i class="fa fa-check"></i>
-                  <span> ADICIONAR</span>
-                </a>
-              </div>
-      
-              {% include 'base/msg_sucesso.html' %}
-              
-              <div class="body">
+          <form action="" method="post">
+            {% csrf_token %}
 
-                {% include 'base/search.html' %}
+            <div class="header-btn">
+              <a href="{{add_url}}" class="btn btn-success add-button">
+                <i class="material-icons">&#xE148;</i>
+                <span> ADICIONAR</span>
+              </a>
+            </div>
 
-                {% if tipo_pessoa == 'cliente' %}
-                {% include 'cadastro/cliente/cliente_list_table.html' %}
-                {% elif tipo_pessoa == 'empresa' %}
-                {% include 'cadastro/empresa/empresa_list_table.html' %}
-                {% elif tipo_pessoa == 'fornecedor' %}
-                {% include 'cadastro/fornecedor/fornecedor_list_table.html' %}
-                {% elif tipo_pessoa == 'transportadora' %}
-                {% include 'cadastro/transportadora/transportadora_list_table.html' %}
-                {% else %}
-                Nenhum registro encontrado
-                {% endif %}
+            {% include 'base/msg_sucesso.html' %}
 
-              </div>
+            <div class="body">
 
-            </form>
+              {% include 'base/search.html' %}
 
-          </div>
+              {% if tipo_pessoa == 'cliente' %}
+              {% include 'cadastro/cliente/cliente_list_table.html' %}
+              {% elif tipo_pessoa == 'empresa' %}
+              {% include 'cadastro/empresa/empresa_list_table.html' %}
+              {% elif tipo_pessoa == 'fornecedor' %}
+              {% include 'cadastro/fornecedor/fornecedor_list_table.html' %}
+              {% elif tipo_pessoa == 'transportadora' %}
+              {% include 'cadastro/transportadora/transportadora_list_table.html' %}
+              {% else %}
+              Nenhum registro encontrado
+              {% endif %}
+
+            </div>
+
+          </form>
+
         </div>
       </div>
+    </div>
 
-    </section>
   </section>
+</section>
 
-  {% block footer %}
+{% block footer %}
 
-  {% endblock footer %}
+{% endblock footer %}
 
 {%endblock%}

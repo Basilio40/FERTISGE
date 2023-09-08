@@ -20,11 +20,11 @@
 
               <h2>
                 <a href="{{return_url}}">
-                  <!-- <i class="material-icons">&#xE5C4;</i> -->
+                  <i class="material-icons">&#xE5C4;</i>
                 </a>
                 {{title_complete}}
               </h2>
-            
+
               {% include 'vendas/venda_form.html' %}
 
             </div>
@@ -33,11 +33,11 @@
 
 
 
-            <button class="btn btn-success foot-btn d-flex align-items-center" type="submit"  style="margin-left: 15px;">
+            <button class="btn btn-success foot-btn d-flex align-items-center" type="submit" style="margin-left: 15px;">
               <i class="material-icons">&#xE148;</i>
               <span> SALVAR</span>
             </button>
-            
+
             {% endif %}
 
           </form>
@@ -56,7 +56,7 @@
 {%endblock%}
 
 {% block js %}
-    
-  {% include 'vendas/venda_jsblock.html' %} 
-  
+
+{% include 'vendas/venda_jsblock.html' %}
+
 {% endblock %}

@@ -2,49 +2,54 @@
 
 {%block title%}{{object.descricao}}{%endblock%}
 {%block content%}
-<section class="content">
-  <div class="container-fluid">
+<section id="main-content">
 
-    <div class="title-header">
-      <h2>PLANO DE CONTAS</h2>
-    </div>
+  <section class="wrapper" style="margin-left: 15px;">
 
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-      <div class="row">
-        <div class="card">
+    <!-- <h3>{% include 'base/title_header.html' %}</h3> -->
+
+    <div class="row">
+
+      <div class="col-md-12">
+
+        <div class="content-panel" style="background-color: transparent!important;">
 
           <!--Header-->
-          <div class="header">
+          <div class="body">
 
             <h2>
-              <a href="{% url 'financeiro:planocontasview' %}"><i class="material-icons">&#xE5C4;</i></a>{{object.descricao}}
+              <a href="{% url 'financeiro:planocontasview' %}">
+                <i class="material-icons">&#xE5C4;</i>
+              </a>
+              Editar: {{object.descricao}}
             </h2>
-            <div><small>Campos marcados com <strong style="color:red;">*</strong> são obrigatórios.</small></div>
 
           </div>
           <!--# Header-->
 
           <form role="form" action="" method="post">
+
             {% csrf_token %}
-            
+
             {% include 'financeiro/plano/grupo_form.html' %}
 
           </form>
 
         </div>
+
       </div>
+
     </div>
 
-  </div>
-</section>
+  </section>
 
 
-{%endblock%}
+  {%endblock%}
 
-{% block js %}
-    
+  {% block js %}
+
   {% include 'base/load_jqueryui.html' %}
 
   {% include 'base/tooltip_js.html' %}
-  
-{% endblock %}
+
+  {% endblock %}

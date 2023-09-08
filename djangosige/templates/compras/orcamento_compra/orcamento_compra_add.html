@@ -20,7 +20,7 @@
 
               <h2>
                 <a href="{{return_url}}">
-                  <!-- <i class="material-icons">&#xE5C4;</i> -->
+                  <i class="material-icons">&#xE5C4;</i>
                 </a>
                 {{title_complete}}
               </h2>
@@ -30,18 +30,18 @@
                   Campos marcados com <strong style="color:red;">*</strong> são obrigatórios.
                 </small>
               </div> -->
-              
+
               {% include 'compras/compra_form.html' %}
 
             </div>
 
             {% if object.status == '0' or not object%}
 
-              <button class="btn btn-success foot-btn d-flex align-items-center" type="submit"  style="margin-left: 15px;">
-                <i class="material-icons">&#xE148;</i>
-                <span> SALVAR</span>
-              </button>
-          
+            <button class="btn btn-success foot-btn d-flex align-items-center" type="submit" style="margin-left: 15px;">
+              <i class="material-icons">&#xE148;</i>
+              <span> SALVAR</span>
+            </button>
+
             {% endif %}
 
           </form>
@@ -60,7 +60,7 @@
 {%endblock%}
 
 {% block js %}
-    
-  {% include 'compras/compra_jsblock.html' %} 
-  
+
+{% include 'compras/compra_jsblock.html' %}
+
 {% endblock %}

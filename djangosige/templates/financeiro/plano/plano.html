@@ -1,49 +1,56 @@
 {%extends 'base/base.html'%}
 
-{%block title%}Plano de Contas{%endblock%}
 {%block content%}
+
 <section id="main-content">
+
   <section class="wrapper">
+
+    <h2>Listagem</h2>
+
     <div class="row">
+
       <div class="col-md-12">
-  
-    {% include 'base/title_header.html' %}
-    
-    {% include 'base/msg_sucesso.html' %}
 
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 lista-content">
-      <div class="card">
-        <form action="" method="post">
-        {% csrf_token %}
-        <div class="body">
-          <h2>
-            PLANO DE CONTAS
-          </h2>
-          <div class="body">
-            <a href="{% url 'financeiro:addgrupoview' %}" class="btn btn-success"><i class="material-icons">&#xE148;</i><span> ADICIONAR</span></a>
-            <button class="btn btn-red btn-remove"><i class="material-icons">&#xE872;</i></button>
-            <br>
-          </div>
-          <div>
-            <small>O plano de contas é dividido em entradas (recebimentos) e saídas (pagamentos). Adicione grupos e subgrupos a essas categorias.</small>
-            <br>
-          </div>
-        </div>
+        <div class="content-panel">
 
-        <div class="body">
-          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-    
-          <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active"><a href="#tab_entradas" data-toggle="tab">ENTRADA</a></li>
-            <li role="presentation"><a href="#tab_saidas" data-toggle="tab">SAIDA</a></li>
-          </ul>
-          <br>
+          <h4>PLANO DE CONTAS</h4>
 
-            <div class="tab-content">
+          <form action="" method="post">
+
+            {% csrf_token %}
+
+            <div class="header-btn">
+
+              <a href="{% url 'financeiro:addgrupoview' %}" class="btn btn-success add-button">
+                <i class="material-icons">&#xE148;</i>
+                <span> ADICIONAR</span>
+              </a>
+              <!-- <button class="btn btn-red btn-remove">
+                  <i class="material-icons">&#xE872;</i>
+                </button> -->
+
+            </div>
+
+            <div style="margin-left: 5px;">
+              <small>O plano de contas é dividido em entradas (recebimentos) e saídas (pagamentos). Adicione grupos
+                e subgrupos a essas categorias.
+              </small>
+            </div>
+
+            {% include 'base/msg_sucesso.html' %}
+
+            <div class="body" id="tabs">
+
+              <ul class="nav nav-tabs" role="tablist" style="margin-bottom: 15px;">
+                <li role="presentation" class="active"><a href="#tab_entradas" data-toggle="tab">ENTRADA</a></li>
+                <li role="presentation"><a href="#tab_saidas" data-toggle="tab">SAIDA</a></li>
+              </ul>
+
               <!-- Tab ENTRADAS -->
               <div role="tabpanel" class="tab-pane active" id="tab_entradas">
 
-                <table class="table table-bordered lista-table">
+                <table class="table">
                   <thead>
                     <tr>
                       <th>Código</th>
@@ -54,34 +61,43 @@
                   </thead>
 
                   <tbody>
-                  {% if all_grupos_entrada %}
-                  {% for ge in all_grupos_entrada %}
-                  <tr class="clickable-row plano-grupo-row" data-href="{% url 'financeiro:editargrupoview' ge.id %}">
-                    <td class="prevent-click-row" data-toggle="collapse" data-target=".accordion-{{ge.id}}"><i style="vertical-align:inherit;" class="material-icons">&#xE5C5;</i>{{ge.codigo}}</td>
-                    <td>{{ge.descricao}}</td>
-                    <td>{{ge.get_tipo_grupo_display}}</td>
-                    <td class="lista-remove">
-                      <input type="checkbox" name="{{ge.id}}" id="remover-entrada-{{ge.id}}"/>
-                      <label class="remove-entry-label" for="remover-entrada-{{ge.id}}"></label>
-                    </td>
-                  </tr>
+                    {% if all_grupos_entrada %}
+                    {% for ge in all_grupos_entrada %}
+                    <tr class="clickable-row plano-grupo-row" data-href="">
+                      <td class="prevent-click-row" data-toggle="collapse" data-target=".accordion-{{ge.id}}"><i
+                          style="vertical-align:inherit;" class="material-icons">&#xE5C5;</i>{{ge.codigo}}</td>
+                      <td>{{ge.descricao}}</td>
+                      <td>{{ge.get_tipo_grupo_display}}</td>
+                      <td class="lista-remove">
+                        <a href="{% url 'financeiro:editargrupoview' ge.id %}" class="btn btn-editar">
+                          <i class="fa fa-pencil"></i>
+                        </a>
+
+                        <input type="checkbox" name="{{ge.id}}" id="remover-entrada-{{ge.id}}" />
+                        <label class="remove-entry-label btn btn-excluir" for="remover-entrada-{{ge.id}}">
+                          <i class="fa fa-trash"></i>
+                        </label>
+                      </td>
+                    </tr>
                     {% for sub in ge.subgrupos.all %}
-                  <tr class="plano-subgrupo-row accordion-{{ge.id}} in">
-                    <td>{{sub.codigo}}</td>
-                    <td>{{sub.descricao}}</td>
-                    <td>{{sub.get_tipo_grupo_display}}</td>
-                    <td class="lista-remove">
-                      <input type="checkbox" name="{{sub.id}}" id="remover-entrada-{{sub.id}}"/>
-                      <label class="remove-entry-label" for="remover-entrada-{{sub.id}}"></label>
-                    </td>
-                  </tr>
+                    <tr class="plano-subgrupo-row accordion-{{ge.id}} in">
+                      <td>{{sub.codigo}}</td>
+                      <td>{{sub.descricao}}</td>
+                      <td>{{sub.get_tipo_grupo_display}}</td>
+                      <td class="lista-remove">
+                        <input type="checkbox" name="{{sub.id}}" id="remover-entrada-{{sub.id}}" />
+                        <label class="remove-entry-label btn btn-excluir" for="remover-entrada-{{sub.id}}">
+                          <i class="fa fa-trash"></i>
+                        </label>
+                      </td>
+                    </tr>
                     {% endfor %}
 
-                  {% endfor %}
-                  {%else%}
-                  {%endif%}
-                </tbody>
-              </table>
+                    {% endfor %}
+                    {%else%}
+                    {%endif%}
+                  </tbody>
+                </table>
 
               </div>
               <!-- #Tab ENTRADAS -->
@@ -89,7 +105,7 @@
               <!-- Tab SAIDAS -->
               <div role="tabpanel" class="tab-pane" id="tab_saidas">
 
-              <table class="table table-bordered lista-table">
+                <table class="table">
                   <thead>
                     <tr>
                       <th>Código</th>
@@ -100,61 +116,80 @@
                   </thead>
 
                   <tbody>
-                  {% if all_grupos_saida %}
-                  {% for gs in all_grupos_saida %}
-                  <tr class="clickable-row plano-grupo-row" data-href="{% url 'financeiro:editargrupoview' gs.id %}">
-                    <td class="prevent-click-row" data-toggle="collapse" data-target=".accordion-{{gs.id}}"><i style="vertical-align:inherit;" class="material-icons">&#xE5C5;</i>{{gs.codigo}}</td>
-                    <td>{{gs.descricao}}</td>
-                    <td>{{gs.get_tipo_grupo_display}}</td>
-                    <td class="lista-remove">
-                      <input type="checkbox" name="{{gs.id}}" id="remover-entrada-{{gs.id}}"/>
-                      <label class="remove-entry-label" for="remover-entrada-{{gs.id}}"></label>
-                    </td>
-                  </tr>
+                    {% if all_grupos_saida %}
+                    {% for gs in all_grupos_saida %}
+                    <tr class="clickable-row plano-grupo-row" data-href="{% url 'financeiro:editargrupoview' gs.id %}">
+                      <td class="prevent-click-row" data-toggle="collapse" data-target=".accordion-{{gs.id}}"><i
+                          style="vertical-align:inherit;" class="material-icons">&#xE5C5;</i>{{gs.codigo}}</td>
+                      <td>{{gs.descricao}}</td>
+                      <td>{{gs.get_tipo_grupo_display}}</td>
+                      <td class="lista-remove">
+                        <input type="checkbox" name="{{gs.id}}" id="remover-entrada-{{gs.id}}" />
+                        <label class="remove-entry-label" for="remover-entrada-{{gs.id}}"></label>
+                      </td>
+                    </tr>
                     {% for sub in gs.subgrupos.all %}
-                  <tr class="plano-subgrupo-row accordion-{{gs.id}} in">
-                    <td>{{sub.codigo}}</td>
-                    <td>{{sub.descricao}}</td>
-                    <td>{{sub.get_tipo_grupo_display}}</td>
-                    <td class="lista-remove">
-                      <input type="checkbox" name="{{sub.id}}" id="remover-entrada-{{sub.id}}"/>
-                      <label class="remove-entry-label" for="remover-entrada-{{sub.id}}"></label>
-                    </td>
-                  </tr>
+                    <tr class="plano-subgrupo-row accordion-{{gs.id}} in">
+                      <td>{{sub.codigo}}</td>
+                      <td>{{sub.descricao}}</td>
+                      <td>{{sub.get_tipo_grupo_display}}</td>
+                      <td class="lista-remove">
+                        <input type="checkbox" name="{{sub.id}}" id="remover-entrada-{{sub.id}}" />
+                        <label class="remove-entry-label" for="remover-entrada-{{sub.id}}"></label>
+                      </td>
+                    </tr>
                     {% endfor %}
 
-                  {% endfor %}
-                  {%else%}
-                  {%endif%}
-                </tbody>
-              </table>
+                    {% endfor %}
+                    {%else%}
+                    {%endif%}
+                  </tbody>
+                </table>
 
               </div>
               <!-- #Tab SAIDAS -->
 
             </div>
-          </div>
 
-         
+          </form>
 
         </div>
 
-        </form>
-
       </div>
+
     </div>
-</div>
-  </div>
+
+  </section>
+
 </section>
-</section>
+
+<script>
+  $(function () {
+    // Ao carregar a página, mostre o conteúdo da primeira guia e adicione a classe "active" a ela
+    $("#tabs > div:first-child").addClass("active");
+
+    // Manipule o clique nas guias
+    $("#tabs ul li a").click(function (event) {
+      event.preventDefault();
+
+      // Remova a classe "active" de todas as guias e oculte todos os conteúdos das guias
+      $("#tabs ul li a").removeClass("active");
+      $("#tabs > div").removeClass("active");
+
+      // Adicione a classe "active" à guia clicada e mostre o conteúdo correspondente
+      $(this).addClass("active");
+      $($(this).attr("href")).addClass("active");
+    });
+  });
+</script>
 
 
 {%endblock%}
 
 {% block js %}
-    
-  {% include 'base/load_jqueryui.html' %}
 
-  {% include 'base/tooltip_js.html' %}
-  
+{% include 'base/load_jqueryui.html' %}
+
+{% include 'base/tooltip_js.html' %}
+
 {% endblock %}

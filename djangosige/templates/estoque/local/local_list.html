@@ -4,7 +4,7 @@
 <section id="main-content">
   <section class="wrapper">
 
-    <h3>{% include 'base/title_header.html' %}</h3>
+    <h2>Listagem</h2>
 
     <div class="row">
       <div class="col-md-12">
@@ -35,7 +35,7 @@
 
                 <thead>
                   <tr>
-                    <th>#ID</th>                   
+                    <th>#ID</th>
                     <th>Descrição</th>
                     <th class="acoes">Ações</th>
                   </tr>
@@ -45,33 +45,33 @@
 
                   {% if all_locais%}
 
-                    {% for local in all_locais %}
+                  {% for local in all_locais %}
 
-                      <tr>
+                  <tr>
 
-                        <td>
-                          {{local.id}}
-                        </td>
+                    <td>
+                      {{local.id}}
+                    </td>
 
-                        <td>
-                          {{local.descricao}}
-                        </td>
+                    <td>
+                      {{local.descricao}}
+                    </td>
 
-                        <td class="lista-remove">
-                            <!-- editar fornecedor -->
-                            <a href="{% url 'estoque:editarlocalview' local.id %}" class="btn btn-editar">
-                              <i class="fa fa-pencil"></i>
-                            </a>
+                    <td class="lista-remove">
+                      <!-- editar fornecedor -->
+                      <a href="{% url 'estoque:editarlocalview' local.id %}" class="btn btn-editar">
+                        <i class="fa fa-pencil"></i>
+                      </a>
 
-                            <!-- Excluir fornecedor -->
-                            <a href="" class="btn btn-excluir">
-                              <i class="fa fa-trash"></i>
-                            </a>
-                        </td>
-                        
-                      </tr>
+                      <!-- Excluir fornecedor -->
+                      <a href="" class="btn btn-excluir">
+                        <i class="fa fa-trash"></i>
+                      </a>
+                    </td>
 
-                    {% endfor %}
+                  </tr>
+
+                  {% endfor %}
 
                   {%else%}
 

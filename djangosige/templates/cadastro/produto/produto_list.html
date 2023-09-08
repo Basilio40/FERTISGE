@@ -2,119 +2,119 @@
 
 
 {%block content%}
-  <section id="main-content">
-    <section class="wrapper">
+<section id="main-content">
+  <section class="wrapper">
 
-      <h3>{% include 'base/title_header.html' %}</h3>
+    <h2>Listagem</h2>
 
-      <div class="row">
-        <div class="col-md-12">
-          <div class="content-panel">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="content-panel">
 
-            <h4>{{title_complete}}</h4>
+          <h4>{{title_complete}}</h4>
 
-            <form action="" method="post">
+          <form action="" method="post">
 
-              {% csrf_token %}
+            {% csrf_token %}
 
-              <div class="header-btn">
+            <div class="header-btn">
 
-                <a href="{{add_url}}" class="btn btn-success add-button">
-                  <i class="fa fa-check"></i>
-                  <span> ADICIONAR</span>
-                </a>
+              <a href="{{add_url}}" class="btn btn-success add-button">
+                <i class="material-icons">&#xE148;</i>
+                <span> ADICIONAR</span>
+              </a>
 
-              </div>
+            </div>
 
-              {% include 'base/msg_sucesso.html' %}
+            {% include 'base/msg_sucesso.html' %}
 
-              {% include 'base/search.html' %}
+            {% include 'base/search.html' %}
 
-              <div class="table-responsive">
+            <div class="table-responsive">
 
-                <table id="lista-database" class="table">
+              <table id="lista-database" class="table">
 
-                  <thead>
-                    <tr>
-                      <th>Código</th>                   
-                      <th>Descrição</th>
-                      <th>Categoria</th>
-                      <th>Estoque</th>
-                      <th>Unidade</th>
-                      <th class="acoes">Ações</th>
-                    </tr>
-                  </thead>
+                <thead>
+                  <tr>
+                    <th>Código</th>
+                    <th>Descrição</th>
+                    <th>Categoria</th>
+                    <th>Estoque</th>
+                    <th>Unidade</th>
+                    <th class="acoes">Ações</th>
+                  </tr>
+                </thead>
 
-                  <tbody>
+                <tbody>
 
-                    {% if all_produtos%}
+                  {% if all_produtos%}
 
-                      {% for produto in all_produtos %}
+                  {% for produto in all_produtos %}
 
-                        <tr>
+                  <tr>
 
-                          <td>
-                            {{produto.codigo}}
-                          </td>
+                    <td>
+                      {{produto.codigo}}
+                    </td>
 
-                          <td>
-                            {{produto.descricao}}
-                          </td>
+                    <td>
+                      {{produto.descricao}}
+                    </td>
 
-                          <td>
-                            {%if produto.categoria%}
-                              {{produto.categoria}}
-                            {%else%}
-                              ---
-                            {%endif%}
-                          </td>
+                    <td>
+                      {%if produto.categoria%}
+                      {{produto.categoria}}
+                      {%else%}
+                      ---
+                      {%endif%}
+                    </td>
 
-                          <td>
-                            {{produto.estoque_minimo}}
-                          </td>
+                    <td>
+                      {{produto.estoque_minimo}}
+                    </td>
 
-                          <td>
-                            {{produto.unidade}}
-                          </td>
+                    <td>
+                      {{produto.unidade}}
+                    </td>
 
-                          <td class="lista-remove">
+                    <td class="lista-remove">
 
-                            <!-- editar fornecedor -->
-                            <a href="{% url 'cadastro:editarprodutoview' produto.id %}" class="btn btn-editar">
-                              <i class="fa fa-pencil"></i>
-                            </a>
+                      <!-- editar fornecedor -->
+                      <a href="{% url 'cadastro:editarprodutoview' produto.id %}" class="btn btn-editar">
+                        <i class="fa fa-pencil"></i>
+                      </a>
 
-                            <!-- Excluir fornecedor -->
-                            <a href="" class="btn btn-excluir">
-                              <i class="fa fa-trash"></i>
-                            </a>
+                      <!-- Excluir fornecedor -->
+                      <a href="" class="btn btn-excluir">
+                        <i class="fa fa-trash"></i>
+                      </a>
 
-                          </td>
+                    </td>
 
-                        </tr>
+                  </tr>
 
-                      {% endfor %}
+                  {% endfor %}
 
-                    {%else%}
+                  {%else%}
 
-                    {%endif%}
+                  {%endif%}
 
-                  </tbody>
+                </tbody>
 
-                </table>
+              </table>
 
-              </div>
+            </div>
 
-            </form>
-
-          </div>
+          </form>
 
         </div>
 
       </div>
 
-    </section>
+    </div>
+
   </section>
+</section>
 
 
 {%endblock%}
