@@ -16,11 +16,16 @@
 
             {% csrf_token %}
 
-            <div class="header-btn">
+            <div class="header-btn" style="display: flex;">
 
-              <a href="{{add_url}}" class="btn btn-success add-button">
+              <a href="{{add_url}}" class="btn btn-success add-button" style="margin-right: 15px;">
                 <i class="material-icons">&#xE148;</i>
                 <span> ADICIONAR</span>
+              </a>
+
+              <a href="{% url 'compras:listapedidocompraview' %}" class="btn btn-success add-button"
+                style="background-color: #007bff!important;">
+                <span>PEDIDO DE COMPRA</span>
               </a>
 
             </div>

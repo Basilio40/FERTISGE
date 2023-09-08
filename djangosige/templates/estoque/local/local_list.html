@@ -16,11 +16,22 @@
 
             {% csrf_token %}
 
-            <div class="header-btn">
+            <div class="header-btn" style="display: flex;">
 
-              <a href="{{add_url}}" class="btn btn-success add-button" title="Adicionar localização de estoque">
+              <a href="{{add_url}}" class="btn btn-success add-button" title="Adicionar localização de estoque"
+                style="margin-right: 15px;">
                 <i class="material-icons">&#xE148;</i>
                 <span> ADICIONAR</span>
+              </a>
+
+              <a href="{% url 'estoque:listaentradasestoqueview' %}" class="btn btn-success add-button"
+                style="background-color: #007bff!important;margin-right: 15px;">
+                <span>CONTROLE ENTRADA</span>
+              </a>
+
+              <a href="{% url 'estoque:listasaidasestoqueview' %}" class="btn btn-success add-button"
+                style="background-color: #007bff!important;">
+                <span>CONTROLE SAIDA</span>
               </a>
 
             </div>
