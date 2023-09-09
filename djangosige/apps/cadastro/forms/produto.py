@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django import forms
+from django.shortcuts import render,redirect
 # from django.utils.translation import ugettext_lazy as _
 
 from djangosige.apps.cadastro.models import Produto, Unidade, Marca, Categoria, Fornecedor
@@ -106,3 +107,8 @@ class UnidadeForm(forms.ModelForm):
             'unidade_desc': ('Nome descritivo'),
             'sigla_unidade': ('Sigla'),
         }
+        
+        
+        def enviar(request):
+            if request.method == "POST":
+                return redirect ('cadastro:listaunidadesview')
