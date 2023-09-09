@@ -223,7 +223,7 @@ class EditarCategoriaView(EditarOutrosBaseView):
 class AdicionarUnidadeView(AdicionarOutrosBaseView):
     form_class = UnidadeForm
     model = Unidade
-    success_url = reverse_lazy('cadastro:addunidadeview')
+    success_url = reverse_lazy('cadastro:listaunidadesview')
     permission_codename = 'add_unidade'
 
 
