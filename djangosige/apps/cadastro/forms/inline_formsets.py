@@ -27,6 +27,8 @@ class EnderecoForm(forms.ModelForm):
             'cep': ("CEP (Apenas dígitos)"),
             'uf': ("UF"),
         }
+        
+
         widgets = {
             'tipo_endereco': forms.Select(attrs={'class': 'form-control'}),
             'logradouro': forms.TextInput(attrs={'class': 'form-control'}),
@@ -40,6 +42,9 @@ class EnderecoForm(forms.ModelForm):
             'cep': forms.TextInput(attrs={'class': 'form-control'}),
             'uf': forms.Select(attrs={'class': 'form-control'}),
         }
+
+
+
 
 
 class TelefoneForm(forms.ModelForm):

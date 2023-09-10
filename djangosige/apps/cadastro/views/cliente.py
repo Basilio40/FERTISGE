@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-
+from django.shortcuts import get_object_or_404, redirect
+from django.http import HttpResponse
 from django.urls import reverse_lazy
 
 from djangosige.apps.cadastro.forms import ClienteForm
@@ -91,3 +92,10 @@ class EditarClienteView(EditarPessoaView):
         form = form_class(request.POST, request.FILES,
                           prefix='cliente_form', instance=self.object, request=request)
         return super(EditarClienteView, self).post(request, form, *args, **kwargs)
+
+class ExcluirClienteView(EditarPessoaView):
+    def get(self, request, pk):
+        cliente = get_object_or_404(Cliente, pk=pk)
+        cliente.delete()
+        success_url = reverse_lazy('cadastro:listaclientesview') 
+        return redirect('cadastro:listaclientesview')
