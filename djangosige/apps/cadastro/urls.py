@@ -4,7 +4,7 @@ from django.urls import path
 
 from djangosige.apps.cadastro.views.cliente import ExcluirClienteView
 from djangosige.apps.cadastro.views.fornecedor import ExcluirFornecedorView
-from djangosige.apps.cadastro.views.produto import ExcluirProdutoView, ExcluirUnidadeView
+from djangosige.apps.cadastro.views.produto import ExcluirMarcaView, ExcluirProdutoView, ExcluirUnidadeView
 from djangosige.apps.cadastro.views.transportadora import ExcluirTransportadoraView
 from . import views
 
@@ -116,6 +116,9 @@ urlpatterns = [
     # cadastro/outros/editarmarca/
     path('outros/editarmarca/<int:pk>/',
         views.EditarMarcaView.as_view(), name='editarmarcaview'),
+    # cadastro/outros/excluirmarca/
+    path('outros/excluirmarca/<int:pk>/',
+         ExcluirMarcaView.as_view(), name='excluirmarcaview'),
 
     # Informacoes de dada empresa (Ajax request)
     path('infoempresa/', views.InfoEmpresa.as_view(), name='infoempresa'),

@@ -276,3 +276,10 @@ class EditarMarcaView(EditarOutrosBaseView):
     model = Marca
     success_url = reverse_lazy('cadastro:listamarcasview')
     permission_codename = 'change_marca'
+
+class ExcluirMarcaView(EditarOutrosBaseView):
+    def get(self, request, pk):
+        cliente = get_object_or_404(Marca, pk=pk)
+        cliente.delete()
+        success_url = reverse_lazy('cadastro:listamarcasview') 
+        return redirect('cadastro:listamarcasview')
