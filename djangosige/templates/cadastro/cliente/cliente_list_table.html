@@ -1,12 +1,10 @@
-
-
 {% block content %}
 <div class="table-responsive">
   <table id="lista-database" class="table">
 
     <thead>
       <tr>
-        <th>#ID</th>                   
+        <th>#ID</th>
         <th>Nome/Razão Social</th>
         <th>CPF/CNPJ</th>
         <th>Estado</th>
@@ -19,47 +17,47 @@
 
       {% if all_clientes%}
 
-        {% for cliente in all_clientes %}
+      {% for cliente in all_clientes %}
 
-          <tr>
+      <tr>
 
-            <td>
-              {{cliente.id}}
-            </td>
+        <td>
+          {{cliente.id}}
+        </td>
 
-            <td>
-              {{cliente.nome_razao_social}}
-            </td>
+        <td>
+          {{cliente.nome_razao_social}}
+        </td>
 
-            <td>
-              {{ cliente.cpf_cnpj|default_if_none:'' }}
-            </td>
+        <td>
+          {{ cliente.cpf_cnpj|default_if_none:'' }}
+        </td>
 
-            <td>
-              {{cliente.endereco.all.0.uf|default_if_none:""}}
-            </td>
+        <td>
+          {{cliente.endereco.all.0.uf|default_if_none:""}}
+        </td>
 
-            <td>
-              {{cliente.endereco.all.0.municipio|default_if_none:""}}
-            </td>
+        <td>
+          {{cliente.endereco.all.0.municipio|default_if_none:""}}
+        </td>
 
-            <td class="lista-remove">
+        <td class="lista-remove">
 
-                <!-- Botão de edição -->
-                <a href="{% url 'cadastro:editarclienteview' cliente.id %}" class="btn btn-editar">
-                  <i class="fa fa-pencil"></i>
-                </a>
+          <!-- Botão de edição -->
+          <a href="{% url 'cadastro:editarclienteview' cliente.id %}" class="btn btn-editar">
+            <i class="fa fa-pencil"></i>
+          </a>
 
-                <!-- Botão de excluir -->
-                <a href="" class="btn btn-excluir">
-                  <i class="fa fa-trash"></i>
-                </a>
+          <!-- Botão de excluir -->
+          <a href="{% url 'cadastro:excluirclienteview' cliente.id %}" class="btn btn-excluir">
+            <i class="fa fa-trash"></i>
+          </a>
 
-            </td>
+        </td>
 
-          </tr>
+      </tr>
 
-        {% endfor %}
+      {% endfor %}
 
       {%else%}
 
