@@ -3,7 +3,7 @@
 
     <thead>
       <tr>
-        <th>#ID</th>                   
+        <th>#ID</th>
         <th>Nome/Razão Social</th>
         <th>CPF/CNPJ</th>
         <th>Estado</th>
@@ -16,49 +16,49 @@
 
       {% if all_fornecedores %}
 
-        {% for fornecedor in all_fornecedores %}
+      {% for fornecedor in all_fornecedores %}
 
-        <tr>
+      <tr>
 
-          <td>
-            {{fornecedor.id}}
-          </td>
+        <td>
+          {{fornecedor.id}}
+        </td>
 
-          <td>
-            {{fornecedor.nome_razao_social}}
-          </td>
+        <td>
+          {{fornecedor.nome_razao_social}}
+        </td>
 
-          <td>
-            {{ fornecedor.cpf_cnpj|default_if_none:'' }}
-          </td>
-        
-          <td>
-            {% if fornecedor.endereco.all.0.uf %}
-              {{fornecedor.endereco.all.0.get_uf_display}}
-            {% endif %}
-          </td>
+        <td>
+          {{ fornecedor.cpf_cnpj|default_if_none:'' }}
+        </td>
 
-          <td>
-            {{fornecedor.endereco.all.0.municipio|default_if_none:""}}
-          </td>
+        <td>
+          {% if fornecedor.endereco.all.0.uf %}
+          {{fornecedor.endereco.all.0.get_uf_display}}
+          {% endif %}
+        </td>
 
-          <td class="lista-remove">
+        <td>
+          {{fornecedor.endereco.all.0.municipio|default_if_none:""}}
+        </td>
 
-            <!-- editar fornecedor -->
-            <a href="{% url 'cadastro:editarfornecedorview' fornecedor.id %}" class="btn btn-editar">
-              <i class="fa fa-pencil"></i>
-            </a>
+        <td class="lista-remove">
 
-            <!-- Excluir fornecedor -->
-            <a href="" class="btn btn-excluir">
-              <i class="fa fa-trash"></i>
-            </a>
+          <!-- editar fornecedor -->
+          <a href="{% url 'cadastro:editarfornecedorview' fornecedor.id %}" class="btn btn-editar">
+            <i class="fa fa-pencil"></i>
+          </a>
 
-          </td>
+          <!-- Excluir fornecedor -->
+          <a href="{% url 'cadastro:excluirfornecedorview' fornecedor.id %}" class="btn btn-excluir">
+            <i class="fa fa-trash"></i>
+          </a>
 
-        </tr>
+        </td>
 
-        {% endfor %}
+      </tr>
+
+      {% endfor %}
 
       {%else%}
 

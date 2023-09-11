@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from django.shortcuts import get_object_or_404, redirect
+from django.http import HttpResponse
 
 from django.urls import reverse_lazy
 
@@ -84,3 +86,11 @@ class EditarFornecedorView(EditarPessoaView):
         form = form_class(request.POST, request.FILES,
                           prefix='fornecedor_form', instance=self.object, request=request)
         return super(EditarFornecedorView, self).post(request, form, *args, **kwargs)
+
+
+class ExcluirFornecedorView(EditarPessoaView):
+    def get(self, request, pk):
+        cliente = get_object_or_404(Fornecedor, pk=pk)
+        cliente.delete()
+        success_url = reverse_lazy('cadastro:listafornecedoresview') 
+        return redirect('cadastro:listafornecedoresview')
