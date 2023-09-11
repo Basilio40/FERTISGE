@@ -249,6 +249,12 @@ class EditarUnidadeView(EditarOutrosBaseView):
     success_url = reverse_lazy('cadastro:listaunidadesview')
     permission_codename = 'change_unidade'
 
+class ExcluirUnidadeView(EditarOutrosBaseView):
+    def get(self, request, pk):
+        cliente = get_object_or_404(Unidade, pk=pk)
+        cliente.delete()
+        success_url = reverse_lazy('cadastro:listaunidadesview') 
+        return redirect('cadastro:listaunidadesview')
 
 class AdicionarMarcaView(AdicionarOutrosBaseView):
     form_class = MarcaForm
