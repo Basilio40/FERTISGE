@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from django.shortcuts import get_object_or_404, redirect
+from django.http import HttpResponse
 
 from django.urls import reverse_lazy
 
@@ -64,3 +66,10 @@ class EditarLocalEstoqueView(CustomUpdateView):
         context = super(EditarLocalEstoqueView,
                         self).get_context_data(**kwargs)
         return self.view_context(context)
+
+class ExcluirLocalEstoqueView(CustomUpdateView):
+    def get(self, request, pk):
+        cliente = get_object_or_404(LocalEstoque, pk=pk)
+        cliente.delete()
+        success_url = reverse_lazy('estoque:listalocalview') 
+        return redirect('estoque:listalocalview')

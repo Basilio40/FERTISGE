@@ -20,6 +20,9 @@ urlpatterns = [
     # estoque/local/editar/
     path('local/editar/<int:pk>/',
         views.EditarLocalEstoqueView.as_view(), name='editarlocalview'),
+    # estoque/local/excluir/
+    path('local/excluir/<int:pk>/',
+        views.ExcluirLocalEstoqueView.as_view(), name='excluirlocalview'),
 
     # Movimento de estoque
     # Lista todos movimentos
