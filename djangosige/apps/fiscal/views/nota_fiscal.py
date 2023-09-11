@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from django.shortcuts import get_object_or_404, redirect
+from django.http import HttpResponse
 
 from django.urls import reverse_lazy
 from django.contrib import messages
@@ -361,6 +363,12 @@ class GerarNotaFiscalSaidaView(CustomView):
 
         return redirect(reverse_lazy('fiscal:editarnotafiscalsaidaview', kwargs={'pk': nova_nota.id}))
 
+class ExcluirNotaFiscalView(CustomView):
+    def get(self, request, pk):
+        cliente = get_object_or_404(NotaFiscal, pk=pk)
+        cliente.delete()
+        success_url = reverse_lazy('fiscal:listanotafiscalsaidaview') 
+        return redirect('fiscal:listanotafiscalsaidaview')
 
 class ConfiguracaoNotaFiscalView(FormValidationMessageMixin, CustomTemplateView):
     template_name = 'fiscal/nota_fiscal/nota_fiscal_config.html'

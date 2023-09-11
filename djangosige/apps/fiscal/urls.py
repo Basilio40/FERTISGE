@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-$
 
 from django.urls import path
+
+from djangosige.apps.fiscal.views.nota_fiscal import ExcluirNotaFiscalView
 from . import views
 
 app_name = 'fiscal'
@@ -21,6 +23,9 @@ urlpatterns = [
     # fiscal/notafiscal/saida/gerar/
     path('notafiscal/saida/gerar/<int:pk>/',
         views.GerarNotaFiscalSaidaView.as_view(), name='gerarnotafiscalsaida'),
+    # fiscal/notafiscal/saida/excluir/
+    path('notafiscal/saida/excluir/<int:pk>/',
+            ExcluirNotaFiscalView.as_view(), name='excluirnotafiscalsaida'),
 
     # Nota fiscal entrada
     # fiscal/notafiscal/entrada/listanotafiscal
