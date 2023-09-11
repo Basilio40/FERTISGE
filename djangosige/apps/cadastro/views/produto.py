@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from django.shortcuts import get_object_or_404, redirect
+from django.http import HttpResponse
 
 from django.urls import reverse_lazy
 from django.db.models import F
@@ -176,6 +178,12 @@ class EditarProdutoView(CustomUpdateView):
 
         return self.form_invalid(form)
 
+class ExcluirProdutoView(CustomUpdateView):
+    def get(self, request, pk):
+        cliente = get_object_or_404(Produto, pk=pk)
+        cliente.delete()
+        success_url = reverse_lazy('cadastro:listaprodutosview') 
+        return redirect('cadastro:listaprodutosview')
 
 class AdicionarOutrosBaseView(CustomCreateView):
     template_name = "base/popup_form.html"

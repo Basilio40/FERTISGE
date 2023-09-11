@@ -4,6 +4,7 @@ from django.urls import path
 
 from djangosige.apps.cadastro.views.cliente import ExcluirClienteView
 from djangosige.apps.cadastro.views.fornecedor import ExcluirFornecedorView
+from djangosige.apps.cadastro.views.produto import ExcluirProdutoView
 from djangosige.apps.cadastro.views.transportadora import ExcluirTransportadoraView
 from . import views
 
@@ -75,6 +76,9 @@ urlpatterns = [
     # cadastro/produto/editar/
     path('produto/editar/<int:pk>/',
         views.EditarProdutoView.as_view(), name='editarprodutoview'),
+    # cadastro/produto/excluir/
+    path('produto/excluir/<int:pk>/',
+         ExcluirProdutoView.as_view(), name='excluirprodutoview'),
 
     # Outros
     # Categorias
