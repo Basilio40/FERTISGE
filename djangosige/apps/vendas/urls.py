@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from django.urls import path
+
+from djangosige.apps.vendas.views.vendas import ExcluirOrcamentoVendaView
 from . import views
 
 app_name = 'vendas'
@@ -21,6 +23,9 @@ urlpatterns = [
     # vendas/orcamentovenda/listaorcamentovenda/hoje
     path('orcamentovenda/listaorcamentovenda/hoje/',
         views.OrcamentoVendaVencimentoHojeListView.as_view(), name='listaorcamentovendahojeview'),
+    # vendas/orcamentovenda/excluirorcamentovenda/hoje
+    path('orcamentovenda/excluirorcamentovenda/hoje/',
+            ExcluirOrcamentoVendaView.as_view(), name='excluirorcamentovendaview'),
 
     # Pedidos de venda
     # vendas/pedidovenda/adicionar/

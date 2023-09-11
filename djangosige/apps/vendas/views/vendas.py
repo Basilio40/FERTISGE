@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from django.shortcuts import get_object_or_404, redirect
+from django.http import HttpResponse
 
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
@@ -255,6 +257,12 @@ class OrcamentoVendaVencimentoHojeListView(OrcamentoVendaListView):
     def get_queryset(self):
         return OrcamentoVenda.objects.filter(data_vencimento=datetime.now().date(), status='0')
 
+class ExcluirOrcamentoVendaView(OrcamentoVendaListView):
+    def get(self, request, pk):
+        cliente = get_object_or_404(OrcamentoVenda, pk=pk)
+        cliente.delete()
+        success_url = reverse_lazy('vendas:listaorcamentovendaview') 
+        return redirect('vendas:listaorcamentovendaview')
 
 class PedidoVendaListView(VendaListView):
     template_name = 'vendas/pedido_venda/pedido_venda_list.html'
