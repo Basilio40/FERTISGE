@@ -53,6 +53,9 @@ urlpatterns = [
     # estoque/movimento/editarsaida/
     path('movimento/editarsaida/<int:pk>/',
         views.DetalharSaidaEstoqueView.as_view(), name='detalharsaidaestoqueview'),
+    # estoque/movimento/excluirsaida/
+    path('movimento/excluirsaida/<int:pk>/',
+        views.ExcluirSaidaEstoqueView.as_view(), name='excluirsaidaestoqueview'),
 
     # TransferenciaEstoque
     # estoque/movimento/adicionartransferencia/

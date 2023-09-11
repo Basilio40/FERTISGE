@@ -285,6 +285,12 @@ class DetalharSaidaEstoqueView(DetalharMovimentoEstoqueBaseView):
         context['return_url'] = reverse_lazy('estoque:listasaidasestoqueview')
         return context
 
+class ExcluirSaidaEstoqueView(DetalharMovimentoEstoqueBaseView):
+    def get(self, request, pk):
+        cliente = get_object_or_404(SaidaEstoque, pk=pk)
+        cliente.delete()
+        success_url = reverse_lazy('estoque:listasaidasestoqueview') 
+        return redirect('estoque:listasaidasestoqueview')
 
 class DetalharTransferenciaEstoqueView(DetalharMovimentoEstoqueBaseView):
     model = TransferenciaEstoque
