@@ -16,49 +16,49 @@
 
       {% if all_transportadoras%}
 
-        {% for transportadora in all_transportadoras %}
+      {% for transportadora in all_transportadoras %}
 
-        <tr>
+      <tr>
 
-          <td>
-            {{transportadora.id}}
-          </td>
+        <td>
+          {{transportadora.id}}
+        </td>
 
-          <td>
-            {{transportadora.nome_razao_social}}
-          </td>
+        <td>
+          {{transportadora.nome_razao_social}}
+        </td>
 
-          <td>
-            {{ transportadora.cpf_cnpj|default_if_none:'' }}
-          </td>
-        
-          <td>
-            {% if transportadora.endereco.all.0.uf %}
-              {{transportadora.endereco.all.0.get_uf_display}}
-            {% endif %}
-          </td>
+        <td>
+          {{ transportadora.cpf_cnpj|default_if_none:'' }}
+        </td>
 
-          <td>
-            {{transportadora.endereco.all.0.municipio|default_if_none:""}}
-          </td>
+        <td>
+          {% if transportadora.endereco.all.0.uf %}
+          {{transportadora.endereco.all.0.get_uf_display}}
+          {% endif %}
+        </td>
 
-          <td class="lista-remove">
+        <td>
+          {{transportadora.endereco.all.0.municipio|default_if_none:""}}
+        </td>
 
-            <!-- Botão de edição -->
-            <a href="{% url 'cadastro:editartransportadoraview' transportadora.id %}" class="btn btn-editar">
-              <i class="fa fa-pencil"></i>
-            </a>
+        <td class="lista-remove">
 
-            <!-- Botão de excluir -->
-            <a href="" class="btn btn-excluir">
-              <i class="fa fa-trash"></i>
-            </a>
+          <!-- Botão de edição -->
+          <a href="{% url 'cadastro:editartransportadoraview' transportadora.id %}" class="btn btn-editar">
+            <i class="fa fa-pencil"></i>
+          </a>
 
-          </td>
+          <!-- Botão de excluir -->
+          <a href="{% url 'cadastro:excluirtransportadoraview' transportadora.id %}" class="btn btn-excluir">
+            <i class="fa fa-trash"></i>
+          </a>
 
-        </tr>
+        </td>
 
-        {% endfor %}
+      </tr>
+
+      {% endfor %}
 
       {%else%}
 

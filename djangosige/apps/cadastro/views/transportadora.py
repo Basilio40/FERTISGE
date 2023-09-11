@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from django.shortcuts import get_object_or_404, redirect
+from django.http import HttpResponse
 
 from django.urls import reverse_lazy
 
@@ -107,3 +109,10 @@ class EditarTransportadoraView(EditarPessoaView):
 
         return super(EditarTransportadoraView, self).post(
             request, form, veiculo_form=veiculo_form, *args, **kwargs)
+
+class ExcluirTransportadoraView(EditarPessoaView):
+    def get(self, request, pk):
+        cliente = get_object_or_404(Transportadora, pk=pk)
+        cliente.delete()
+        success_url = reverse_lazy('cadastro:listatransportadorasview') 
+        return redirect('cadastro:listatransportadorasview')
