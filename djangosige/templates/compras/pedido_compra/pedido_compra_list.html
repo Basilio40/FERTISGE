@@ -60,10 +60,9 @@
                         <i class="fa fa-pencil"></i>
                       </a>
 
-                      <input type="checkbox" name="{{pedido.id}}" id="remover-entrada-{{pedido.id}}" />
-                      <label class="remove-entry-label btn btn-excluir" for="remover-entrada-{{pedido.id}}">
+                      <a href="{% url 'compras:excluirpedidocompraview' pedido.id %}" class="btn btn-excluir">
                         <i class="fa fa-trash"></i>
-                      </label>
+                      </a>
 
                     </td>
                   </tr>

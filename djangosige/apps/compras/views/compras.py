@@ -219,6 +219,12 @@ class PedidoCompraEntregaHojeListView(PedidoCompraListView):
     def get_queryset(self):
         return PedidoCompra.objects.filter(data_entrega=datetime.now().date(), status='0')
 
+class ExcluirPedidoCompraView(PedidoCompraListView):
+    def get(self, request, pk):
+        cliente = get_object_or_404(PedidoCompra, pk=pk)
+        cliente.delete()
+        success_url = reverse_lazy('compras:listapedidocompraview') 
+        return redirect('compras:listapedidocompraview')
 
 class EditarCompraView(CustomUpdateView):
 

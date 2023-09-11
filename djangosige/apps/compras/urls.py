@@ -43,6 +43,9 @@ urlpatterns = [
     # compras/pedidocompra/listapedidocompra/hoje/
     path('pedidocompra/listapedidocompra/hoje/',
         views.PedidoCompraEntregaHojeListView.as_view(), name='listapedidocomprahojeview'),
+    # compras/orcamentocompra/excluirorcamentocompra/hoje/
+    path('pedidocompra/excluirpedidocompra/<int:pk>/',
+            ExcluirCompraVencimentoView.as_view(), name='excluirpedidocompraview'),
 
     # Request ajax
     path('infocompra/', views.InfoCompra.as_view(), name='infocompra'),
