@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from django.shortcuts import get_object_or_404, redirect
+from django.http import HttpResponse
 
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
@@ -267,6 +269,12 @@ class DetalharEntradaEstoqueView(DetalharMovimentoEstoqueBaseView):
             'estoque:listaentradasestoqueview')
         return context
 
+class ExcluirEntradaEstoqueView(DetalharMovimentoEstoqueBaseView):
+    def get(self, request, pk):
+        cliente = get_object_or_404(EntradaEstoque, pk=pk)
+        cliente.delete()
+        success_url = reverse_lazy('estoque:listaentradasestoqueview') 
+        return redirect('estoque:listaentradasestoqueview')
 
 class DetalharSaidaEstoqueView(DetalharMovimentoEstoqueBaseView):
     model = SaidaEstoque

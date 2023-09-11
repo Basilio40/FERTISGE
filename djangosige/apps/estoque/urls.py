@@ -39,6 +39,9 @@ urlpatterns = [
     # estoque/movimento/editarentrada/
     path('movimento/editarentrada/<int:pk>/', views.DetalharEntradaEstoqueView.as_view(
     ), name='detalharentradaestoqueview'),
+    # estoque/movimento/excluirentrada/
+    path('movimento/excluirentrada/<int:pk>/',
+        views.ExcluirEntradaEstoqueView.as_view(), name='excluirentradaestoqueview'),
 
     # SaidaEstoque
     # estoque/movimento/adicionarsaida/

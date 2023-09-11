@@ -27,10 +27,9 @@
             <i class="fa fa-pencil"></i>
           </a>
 
-          <input type="checkbox" name="{{entrada.id}}" id="remover-movimento-{{entrada.id}}" />
-          <label class="remove-entry-label btn btn-excluir" for="remover-movimento-{{entrada.id}}">
+          <a href="{% url  'estoque:excluirentradaestoqueview' entrada.id%}" class="btn btn-excluir">
             <i class="fa fa-trash"></i>
-          </label>
+          </a>
         </td>
       </tr>
       {% endfor %}
