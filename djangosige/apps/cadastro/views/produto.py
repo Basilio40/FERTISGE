@@ -234,6 +234,9 @@ class AdicionarUnidadeView(AdicionarOutrosBaseView):
     success_url = reverse_lazy('cadastro:listaunidadesview')
     permission_codename = 'add_unidade'
 
+    def get_queryset(self):
+        return self.model.objects.all()
+
 
 class UnidadesListView(CustomListView):
     model = Unidade
