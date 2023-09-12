@@ -644,7 +644,15 @@ $.Admin.popupwindow = {
                     }
                     // Se a janela não é um pop-up
                     else {
-                        window.location.href = '/cadastro/outros/listaunidades/';
+                        var currentPath = window.location.pathname;
+
+                        // Dependendo da tela atual, redirecione para uma URL específica
+                        if (currentPath.includes("/cadastro/outros/adicionarunidade/")) {
+                            window.location.href = '/cadastro/outros/listaunidades/';
+                        } else if (currentPath.includes("/cadastro/outros/adicionarmarca/")) {
+                            window.location.href = '/cadastro/outros/listamarcas/';
+                        }
+                        // ...
                     }
                 }
             });
