@@ -651,6 +651,8 @@ $.Admin.popupwindow = {
                             window.location.href = '/cadastro/outros/listaunidades/';
                         } else if (currentPath.includes("/cadastro/outros/adicionarmarca/")) {
                             window.location.href = '/cadastro/outros/listamarcas/';
+                        } else if (currentPath.includes("/estoque/local/saida/adicionar/")) {
+                            window.location.href = '/estoque/local/listalocal/';
                         }
                         // ...
                     }
