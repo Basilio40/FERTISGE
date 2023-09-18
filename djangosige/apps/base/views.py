@@ -84,7 +84,7 @@ class IndexView(TemplateView):
         context = {}
         
         try:
-            context['contas_pagar'] = Saida.objects.get(data_vencimento=data_atual)
+            context['contas_pagar'] = Saida.objects.filter(data_vencimento=data_atual)
             
         except (Saida.DoesNotExist, ObjectDoesNotExist):
             ...
