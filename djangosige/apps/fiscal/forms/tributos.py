@@ -57,8 +57,8 @@ class ICMSForm(forms.ModelForm):
             'p_dif': forms.TextInput(attrs={'class': 'form-control percentual-mask'}),
             'p_bc_op': forms.TextInput(attrs={'class': 'form-control percentual-mask'}),
             'ufst': forms.Select(attrs={'class': 'form-control'}),
-            'icms_incluido_preco': forms.CheckboxInput(attrs={'class': 'form-control'}),
-            'icmsst_incluido_preco': forms.CheckboxInput(attrs={'class': 'form-control'}),
+            'icms_incluido_preco': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'icmsst_incluido_preco': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
 
         }
         labels = {
@@ -113,8 +113,8 @@ class ICMSSNForm(forms.ModelForm):
             'p_mvast': forms.TextInput(attrs={'class': 'form-control percentual-mask'}),
             'p_red_bcst': forms.TextInput(attrs={'class': 'form-control percentual-mask'}),
             'p_icmsst': forms.TextInput(attrs={'class': 'form-control percentual-mask'}),
-            'icmssn_incluido_preco': forms.CheckboxInput(attrs={'class': 'form-control'}),
-            'icmssnst_incluido_preco': forms.CheckboxInput(attrs={'class': 'form-control'}),
+            'icmssn_incluido_preco': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'icmssnst_incluido_preco': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
         labels = {
             'csosn': ('CSOSN'),
@@ -190,9 +190,9 @@ class IPIForm(forms.ModelForm):
             'p_ipi': forms.TextInput(attrs={'class': 'form-control percentual-mask'}),
             'tipo_ipi': forms.Select(attrs={'class': 'form-control'}),
             'valor_fixo': forms.TextInput(attrs={'class': 'form-control decimal-mask'}),
-            'ipi_incluido_preco': forms.CheckboxInput(attrs={'class': 'form-control'}),
-            'incluir_bc_icms': forms.CheckboxInput(attrs={'class': 'form-control'}),
-            'incluir_bc_icmsst': forms.CheckboxInput(attrs={'class': 'form-control'}),
+            'ipi_incluido_preco': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'incluir_bc_icms': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'incluir_bc_icmsst': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
         labels = {
             'cst': ('CST IPI'),
