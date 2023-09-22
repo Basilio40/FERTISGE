@@ -4,178 +4,184 @@
 
 
 
-  <!-- =======================================================
+<!-- =======================================================
     Template Name: Dashio
     Template URL: https://templatemag.com/dashio-bootstrap-admin-template/
     Author: TemplateMag.com
     License: https://templatemag.com/license/
   ======================================================= -->
-  <link href="{% static 'img/favicon.png' %}" rel="icon">
-  <link href="{% static 'img/BRASIL_FERTILIZANTES.png' %}" rel="apple-touch-icon">
+<link href="{% static 'img/favicon.png' %}" rel="icon">
+<link href="{% static 'img/BRASIL_FERTILIZANTES.png' %}" rel="apple-touch-icon">
 
-  <!-- Bootstrap core CSS -->
-  <link href="{% static 'bootstrap_js/bootstrap/css/bootstrap.css' %}" rel="stylesheet">
-  <!--external css-->
-  <link href="{% static 'bootstrap_js/font-awesome/css/font-awesome.css' %}" rel="stylesheet" />
-  <link rel="stylesheet" type="text/css" href="{% static 'css/zabuto_calendar.css' %}">
-  <link rel="stylesheet" type="text/css" href="{% static 'bootstrap_js/gritter/css/jquery.gritter0.css' %}" />
-  <!-- Custom styles for this template -->
-  <link href="{% static 'css/style.css' %}" rel="stylesheet">
-  <link href="{% static 'css/style-responsive.css' %}" rel="stylesheet">
-  <script src="{% static 'bootstrap_js/chart-master/Chart.js' %}"></script>
+<!-- Bootstrap core CSS -->
+<link href="{% static 'bootstrap_js/bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+<!--external css-->
+<link href="{% static 'bootstrap_js/font-awesome/css/font-awesome.css' %}" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/zabuto_calendar.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap_js/gritter/css/jquery.gritter0.css' %}" />
+<!-- Custom styles for this template -->
+<link href="{% static 'css/style.css' %}" rel="stylesheet">
+<link href="{% static 'css/style-responsive.css' %}" rel="stylesheet">
+<script src="{% static 'bootstrap_js/chart-master/Chart.js' %}"></script>
 
-    <!--sidebar start-->
-    <aside>
-      <div id="sidebar" class="nav-collapse ">
-        <!-- sidebar menu start-->
-        <ul class="sidebar-menu" id="nav-accordion">
-          <!-- <p class="centered"><a href="{% url 'base:index' %}"><img src="{% static 'img/BRASIL_FERTILIZANTES.png' %}" class="img-circle" width="80"></a></p>
+<!--sidebar start-->
+<aside>
+  <div id="sidebar" class="nav-collapse ">
+    <!-- sidebar menu start-->
+    <ul class="sidebar-menu" id="nav-accordion">
+      <!-- <p class="centered"><a href="{% url 'base:index' %}"><img src="{% static 'img/BRASIL_FERTILIZANTES.png' %}" class="img-circle" width="80"></a></p>
           <li class="mt">
           </li> -->
-          {% if user|can:'ver_inicio' %}
-          <li class="sub-menu">
-            <a href="{% url 'base:index' %}">
-              <i class="fa fa-home"></i>
-              <span>INICIO</span>
-              </a>
-          </li>
-          {% endif %}
-          {% if user|can:'ver_cadastro' %}
-          <li class="sub-menu">
-            <a href="{% url 'cadastro:listaclientesview' %}">
-              <i class="fa fa-user"></i>
-              <span>CLIENTES</span>
-              </a>
-          </li>
-          {% endif %}
-         
-              <li class="sub-menu">
-                <a href="{% url 'cadastro:listafornecedoresview' %}">
-                  <i class="fa fa-industry"></i>
-                  <span>FORNECEDORES</span>
-                  </a>
-              </li>
+      {% if user|can:'ver_inicio' %}
+      <li class="sub-menu">
+        <a href="{% url 'base:index' %}">
+          <i class="fa fa-home"></i>
+          <span>INICIO</span>
+        </a>
+      </li>
+      {% endif %}
+      {% if user|can:'ver_cadastro' %}
+      <li class="sub-menu">
+        <a href="{% url 'cadastro:listaclientesview' %}">
+          <i class="fa fa-user"></i>
+          <span>CLIENTES</span>
+        </a>
+      </li>
+      {% endif %}
 
-                  <li class="sub-menu">
-                    <a href="{% url 'cadastro:listatransportadorasview' %}">
-                      <i class="fa fa-truck"></i>
-                      <span>TRANSPORTADORAS</span>
-                      </a>
-                </li>
-                {% if user|can:'ver_produtos' %}
-                <li class="sub-menu">
-                  <a href="{% url 'cadastro:listaprodutosview' %}">
-                    <i class="fa fa-leaf"></i>
-                    <span>PRODUTOS</span>
-                  </a>
-                  {% endif %}
-                  {% if user|can:'ver_unidades' %}
-                  <li class="sub-menu">
-                      <a href="{% url 'cadastro:listaunidadesview' %}">
-                        <i class="fa fa-balance-scale"></i>
-                        <span>UNIDADES</span>
-                      </a>
-                    {% endif %}
-                    {% if user|can:'ver_marca' %}
-                      <li class="sub-menu">
-                        <a href="{% url 'cadastro:listamarcasview' %}">
-                          <i class="fa fa-trademark"></i>
-                          <span>MARCA</span>
-                          </a>
-                      {% endif %}
-              {% if user|can:'ver_estoque' %}
-              <li class="sub-menu">
-                <a href="{% url 'estoque:listalocalview' %}">
-                  <i class="fa fa-cubes"></i>
-                  <span>ESTOQUE</span>
-                  </a>
-              {% endif %}
-          {% if user|can:'ver_compras' %}
-          <li class="sub-menu">
-            <a href="{% url 'compras:listaorcamentocompraview' %}">
-              <i class="fa fa-shopping-cart"></i>
-              <span>COMPRAS</span>
-              </a>
-              {% endif %}
-          </li>
-          {% if user|can:'ver_vendas' %}
-          <li class="sub-menu">
-            <a href="{% url 'vendas:listaorcamentovendaview' %}">
-              <i class="fa fa-shopping-bag"></i>
-              <span>VENDAS</span>
-              </a>
-              {% endif %}
-              {% if user|can:'ver_financeiro' %}
-          </li>
-          <li class="sub-menu">
-            <a href="{% url 'financeiro:listalancamentoview' %}">
-              <i class="fa fa-money"></i>
-              <span>FINANCEIRO</span>
-              </a>
-              {% endif %}
-              {% if user|can:'ver_financeiro' %}
-          </li>
-          <li class="sub-menu">
-            <a href="{% url 'fiscal:listanotafiscalsaidaview' %}">
-              <i class="fa fa-balance-scale"></i>
-              <span>FISCAL</span>
-              </a>
-          </li>
-          {% endif %}
-         
-       </li>
-        <!-- sidebar menu end-->
-      </div>
-    </aside>
+      <li class="sub-menu">
+        <a href="{% url 'cadastro:listafornecedoresview' %}">
+          <i class="fa fa-industry"></i>
+          <span>FORNECEDORES</span>
+        </a>
+      </li>
 
-    <script>
-    const accordion_item = document.querySelectorAll(".accordion_item");
+      <li class="sub-menu">
+        <a href="{% url 'cadastro:listatransportadorasview' %}">
+          <i class="fa fa-truck"></i>
+          <span>TRANSPORTADORAS</span>
+        </a>
+      </li>
+      {% if user|can:'ver_produtos' %}
+      <li class="sub-menu">
+        <a href="{% url 'cadastro:listaprodutosview' %}">
+          <i class="fa fa-leaf"></i>
+          <span>PRODUTOS</span>
+        </a>
+        {% endif %}
+        {% if user|can:'ver_unidades' %}
+      <li class="sub-menu">
+        <a href="{% url 'cadastro:listaunidadesview' %}">
+          <i class="fa fa-balance-scale"></i>
+          <span>UNIDADES</span>
+        </a>
+        {% endif %}
+        {% if user|can:'ver_marca' %}
+      <li class="sub-menu">
+        <a href="{% url 'cadastro:listamarcasview' %}">
+          <i class="fa fa-trademark"></i>
+          <span>MARCA</span>
+        </a>
+        {% endif %}
+        {% if user|can:'ver_estoque' %}
+      <li class="sub-menu">
+        <a href="{% url 'estoque:listalocalview' %}">
+          <i class="fa fa-cubes"></i>
+          <span>ESTOQUE</span>
+        </a>
+        {% endif %}
+        {% if user|can:'ver_compras' %}
+      <li class="sub-menu">
+        <a href="{% url 'compras:listaorcamentocompraview' %}">
+          <i class="fa fa-shopping-cart"></i>
+          <span>COMPRAS</span>
+        </a>
+        {% endif %}
+      </li>
+      {% if user|can:'ver_vendas' %}
+      <li class="sub-menu">
+        <a href="{% url 'vendas:listaorcamentovendaview' %}">
+          <i class="fa fa-shopping-bag"></i>
+          <span>VENDAS</span>
+        </a>
+        {% endif %}
+        {% if user|can:'ver_financeiro' %}
+      </li>
+      <li class="sub-menu">
+        <a href="{% url 'financeiro:listalancamentoview' %}">
+          <i class="fa fa-money"></i>
+          <span>FINANCEIRO</span>
+        </a>
+        {% endif %}
+        {% if user|can:'ver_financeiro' %}
+      </li>
+      <li class="sub-menu">
+        <a href="{% url 'fiscal:listanotafiscalsaidaview' %}">
+          <i class="fa fa-balance-scale"></i>
+          <span>FISCAL</span>
+        </a>
+      </li>
+      <li class="sub-menu">
+        <a href="{% url 'fiscal:listagrupofiscalview' %}">
+          <i class="fa fa-balance-scale"></i>
+          <span>GRUPO FISCAL</span>
+        </a>
+      </li>
+      {% endif %}
 
-    accordion_item.forEach((item) => {
-      const accordion_header_item = item.querySelector(".accordion_header");
-    
-      accordion_header_item.addEventListener("click", () => {
-        const accordion_content_item = item.querySelector(".accordion_content");
-    
-        const item_actived = document.querySelector(".active");
-    
-        VerifyActive(item, accordion_content_item, item_actived);
-      });
+      </li>
+      <!-- sidebar menu end-->
+  </div>
+</aside>
+
+<script>
+  const accordion_item = document.querySelectorAll(".accordion_item");
+
+  accordion_item.forEach((item) => {
+    const accordion_header_item = item.querySelector(".accordion_header");
+
+    accordion_header_item.addEventListener("click", () => {
+      const accordion_content_item = item.querySelector(".accordion_content");
+
+      const item_actived = document.querySelector(".active");
+
+      VerifyActive(item, accordion_content_item, item_actived);
     });
-    
-    function VerifyActive(item, content, content_actived) {
-      const icon_item = item.querySelector(".icon");
-      const icon_item_active = document.querySelectorAll(".icon");
-    
-      icon_item_active.forEach((item) => (item.innerHTML = "+"));
-    
-      if (content_actived) {
-        content_actived.style.height = 0;
-        content_actived.classList.remove("active");
-      }
-    
-      if (content !== content_actived) {
-        icon_item.innerHTML = "-";
-        content.classList.add("active");
-        content.style.height = content.scrollHeight + 10 + "px";
-      }
+  });
+
+  function VerifyActive(item, content, content_actived) {
+    const icon_item = item.querySelector(".icon");
+    const icon_item_active = document.querySelectorAll(".icon");
+
+    icon_item_active.forEach((item) => (item.innerHTML = "+"));
+
+    if (content_actived) {
+      content_actived.style.height = 0;
+      content_actived.classList.remove("active");
     }
 
-  </script>
-    <!--sidebar end-->
-    <script src="{% static 'bootstrap_js/bootstrap/js/bootstrap.js' %}"></script>
-    <script class="include" type="text/javascript" src="{% static 'bootstrap_js/jquery.dcjqaccordion.2.7.js' %}"></script>
-    <script src="{% static 'bootstrap_js/jquery.scrollTo.min.js' %}"></script>
-    <script src="{% static 'bootstrap_js/jquery.nicescroll.js' %}" type="text/javascript"></script>
-    <script src="{% static 'bootstrap_js/jquery.sparkline.js' %}"></script>
-    <!--common script for all pages-->
-    <script src="{% static 'bootstrap_js/common-scripts.js' %}"></script>
-    <script type="text/javascript" src="{% static 'bootstrap_js/gritter/js/jquery.gritter.js' %}"></script>
-    <script type="text/javascript" src="{% static 'bootstrap_js/gritter-conf.js' %}"></script>
-    <!--script for this page-->
-    <script src="{% static 'bootstrap_js/sparkline-chart.js' %}"></script>
-    <script src="{% static 'bootstrap_js/zabuto_calendar.js' %}"></script> 
-    
+    if (content !== content_actived) {
+      icon_item.innerHTML = "-";
+      content.classList.add("active");
+      content.style.height = content.scrollHeight + 10 + "px";
+    }
+  }
+
+</script>
+<!--sidebar end-->
+<script src="{% static 'bootstrap_js/bootstrap/js/bootstrap.js' %}"></script>
+<script class="include" type="text/javascript" src="{% static 'bootstrap_js/jquery.dcjqaccordion.2.7.js' %}"></script>
+<script src="{% static 'bootstrap_js/jquery.scrollTo.min.js' %}"></script>
+<script src="{% static 'bootstrap_js/jquery.nicescroll.js' %}" type="text/javascript"></script>
+<script src="{% static 'bootstrap_js/jquery.sparkline.js' %}"></script>
+<!--common script for all pages-->
+<script src="{% static 'bootstrap_js/common-scripts.js' %}"></script>
+<script type="text/javascript" src="{% static 'bootstrap_js/gritter/js/jquery.gritter.js' %}"></script>
+<script type="text/javascript" src="{% static 'bootstrap_js/gritter-conf.js' %}"></script>
+<!--script for this page-->
+<script src="{% static 'bootstrap_js/sparkline-chart.js' %}"></script>
+<script src="{% static 'bootstrap_js/zabuto_calendar.js' %}"></script>
+
 
 
 
