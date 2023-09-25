@@ -2,6 +2,7 @@
 
   <ul class="nav nav-tabs" role="tablist" style="margin-bottom: 20px;">
     <li role="presentation" class="active"><a href="#tab_definicao" data-toggle="tab">GERAIS</a></li>
+    <li role="presentation"><a href="#tab_cfop" data-toggle="tab">CFOP</a></li>
     <li role="presentation"><a href="#tab_icms" data-toggle="tab">ICMS</a></li>
     <li role="presentation"><a href="#tab_ipi" data-toggle="tab">IPI</a></li>
     <li role="presentation"><a href="#tab_pis" data-toggle="tab">PIS</a></li>
@@ -38,6 +39,104 @@
 
   </div>
   <!-- #Tab definicao -->
+    <!-- Tab CFOP -->
+    <div role="tabpanel" class="tab-pane" id="tab_cfop">
+
+      {% for field in icms_form %}
+      {% if field.label != icms_form.icms_incluido_preco.label and field.label != icms_form.icmsst_incluido_preco.label %}
+      <div class="col-sm-6 {{icms_form.prefix}} {{field.help_text}}">
+        <div class="form-group">
+          <div class="form-line">
+  
+            <label>
+              CFOP Entrada outra UF
+            </label>
+  
+            {% if field.field.required or field.label == 'CFOP Entrada outra UF' %}
+            <strong style="color:red;"> *</strong>
+            {% endif %}
+            
+  
+            {% if field.errors %}
+            <label class="error">
+              {% for error in field.errors %}{{error}}{% endfor %}
+            </label>
+            {% endif%}
+  
+            {{field}}
+
+            <label>
+              CFOP Entrada mesma UF
+            </label>
+  
+            {% if field.field.required or field.label == 'CFOP Entrada mesma UF' %}
+            <strong style="color:red;"> *</strong>
+            {% endif %}
+            
+  
+            {% if field.errors %}
+            <label class="error">
+              {% for error in field.errors %}{{error}}{% endfor %}
+            </label>
+            {% endif%}
+  
+            {{field}}
+
+  
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+  
+      {% for field in icmssn_form %}
+      {% if field.label != icmssn_form.icmssn_incluido_preco.label and field.label != icmssn_form.icmssnst_incluido_preco.label %}
+      <div class="col-sm-6 {{icmssn_form.prefix}} {{field.help_text}}">
+        <div class="form-group">
+          <div class="form-line">
+  
+            <label>
+              CFOP Saida outra UF
+            </label>
+  
+            {% if field.field.required or field.label == 'CFOP Saida outra UF' %}
+            <strong style="color:red;"> *</strong>
+            {% endif %}
+  
+            {% if field.errors %}
+            <label class="error">
+              {% for error in field.errors %}{{error}}{% endfor %}
+            </label>
+            {% endif%}
+  
+            {{field}}
+
+            <label>
+              CFOP Saida mesma UF
+            </label>
+
+            {% if field.field.required or field.label == 'CFOP Saida mesma UF' %}
+            <strong style="color:red;"> *</strong>
+            {% endif %}
+  
+            {% if field.errors %}
+            <label class="error">
+              {% for error in field.errors %}{{error}}{% endfor %}
+            </label>
+            {% endif%}
+  
+            {{field}}
+  
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+  
+  
+    </div>
+    
+    <!-- #Tab CFOP -->
 
   <!-- Tab ICMS -->
   <div role="tabpanel" class="tab-pane" id="tab_icms">
