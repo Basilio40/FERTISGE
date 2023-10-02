@@ -41,98 +41,73 @@
   <!-- #Tab definicao -->
     <!-- Tab CFOP -->
     <div role="tabpanel" class="tab-pane" id="tab_cfop">
-
-      {% for field in icms_form %}
-      {% if field.label != icms_form.icms_incluido_preco.label and field.label != icms_form.icmsst_incluido_preco.label %}
-      <div class="col-sm-6 {{icms_form.prefix}} {{field.help_text}}">
+      <div class="col-sm-6 {{icms_form.cfop_ufd.help_text}}">
         <div class="form-group">
           <div class="form-line">
   
             <label>
-              CFOP Entrada outra UF
+              {{icms_form.cfop_ufd.label}}
             </label>
-  
-            {% if field.field.required or field.label == 'CFOP Entrada outra UF' %}
             <strong style="color:red;"> *</strong>
-            {% endif %}
-            
-  
-            {% if field.errors %}
+
+            {% if icms_form.cfop_ufd.errors %}
             <label class="error">
-              {% for error in field.errors %}{{error}}{% endfor %}
+              {% for error in icms_form.cfop_ufd.errors %}{{error}}{% endfor %}
             </label>
             {% endif%}
   
-            {{field}}
+            {{icms_form.cfop_ufd}}
 
             <label>
-              CFOP Entrada mesma UF
+              {{icms_form.cfop.label}}
             </label>
-  
-            {% if field.field.required or field.label == 'CFOP Entrada mesma UF' %}
             <strong style="color:red;"> *</strong>
-            {% endif %}
-            
   
-            {% if field.errors %}
+            {% if icms_form.cfop.errors %}
             <label class="error">
-              {% for error in field.errors %}{{error}}{% endfor %}
+              {% for error in icms_form.cfop.errors %}{{error}}{% endfor %}
             </label>
             {% endif%}
-  
-            {{field}}
 
+            {{icms_form.cfop}}
   
           </div>
         </div>
       </div>
-      {% endif %}
-      {% endfor %}
-  
-      {% for field in icmssn_form %}
-      {% if field.label != icmssn_form.icmssn_incluido_preco.label and field.label != icmssn_form.icmssnst_incluido_preco.label %}
-      <div class="col-sm-6 {{icmssn_form.prefix}} {{field.help_text}}">
+
+      <div class="col-sm-6 {{icmssn_form.cfop_ufd.help_text}}">
         <div class="form-group">
           <div class="form-line">
   
             <label>
-              CFOP Saida outra UF
+              {{icmssn_form.cfop_ufd.label}}
             </label>
-  
-            {% if field.field.required or field.label == 'CFOP Saida outra UF' %}
             <strong style="color:red;"> *</strong>
-            {% endif %}
-  
-            {% if field.errors %}
+
+            {% if icmssn_form.cfop_ufd.errors %}
             <label class="error">
-              {% for error in field.errors %}{{error}}{% endfor %}
+              {% for error in icmssn_form.cfop_ufd.errors %}{{error}}{% endfor %}
             </label>
             {% endif%}
   
-            {{field}}
+            {{icmssn_form.cfop_ufd}}
 
             <label>
-              CFOP Saida mesma UF
+              {{icmssn_form.cfop.label}}
             </label>
-
-            {% if field.field.required or field.label == 'CFOP Saida mesma UF' %}
             <strong style="color:red;"> *</strong>
-            {% endif %}
   
-            {% if field.errors %}
+            {% if icmssn_form.cfop.errors %}
             <label class="error">
-              {% for error in field.errors %}{{error}}{% endfor %}
+              {% for error in icmssn_form.cfop.errors %}{{error}}{% endfor %}
             </label>
             {% endif%}
-  
-            {{field}}
+
+            {{icmssn_form.cfop}}
   
           </div>
         </div>
       </div>
-      {% endif %}
-      {% endfor %}
-  
   
     </div>
     

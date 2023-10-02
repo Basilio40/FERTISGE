@@ -25,6 +25,7 @@
           <form id="relatorio-filtro" role="form" method="post">
             {% csrf_token %}
             <select name="filtro" id="filtro" class="dropdown-menu pull-right">
+              <option style="display: none" disabled selected value></option>
               <option value="0">Hoje</option>
               <option value="1">Esta semana</option>
               <option value="2">Este mês</option>

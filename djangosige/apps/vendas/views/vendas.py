@@ -150,17 +150,20 @@ class AdicionarGroupPedidoVendaView(AdicionarVendaView):
         self.object = None
 
         form = self.get_form(form_class)
-        form.initial['vendedor'] = request.user.first_name or request.user
-        form.initial['data_emissao'] = datetime.today().strftime('%d/%m/%Y')
+        orcamento_form = OrcamentoVendaForm(prefix='orcamento_form')
+        
+        orcamento_form.initial['vendedor'] = request.user.first_name or request.user
+        orcamento_form.initial['data_emissao'] = datetime.today().strftime('%d/%m/%Y')
 
         produtos_form = ItensVendaFormSet(prefix='produtos_form')
         pagamento_form = PagamentoFormSet(prefix='pagamento_form')
         pedidovenda_form = PedidoVendaFormSet(prefix='pedidovenda_form')
-
+        
         return self.render_to_response(self.get_context_data(form=form,
                                                              produtos_form=produtos_form,
                                                              pagamento_form=pagamento_form,
-                                                             pedidovenda_form=pedidovenda_form))
+                                                             pedidovenda_form=pedidovenda_form, 
+                                                             orcamento_form=orcamento_form))
 
     def post(self, request, *args, **kwargs):
         form_class = self.get_form_class()
@@ -183,11 +186,12 @@ class AdicionarGroupPedidoVendaView(AdicionarVendaView):
         request.POST = req_post
 
         form = self.get_form(form_class)
+        orcamento_form = OrcamentoVendaForm(request.POST, prefix="orcamento_form")
         produtos_form = ItensVendaFormSet(request.POST, prefix='produtos_form')
         pagamento_form = PagamentoFormSet(request.POST, prefix='pagamento_form')
         pedidovenda_form = PedidoVendaFormSet(request.POST, prefix='pedidovenda_form')
 
-        if (form.is_valid() and produtos_form.is_valid() and pagamento_form.is_valid() and pedidovenda_form.is_valid()):
+        if (form.is_valid() and orcamento_form.is_valid() and produtos_form.is_valid() and pagamento_form.is_valid() and pedidovenda_form.is_valid()):
             self.object = form.save(commit=False)
             self.object.save()
 

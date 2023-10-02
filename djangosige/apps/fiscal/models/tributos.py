@@ -193,6 +193,9 @@ class GrupoFiscal(models.Model):
 
 class ICMS(models.Model):
     # Nota Fiscal
+    cfop = models.CharField(max_length=5)
+    cfop_ufd = models.CharField(max_length=5)
+    
     cst = models.CharField(
         max_length=3, choices=CST_ICMS_ESCOLHAS, help_text='icms-cst')
     mod_bc = models.CharField(max_length=1, choices=MOD_BC_ESCOLHAS, default='3',
@@ -241,6 +244,9 @@ class ICMSUFDest(models.Model):
 
 
 class ICMSSN(models.Model):
+    cfop = models.CharField(max_length=5)
+    cfop_ufd = models.CharField(max_length=5)
+    
     csosn = models.CharField(
         max_length=3, choices=CSOSN_ESCOLHAS, help_text='icmssn-csosn')
     p_cred_sn = models.DecimalField(max_digits=6, decimal_places=2, validators=[MinValueValidator(Decimal('0.00'))], null=True, blank=True,

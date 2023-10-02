@@ -43,7 +43,9 @@ class ICMSForm(forms.ModelForm):
     class Meta:
         model = ICMS
         fields = ('cst', 'mod_bc', 'p_icms', 'p_red_bc', 'mod_bcst', 'p_mvast', 'p_red_bcst', 'p_icmsst', 'mot_des_icms',
-                  'p_dif', 'p_bc_op', 'ufst', 'icms_incluido_preco', 'icmsst_incluido_preco', )
+                  'p_dif', 'p_bc_op', 'ufst', 'icms_incluido_preco', 'icmsst_incluido_preco',
+                  'cfop', 'cfop_ufd',)
+        
         widgets = {
             'cst': forms.Select(attrs={'class': 'form-control'}),
             'mod_bc': forms.Select(attrs={'class': 'form-control'}),
@@ -59,7 +61,8 @@ class ICMSForm(forms.ModelForm):
             'ufst': forms.Select(attrs={'class': 'form-control'}),
             'icms_incluido_preco': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
             'icmsst_incluido_preco': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
-
+            'cfop': forms.Select(attrs={'class': 'form-control cfop-select'}),
+            'cfop_ufd': forms.Select(attrs={'class': 'form-control cfop-select'}),
         }
         labels = {
             'cst': ('CST ICMS'),
@@ -76,6 +79,8 @@ class ICMSForm(forms.ModelForm):
             'ufst': ('UF para qual é devido o ICMS ST'),
             'icms_incluido_preco': ('ICMS incluso no preço'),
             'icmsst_incluido_preco': ('ICMS-ST incluso no preço'),
+            'cfop': ('CFOP Entrada mesma UF'),
+            'cfop_ufd': ('CFOP Entrada outra UF'),
         }
 
 
@@ -102,7 +107,7 @@ class ICMSSNForm(forms.ModelForm):
     class Meta:
         model = ICMSSN
         fields = ('csosn', 'p_cred_sn', 'p_icms', 'mod_bcst', 'mod_bc', 'p_red_bc', 'p_mvast', 'p_red_bcst', 'p_icmsst',
-                  'icmssn_incluido_preco', 'icmssnst_incluido_preco',)
+                  'icmssn_incluido_preco', 'icmssnst_incluido_preco', 'cfop', 'cfop_ufd',)
         widgets = {
             'csosn': forms.Select(attrs={'class': 'form-control'}),
             'p_cred_sn': forms.TextInput(attrs={'class': 'form-control percentual-mask'}),
@@ -115,6 +120,8 @@ class ICMSSNForm(forms.ModelForm):
             'p_icmsst': forms.TextInput(attrs={'class': 'form-control percentual-mask'}),
             'icmssn_incluido_preco': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
             'icmssnst_incluido_preco': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'cfop': forms.Select(attrs={'class': 'form-control cfop-select'}),
+            'cfop_ufd': forms.Select(attrs={'class': 'form-control cfop-select'}),
         }
         labels = {
             'csosn': ('CSOSN'),
@@ -128,6 +135,8 @@ class ICMSSNForm(forms.ModelForm):
             'p_icmsst': ('Alíquota ICMS ST'),
             'icmssn_incluido_preco': ('ICMS incluso no preço'),
             'icmssnst_incluido_preco': ('ICMS-ST incluso no preço'),
+            'cfop': ('CFOP Saida mesma UF'),
+            'cfop_ufd': ('CFOP Saida outra UF'),
         }
 
 

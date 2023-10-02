@@ -1,22 +1,41 @@
 <div class="" id="tabs">
 
   <ul class="nav nav-tabs" role="tablist" style="margin-bottom: 20px;">
-    <li role="presentation" class="active"><a href="#tab_informacoes" data-toggle="tab">PEDIDOS</a></li>
+    <li role="presentation" class="active"><a href="#tab_orcamento" data-toggle="tab">ORÇAMENTO</a></li>
+    <li role="presentation"><a href="#tab_pedidos" data-toggle="tab">PEDIDOS</a></li>
+    <li role="presentation"><a href="#tab_valores" data-toggle="tab">VALORES</a></li>
   </ul>
 
-  <!-- Tab INFORMAÇÕES -->
-  <div role="tabpanel" class="tab-pane active" id="tab_informacoes">
+  <!-- Tab ORÇAMENTOS -->
+  <div role="tabpanel" class="tab-pane active" id="tab_orcamento">  
+    <div class="col-sm-6">
+      <div class="form-group">
+        <div class="form-line">
+          <label>{{orcamento_form.data_emissao.label}}</label>
+          {% if orcamento_form.data_emissao.errors %}<label class="error">{% for error in orcamento_form.data_emissao.errors %}{{error}}{% endfor %}</label>{% endif %}
+          {{orcamento_form.data_emissao}}
+        </div>
+      </div>
+    </div>
+
+    {% if orcamento_form.data_vencimento %}
+    <div class="col-sm-6">
+      <div class="form-group">
+        <div class="form-line">
+          <label>{{orcamento_form.data_vencimento.label}}</label>
+          {% if orcamento_form.data_vencimento.errors %}<label class="error">{% for error in orcamento_form.data_vencimento.errors %}{{error}}{% endfor %}</label>{% endif %}
+          {{orcamento_form.data_vencimento}}
+        </div>
+      </div>
+    </div>
+    {% else %}
 
     <div class="col-sm-6">
       <div class="form-group">
         <div class="form-line">
-          <label>{{form.status.label}}</label>
-          {% if form.status.errors %}
-          <label class="error">
-            {% for error in form.status.errors %}{{error}}{% endfor%}
-          </label>
-          {% endif %}
-          {{form.status}}
+          <label>{{orcamento_form.orcamento.label}}</label>
+          {% if orcamento_form.orcamento.errors %}<label class="error">{% for error in orcamento_form.orcamento.errors %}{{error}}{% endfor %}</label>{% endif %}
+          {{orcamento_form.orcamento}}
         </div>
       </div>
     </div>
@@ -24,30 +43,343 @@
     <div class="col-sm-6">
       <div class="form-group">
         <div class="form-line">
-          <label>{{form.orcamento.label}}</label>
-          {% if form.orcamento.errors %}
-          <label class="error">
-            {% for error in form.orcamento.errors %}{{error}}{% endfor%}
-          </label>
-          {% endif %}
-          {{form.orcamento}}
+          <label>{{orcamento_form.data_entrega.label}}</label>
+          {% if orcamento_form.data_entrega.errors %}<label class="error">{% for error in orcamento_form.data_entrega.errors %}{{error}}{% endfor %}</label>{% endif %}
+          {{orcamento_form.data_entrega}}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <div class="col-sm-6">
+      <div class="form-group">
+        <div class="form-line">
+          <label>{{orcamento_form.status.label}}</label>
+          {% if orcamento_form.status.errors %}<label class="error">{% for error in orcamento_form.status.errors %}{{error}}{% endfor %}</label>{% endif %}
+          {{orcamento_form.status}}
+          <input type="hidden" id="id_status" name="status" value="{{orcamento_form.status.initial}}" />
         </div>
       </div>
     </div>
 
-    <div class="col-sm-12" style="padding:0px; width: 100%;">
-
-      <h4 style="border-bottom: 1px solid #afabab;">Produtos</h4>
-
-      {% include 'formset/formset_table.html' with formset=pedidovenda_form title='Itens' %}
-
+    <div class="col-sm-6">
+      <div class="form-group">
+        <div class="form-line">
+          <label>{{orcamento_form.vendedor.label}}</label>
+          {% if orcamento_form.vendedor.errors %}<label class="error">{% for error in orcamento_form.vendedor.errors %}{{error}}{% endfor %}</label>{% endif %}
+          {{orcamento_form.vendedor}}
+        </div>
+      </div>
     </div>
 
-    {% include 'vendas/modal_calculo_imposto.html' %}
+
+    <div class="col-sm-6">
+      <div class="form-group">
+        <div class="form-line">
+          <label>{{orcamento_form.observacoes.label}}</label>
+          {% if orcamento_form.observacoes.errors %}<label class="error">{% for error in orcamento_form.observacoes.errors %}{{error}}{% endfor %}</label>{% endif %}
+          {{orcamento_form.observacoes}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Tab ORÇAMENTOS -->
+
+  <!-- Tab PEDIDOS -->
+  <div role="tabpanel" class="tab-pane" id="tab_pedidos">
+    <div class="col-sm-12">
+
+      <div class="col-sm-6">
+        <div class="form-group">
+          <div class="form-line">
+            <label>{{orcamento_form.orcamento.label}}</label>
+            {% if orcamento_form.orcamento.errors %}
+            <label class="error">
+              {% for error in orcamento_form.orcamento.errors %}{{error}}{% endfor%}
+            </label>
+            {% endif %}
+            {{orcamento_form.orcamento}}
+          </div>
+        </div>
+      </div>
+      
+      <div class="formset-box">
+
+        <div class="col-sm-12" style="padding:0px; width: 100%;">
+
+          <h4 style="border-bottom: 1px solid #afabab;">Pedidos</h4>
+  
+          <div id="{{orcamento_form.prefix}}-{{orcamento_form.counter0}}" class="formset" style="border:none;margin-bottom:0px;padding-bottom:0px;">
+            <div class="col-sm-3">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label>{{orcamento_form.cliente.label}}</label><strong style="color:red;"> *</strong>
+                  {% if orcamento_form.cliente.errors %}<label class="error">{% for error in orcamento_form.cliente.errors %}{{error}}{% endfor %}</label>{% endif %}
+                  <div class="input-group" style="margin-bottom: 0px;">
+                    <div class="form-line">
+                      {{orcamento_form.cliente}}
+                    </div>
+                    <a class="input-group-addon newwindow" style="color: green;" title="Adicionar cliente" href="{% url 'cadastro:addclienteview' %}"><i class="material-icons add-new-icon" title="Adicionar cliente">&#xE147;</i></a>
+                  </div>
+                </div>
+              </div>
+          
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <div class="form-line">
+                    {{orcamento_form.ind_final}}
+                    <label for="id_ind_final" style="font-weight: bold; margin-left: 15px;" title="Selecionar caso o cliente seja o consumidor final.">{{orcamento_form.ind_final.label}}</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <div class="col-sm-6">
+              <div class="col-sm-8">
+                <div class="form-group">
+                  <label>{{orcamento_form.transportadora.label}}</label>
+                  {% if orcamento_form.transportadora.errors %}<label class="error">{% for error in orcamento_form.transportadora.errors %}{{error}}{% endfor %}</label>{% endif %}
+                  <div class="input-group" style="margin-bottom: 0px;">
+                    <div class="form-line">
+                      {{orcamento_form.transportadora}}
+                    </div>
+                    <a class="input-group-addon newwindow" style="color: green;" title="Adicionar transportadora" href="{% url 'cadastro:addtransportadoraview' %}"><i class="material-icons add-new-icon" title="Adicionar transportadora">&#xE147;</i></a>
+                  </div>
+                </div>
+              </div>
+        
+              <div class="col-sm-10">
+                <div class="form-group">
+                  <div class="form-line">
+                    <label>{{orcamento_form.mod_frete.label}}</label>
+                    {% if orcamento_form.mod_frete.errors %}<label class="error">{% for error in orcamento_form.mod_frete.errors %}{{error}}{% endfor %}</label>{% endif %}
+                    {{orcamento_form.mod_frete}}
+                  </div>
+                </div>
+              </div>
+        
+              <div class="col-sm-10">
+                <div class="form-group">
+                  <div class="form-line">
+                    <label>{{orcamento_form.veiculo.label}}</label>
+                    {% if orcamento_form.veiculo.errors %}<label class="error">{% for error in orcamento_form.veiculo.errors %}{{error}}{% endfor %}</label>{% endif %}
+                    {{orcamento_form.veiculo}}
+                  </div>
+                </div>
+              </div>
+        
+            </div>
+  
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label>{{orcamento_form.local_orig.label}}</label>
+                {% if orcamento_form.local_orig.errors %}<label class="error">{% for error in orcamento_form.local_orig.errors %}{{error}}{% endfor %}</label>{% endif %}
+                <div class="input-group" style="margin-bottom: 0px;">
+                  <div class="form-line">
+                    {{orcamento_form.local_orig}}
+                  </div>
+                  <a class="input-group-addon popup" style="color: green;" title="Adicionar localização de estoque" href="{% url 'estoque:addlocalview' %}"><i class="material-icons add-new-icon" title="Adicionar localização de estoque">&#xE147;</i></a>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-sm-12">
+              <div class="form-group">
+                <div class="form-line">
+                  {{orcamento_form.movimentar_estoque}}
+                  <label for="id_movimentar_estoque" style="font-weight: bold; margin-left: 15px;" title="Selecionar para movimentar o estoque dos produtos com estoque controlado ao faturar o pedido.">{{orcamento_form.movimentar_estoque.label}}</label>
+                </div>
+              </div>
+            </div>
+  
+            <div class="col-sm-12" style="padding:0px; width: 100%;">
+          
+              <h4 style="border-bottom: 1px solid #afabab;">Produtos</h4>
+        
+              {% include 'formset/formset_table.html' with formset=produtos_form title='Itens' %}
+        
+            </div>
+            {{pedidovenda_form.management_form}}
+          </div>
+        </div>
+        
+        <div class="col-sm-12">
+          <a class="btn btn-xs add-formset">Adicionar novo</a>
+        </div>
+      </div>
+      {% include 'vendas/modal_calculo_imposto.html' %}
+      
+    </div>
 
   </div>
-  <!-- #Tab INFORMAÇÕES -->
+  <!-- #Tab PEDIDOS -->
 
+  <!-- Tab Valores-->
+  <div role="tabpanel" class="tab-pane" id="tab_valores">
+    
+    <h4 style="border-bottom: 1px solid #afabab;">Total</h4>
+    <div class="col-sm-2">
+      <div class="form-group">
+        <div class="form-line">
+          <label {% for error in orcamento_form.tipo_desconto.errors %}title="{{error}}"{% endfor %}>{{orcamento_form.tipo_desconto.label}}</label>
+          {% if orcamento_form.tipo_desconto.errors %}<label class="error"></label>{% endif %}
+          {{orcamento_form.tipo_desconto}}
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <div class="form-line">
+          <label {% for error in orcamento_form.desconto.errors %}title="{{error}}"{% endfor %}>{{orcamento_form.desconto.label}}</label>
+          {% if orcamento_form.desconto.errors %}<label class="error"></label>{% endif %}
+          {{orcamento_form.desconto}}
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <div class="form-line">
+          <label {% for error in orcamento_form.frete.errors %}title="{{error}}"{% endfor %}>{{orcamento_form.frete.label}}</label>
+          {% if orcamento_form.frete.errors %}<label class="error"></label>{% endif %}
+          {{orcamento_form.frete}}
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <div class="form-line">
+          <label {% for error in orcamento_form.despesas.errors %}title="{{error}}"{% endfor %}>{{orcamento_form.despesas.label}}</label>
+          {% if orcamento_form.despesas.errors %}<label class="error"></label>{% endif %}
+          {{orcamento_form.despesas}}
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <div class="form-line">
+          <label {% for error in orcamento_form.seguro.errors %}title="{{error}}"{% endfor %}>{{orcamento_form.seguro.label}}</label>
+          {% if orcamento_form.seguro.errors %}<label class="error"></label>{% endif %}
+          {{orcamento_form.seguro}}
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-2">
+      <div class="form-group">
+        <div class="form-line" style="display: flex;">
+          <a href="javascript:void(0);" id="ratear_valores_group_btn" style="margin-top:25px;" class="btn btn-primary btn-centered">Ratear valores</a><i class="material-icons" style="font-size: 20px;" title="O rateio do desconto, frete, despesas e seguro é feito de acordo com o valor total de cada produto. O rateio é utilizado para que a soma dos valores individuais de desconto, frete, despesas acessórias e seguro dos produtos gerem os valores totais na nota fiscal.">&#xE887;</i>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-6" style="padding:0px;">
+
+      <div class="col-sm-4">
+        <div class="form-group">
+          <div class="form-line">
+            <label {% for error in orcamento_form.impostos.errors %}title="{{error}}"{% endfor %}>{{orcamento_form.impostos.label}}</label>
+            {% if orcamento_form.impostos.errors %}<label class="error"></label>{% endif %}
+            {{orcamento_form.impostos}}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="form-group">
+          <div class="form-line">
+            <label {% for error in orcamento_form.total_sem_imposto.errors %}title="{{error}}"{% endfor %}>{{orcamento_form.total_sem_imposto.label}}</label>
+            {% if orcamento_form.total_sem_imposto.errors %}<label class="error"></label>{% endif %}
+            {{orcamento_form.total_sem_imposto}}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="form-group">
+          <div class="form-line">
+            <label {% for error in orcamento_form.valor_total.errors %}title="{{error}}"{% endfor %}>{{orcamento_form.valor_total.label}}</label>
+            {% if orcamento_form.valor_total.errors %}<label class="error"></label>{% endif %}
+            {{orcamento_form.valor_total}}
+          </div>
+        </div>
+      </div>
+
+      {% if orcamento_form.comissao %}
+      <div class="col-sm-6">
+        <div class="form-group">
+          <div class="form-line">
+            <label {% for error in orcamento_form.impostos.errors %}title="{{error}}" {% endfor %}>{{orcamento_form.comissao.label}}</label>
+            {% if orcamento_form.comissao.errors %}<label class="error"></label>{% endif %}
+            {{orcamento_form.comissao}}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+        <div class="form-group">
+          <div class="form-line">
+            <div hidden>teste</div>
+            <label class="">Valor total da Comissão (R$)</label>
+            <input disabled type="text" name="comissao_total" value="{{ orcamento_form.comissao.value|default:'0,00' }}"
+              class="form-control decimal-mask" id="id_comissao_total">
+          </div>
+        </div>
+      </div>
+      {% endif %}
+
+    </div>
+
+    <div class="col-sm-12" style="padding:0px;">
+
+      <h4 style="border-bottom: 1px solid #afabab;">Pagamento</h4>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label>{{orcamento_form.cond_pagamento.label}}</label>
+          {% if orcamento_form.cond_pagamento.errors %}<label class="error">{% for error in orcamento_form.cond_pagamento.errors %}{{error}}{% endfor %}</label>{% endif %}
+          <div class="input-group" style="margin-bottom: 0px;">
+            <div class="form-line">
+              {{orcamento_form.cond_pagamento}}
+            </div>
+            <a class="input-group-addon newwindow" style="color: green;" title="Adicionar condição de pagamento" href="{% url 'vendas:addcondicaopagamentoview' %}"><i class="material-icons add-new-icon" title="Adicionar condição de pagamento">&#xE147;</i></a>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-sm-3">
+        <div class="form-group">
+          <div class="form-line">
+            <label>Número de parcelas</label>
+            <span type="text" class="form-control" id="id_n_parcelas"></span>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-sm-3">
+        <div class="form-group">
+          <div class="form-line total-display">
+            <label>Total</label><i class="material-icons hidden error-icon" style="font-size:15px;margin-left:5px;color:#cf3939;" title="Soma das parcelas difere do valor total.">&#xE000;</i>
+            <span type="text" class="form-control" id="id_valor_total_display"></span>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-sm-3">
+        <div class="form-group">
+          <div class="form-line">
+            <a id="calcular-parcelas" class="btn btn-primary btn-centered" style="margin-top: 25px;">Calcular parcelas</a>
+          </div>
+        </div>
+      </div>
+      
+      {% include 'formset/formset_tr_field.html' with formset=pagamento_form table_class='pagamentos_table' %}
+
+    </div>
+  </div>
+  <!-- Tab Valores-->
 
 </div>
 <!--#Body-->

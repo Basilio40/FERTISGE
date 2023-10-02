@@ -321,9 +321,10 @@ class ProcessadorNotaFiscal(object):
                 nfe.infNFe.transp.transporta.CPF.valor = nota_obj.venda.transportadora.cpf_cnpj_apenas_digitos
 
             nfe.infNFe.transp.transporta.xNome.valor = nota_obj.venda.transportadora.nome_razao_social
-            nfe.infNFe.transp.transporta.xEnder.valor = nota_obj.venda.transportadora.endereco_padrao.logradouro
-            nfe.infNFe.transp.transporta.xMun.valor = nota_obj.venda.transportadora.endereco_padrao.municipio
-            nfe.infNFe.transp.transporta.UF.valor = nota_obj.venda.transportadora.endereco_padrao.uf
+            if nota_obj.venda.transportadora.endereco_padrao:
+                nfe.infNFe.transp.transporta.xEnder.valor = nota_obj.venda.transportadora.endereco_padrao.logradouro
+                nfe.infNFe.transp.transporta.xMun.valor = nota_obj.venda.transportadora.endereco_padrao.municipio
+                nfe.infNFe.transp.transporta.UF.valor = nota_obj.venda.transportadora.endereco_padrao.uf
 
         if nota_obj.venda.veiculo:
             nfe.infNFe.transp.veicTransp.placa.valor = nota_obj.venda.veiculo.placa

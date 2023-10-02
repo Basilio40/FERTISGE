@@ -49,7 +49,7 @@ class VendaForm(forms.ModelForm):
             'local_orig': forms.Select(attrs={'class': 'form-control'}),
             'movimentar_estoque': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
             'veiculo': forms.Select(attrs={'class': 'form-control'}),
-            'vendedor': forms.TextInput(attrs={'class': 'form-control'}),
+                
             'valor_total': forms.TextInput(attrs={'class': 'form-control decimal-mask', 'readonly': True}),
             'tipo_desconto': forms.Select(attrs={'class': 'form-control'}),
             'desconto': forms.TextInput(attrs={'class': 'form-control decimal-mask-four'}),
@@ -130,16 +130,16 @@ class GroupPedidoVendaForm(forms.ModelForm):
 
     class Meta:
         model = GroupPedidoVenda        
-        fields = ('orcamento', 'status')
+        fields = ('orcamento', 'status',)
 
         widgets = {
-            'orcamento': forms.Select(attrs={'class': 'form-control', 'disabled': True}),
+            'orcamento': forms.Select(attrs={'class': 'form-control',}),
             'status' : forms.Select(attrs={'class': 'form-control', 'disabled': True}),
-
         }
+        
         labels = {
+            'orcamento' : ('Orçamento'),
             'status' : ('Status'),
-            'orcamento' : ('Orçamento')
         }
 
 

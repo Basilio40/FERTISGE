@@ -845,9 +845,11 @@ class LancamanetoBoardInfo:
         from decimal import Decimal
         values = {}
 
-        ultimo_movimento = MovimentoCaixa.objects.latest("data_movimento")
-        if ultimo_movimento:
-            values['total'] = Lancamento.static_format_valor_liquido(ultimo_movimento.saldo_final)
+        try: 
+            ultimo_movimento = MovimentoCaixa.objects.latest("data_movimento")
+            if ultimo_movimento:
+                values['total'] = Lancamento.static_format_valor_liquido(ultimo_movimento.saldo_final)
+        except: pass
 
         lancamentos = Lancamento.objects.filter(data_vencimento__gte=datetime.now().strftime("%Y-%m-01"))
         if lancamentos:

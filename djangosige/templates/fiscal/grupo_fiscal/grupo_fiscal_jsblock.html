@@ -7,6 +7,9 @@
 {% include 'base/tooltip_js.html' %}
 
 <script type="text/javascript">
+  var cfop_path = "{% static 'tabelas/cfop/cfop_2015_002.csv' %}"
+  
   $.Admin.grupoFiscalForm.init();
+  $.Admin.grupoFiscalForm.setCfopOptions(cfop_path);
   $.Admin.maskInput.maskGrupoFiscal();  
 </script>
