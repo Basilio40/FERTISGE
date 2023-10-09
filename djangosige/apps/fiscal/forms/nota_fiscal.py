@@ -300,7 +300,7 @@ class ConfiguracaoNotaFiscalForm(forms.ModelForm):
             'ambiente': forms.Select(attrs={'class': 'form-control'}),
             'imp_danfe': forms.Select(attrs={'class': 'form-control'}),
             'senha_certificado': forms.PasswordInput(attrs={'class': 'form-control'}, render_value=True),
-            'inserir_logo_danfe': forms.CheckboxInput(attrs={'class': 'form-control'}),
+            'inserir_logo_danfe': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
             'orientacao_logo_danfe': forms.Select(attrs={'class': 'form-control'}),
             'csc': forms.TextInput(attrs={'class': 'form-control'}),
             'cidtoken': forms.TextInput(attrs={'class': 'form-control'}),
