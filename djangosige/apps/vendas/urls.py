@@ -24,7 +24,7 @@ urlpatterns = [
     path('orcamentovenda/listaorcamentovenda/hoje/',
         views.OrcamentoVendaVencimentoHojeListView.as_view(), name='listaorcamentovendahojeview'),
     # vendas/orcamentovenda/excluirorcamentovenda/hoje
-    path('orcamentovenda/excluirorcamentovenda/hoje/',
+    path('orcamentovenda/excluirorcamentovenda/<int:pk>/',
             ExcluirOrcamentoVendaView.as_view(), name='excluirorcamentovendaview'),
 
     # Pedidos de venda

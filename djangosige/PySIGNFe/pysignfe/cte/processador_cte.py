@@ -43,7 +43,7 @@ class ProcessoCTe(object):
 class ProcessadorCTe(object):
     def __init__(self):
         self.ambiente = 2
-        self.estado = u'MG'
+        self.estado = u'MT'
         self.versao = u'2.00'
         self.certificado = Certificado()
         self.caminho = u''
