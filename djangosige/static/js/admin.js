@@ -1104,7 +1104,7 @@ $.Admin.vendaForm = {
 
         //Ratear valores em Grupo de Pedidos
         $('#ratear_valores_group_btn').on('click', function () {
-            _this.ratearValoresGrup();
+            _this.ratearValoresGroup();
         });
 
         //Ratear valores
@@ -1392,7 +1392,7 @@ $.Admin.vendaForm = {
         });
     },
 
-    ratearValoresGrup: function () {
+    ratearValoresGroup: function () {
         var tipo_desconto_tot = 0,
             desconto_total = 0,
             vdesconto_total = 0,
@@ -1405,34 +1405,34 @@ $.Admin.vendaForm = {
             total = 0,
             total_sem_adicionais = 0;
         
-        $.each($('#pedidovenda_form-0 > table > tbody tr'), function(index, obj) {
-            tipo_desconto_tot = parseFloat(tipo_desconto_tot) + $(obj).find('#id_pedidovenda_form-0-tipo_desconto').val();
+        $.each($('#produtos_form-0 > table > tbody tr'), function(index, obj) {
+            tipo_desconto_tot = parseFloat(tipo_desconto_tot) + $(obj).find('#id_produtos_form-0-tipo_desconto').val();
             
-            desconto_total = $(obj).find('#id_pedidovenda_form-0-desconto');
+            desconto_total = $(obj).find('#id_produtos_form-0-desconto');
             vdesconto_total = parseFloat(vdesconto_total) + parseFloat(parseFloat($(desconto_total).val().replace(/\./g, '').replace(',', '.'))).toFixed(2);
 
-            frete_total = $(obj).find('#id_pedidovenda_form-0-frete');
+            frete_total = $(obj).find('#id_produtos_form-0-valor_rateio_frete');
             vfrete_total = parseFloat(vfrete_total) + parseFloat(parseFloat($(frete_total).val().replace(/\./g, '').replace(',', '.'))).toFixed(2);
 
-            despesas_totais = $(obj).find('#id_pedidovenda_form-0-despesas');
+            despesas_totais = $(obj).find('#id_produtos_form-0-valor_rateio_despesas');
             vdespesas_totais = parseFloat(vdespesas_totais) + parseFloat(parseFloat($(despesas_totais).val().replace(/\./g, '').replace(',', '.'))).toFixed(2);
 
-            seguro_total = $(obj).find('#id_pedidovenda_form-0-seguro');
+            seguro_total = $(obj).find('#id_produtos_form-0-valor_rateio_seguro');
             vseguro_total = parseFloat(vseguro_total) + parseFloat(parseFloat($(seguro_total).val().replace(/\./g, '').replace(',', '.'))).toFixed(2);
 
-            total = $(obj).find('#id_pedidovenda_form-0-valor_total');
-            total_sem_adicionais = parseFloat(total_sem_adicionais) + $(obj).find('#id_pedidovenda_form-0-valor_total').val().replace(/\./g, '').replace(',', '.');
-        });
+            total = $(obj).find('#id_produtos_form-0-total_com_impostos');
+            total_sem_adicionais = parseFloat(total_sem_adicionais) + total.val().replace(/\./g, '').replace(',', '.');
 
-        //Desconto
-        if (tipo_desconto_tot == '0' && !isNaN(vdesconto_total)) {
-            vdesconto_total = parseFloat(parseFloat($(desconto_total).val().replace(/\./g, '').replace(',', '.'))).toFixed(2);
-            total_sem_adicionais = parseFloat(parseFloat(total_sem_adicionais) + parseFloat(vdesconto_total)).toFixed(2);
-        } else if (tipo_desconto_tot == '1' && !isNaN(vdesconto_total)) {
-            var vtot = parseFloat(total.val().replace(/\./g, '').replace(',', '.')).toFixed(2);
-            total_sem_adicionais = parseFloat(parseFloat(parseFloat(vtot) * 100) / parseFloat(100 - parseFloat(desconto_total.val().replace(/\./g, '').replace(',', '.')))).toFixed(2);
-            vdesconto_total = parseFloat(parseFloat(total_sem_adicionais) - parseFloat(vtot)).toFixed(2);
-        }
+            //Desconto
+            if (tipo_desconto_tot == '0' && !isNaN(vdesconto_total)) {
+                vdesconto_total = parseFloat(parseFloat($(desconto_total).val().replace(/\./g, '').replace(',', '.'))).toFixed(2);
+                total_sem_adicionais = parseFloat(parseFloat(total_sem_adicionais) + parseFloat(vdesconto_total)).toFixed(2);
+            } else if (tipo_desconto_tot == '1' && !isNaN(vdesconto_total)) {
+                var vtot = parseFloat(total.val().replace(/\./g, '').replace(',', '.')).toFixed(2);
+                total_sem_adicionais = parseFloat(parseFloat(parseFloat(vtot) * 100) / parseFloat(100 - parseFloat(desconto_total.val().replace(/\./g, '').replace(',', '.')))).toFixed(2);
+                vdesconto_total = parseFloat(parseFloat(total_sem_adicionais) - parseFloat(vtot)).toFixed(2);
+            }
+        });
 
         if (isNaN(vdesconto_total)) vdesconto_total = 0;
         if (isNaN(vfrete_total)) vfrete_total = 0;
