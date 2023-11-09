@@ -1,5 +1,3 @@
-
-
 import base64
 import random
 import string
@@ -7,15 +5,14 @@ import string
 import json
 import requests
 
+from djangosige.apps.cadastro.models import BlingAccount
+
 HOST = 0
 AUTH = 1
 NFCE = 2
 NFSE = 3
 NFE = 4
 OP = 5
-
-BLING_LOGIN = "brasilfertili"
-BLING_SENHA = "Bf138302235#"
 
 API = {
     HOST : u"https://www.bling.com.br/Api/v3",
@@ -47,11 +44,6 @@ API = {
     },
 }
 
-CLIENT = {
-    "ID": "8c09dbd0a62d050e0cbe3a10a620aeedfc9ec626",
-    "SECRET": "51577f2fe4cf7501dc511ffbbb1882af8b818a03bad19a89d9c5ef08e0bd"
-}
-
 from datetime import datetime, timedelta
 
 class TokenControl:
@@ -72,6 +64,7 @@ class TokenControl:
 
 
 class RequestBing:
+    credential: BlingAccount
     connection: requests.sessions.Session
     token: TokenControl
     refresh: str
@@ -80,8 +73,9 @@ class RequestBing:
     auth: str
     
     def __init__(self):
+        self.credential = BlingAccount.objects.last()
         self.auth = 'Basic {}'.format(
-            base64.b64encode((CLIENT["ID"] + u":" + CLIENT["SECRET"]).encode("ascii"))
+            base64.b64encode((self.credential.api_id + u":" + self.credential.api_secret).encode("ascii"))
             .decode("ascii"))
         
         self.connection = requests.session()
@@ -103,13 +97,13 @@ class RequestBing:
         self.headers["Authorization"] = self.auth
         
         payload = {
-            "login": BLING_LOGIN,
-            "password": BLING_SENHA
+            "login": self.credential.username,
+            "password": self.credential.password,
         }
         
         url = API[HOST] \
             + "{}" \
-            + f"client_id={CLIENT['ID']}&response_type=code&state={self.state}"
+            + f"client_id={self.credential.api_id}&response_type=code&state={self.state}"
         
         resp = self.connection.get(url=url.format(API[AUTH]["auth"]), headers=self.headers)
         resp = self.connection.post(url=url.format(API[AUTH]["login"]), data=payload, headers=self.headers)

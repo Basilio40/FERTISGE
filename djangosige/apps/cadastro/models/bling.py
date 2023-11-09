@@ -3,11 +3,11 @@
 from django.db import models
 
 class BlingAccount(models.Model):
-    username = models.CharField(null=True, blank=True)
-    password = models.CharField(null=True, blank=True)
+    username = models.CharField(max_length=24, null=True, blank=True)
+    password = models.CharField(max_length=24, null=True, blank=True)
 
-    api_id = models.CharField(null=True, blank=True)
-    api_secret = models.CharField(null=True, blank=True)
+    api_id = models.CharField(max_length=45, null=True, blank=True)
+    api_secret = models.CharField(max_length=65, null=True, blank=True)
     
     class Meta:
         verbose_name = "BlingAccount"

@@ -7,3 +7,4 @@ from .fornecedor import Fornecedor
 from .transportadora import Transportadora, Veiculo
 
 from .produto import Produto, Unidade, Marca, Categoria
+from .bling import BlingAccount
