@@ -10,6 +10,7 @@ from django.http import HttpResponse
 from djangosige.apps.base.custom_views import CustomView, CustomCreateView, CustomListView, CustomUpdateView, CustomTemplateView
 from djangosige.apps.base.views_mixins import FormValidationMessageMixin
 
+from djangosige.bling.operations import BlingNfe
 from djangosige.apps.fiscal.forms import NotaFiscalSaidaForm, NotaFiscalEntradaForm, AutXMLFormSet, ConfiguracaoNotaFiscalForm, EmissaoNotaFiscalForm, CancelamentoNotaFiscalForm, \
     ConsultarCadastroForm, InutilizarNotasForm, ConsultarNotaForm, BaixarNotaForm, ManifestacaoDestinatarioForm
 from djangosige.apps.fiscal.models import NotaFiscalSaida, NotaFiscalEntrada, NotaFiscal, ConfiguracaoNotaFiscal, AutXML, ErrosValidacaoNotaFiscal, RespostaSefazNotaFiscal
@@ -171,6 +172,14 @@ class NotaFiscalSaidaListView(NotaFiscalListView):
         context['importar_nota_url'] = reverse_lazy(
             'fiscal:importarnotafiscalsaida')
         context['saida'] = True
+        
+        self = BlingNfe()
+        em = NotaFiscalSaida.objects.all()[3]
+        nota_obj = NotaFiscalSaida.objects.all()[0]
+        nota_obj.emit_saida = em.emit_saida
+        nota_obj.dest_saida = em.dest_saida
+        nota_obj.venda = em.venda
+
         return context
 
 
@@ -433,8 +442,8 @@ class EmitirNotaView(CustomTemplateView):
     permission_codename = ['change_notafiscalsaida', 'emitir_notafiscal']
 
     def emitir_nota(self):
-        processador_nota = ProcessadorNotaFiscal()
-        processador_nota.emitir_nota(self.object)
+        processador_nota = BlingNfe()
+        processador_nota.enviar_nota("")
 
         if processador_nota.erro:
             messages.error(self.request, processador_nota.message)

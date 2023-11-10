@@ -41,7 +41,6 @@ class BlingAPI:
         nfe = NotaFiscalEletronica(
             nota_obj.tpnf,
             contato)
-        nfe.id = nota_obj.id
         #nfe.numero
         nfe.naturezaOperacao = nota_obj.natop
         nfe.finalidade = 1
