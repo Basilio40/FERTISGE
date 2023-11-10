@@ -172,14 +172,7 @@ class NotaFiscalSaidaListView(NotaFiscalListView):
         context['importar_nota_url'] = reverse_lazy(
             'fiscal:importarnotafiscalsaida')
         context['saida'] = True
-        
-        self = BlingNfe()
-        em = NotaFiscalSaida.objects.all()[3]
-        nota_obj = NotaFiscalSaida.objects.all()[0]
-        nota_obj.emit_saida = em.emit_saida
-        nota_obj.dest_saida = em.dest_saida
-        nota_obj.venda = em.venda
-
+ 
         return context
 
 
