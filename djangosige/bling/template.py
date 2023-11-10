@@ -18,15 +18,47 @@ Tipo de fretes
     9 Sem Ocorrência de Transporte
 """
 
-from datetime import datetime
+from decimal import Decimal
 from typing import Literal, List
+from datetime import datetime, date
+
+class template:
+    
+    def toJson(self):
+        json = {}
+        
+        for key, item in self.__dict__.items():
+            if(key == "numeroDocumento"):
+                import ipdb;ipdb.set_trace()
+                
+            if(not item):
+                continue
+            
+            if(key.startswith("__") or str(item) == "<class 'function'>"):
+                continue
+            
+            elif(issubclass(type(item), template)):
+                json.update({key: item.toJson()})
+                
+            elif(isinstance(item, (list, tuple, set))):
+                json.update({key: [subitem.toJson() for subitem in item]})
+            
+            elif(isinstance(item, (datetime, date))):
+                json.update({key: item.strftime("%Y-%m-%d %H-%M-%S")})
+                            
+            elif(isinstance(item, Decimal)):
+                json.update({key: type(self).__annotations__[key](item)})
+                
+            else: json.update({key: item})
+
+        return json
+            
 
 class DocumentoReferenciado: ...
 
 class ProdutorRuralReferenciada: ...
 
-
-class Intermediador:
+class Intermediador(template):
     # Obrigatório
     numero: str
     serie: str
@@ -38,7 +70,7 @@ class Intermediador:
         self.data = data
 
 
-class Endereco:
+class Endereco(template):
     # Obrigatorio
     endereco: str
     bairro: str
@@ -57,7 +89,7 @@ class Endereco:
         self.municipio = municipio
 
 
-class Contato:
+class Contato(template):
     # Obrigatorio
     nome: str
     tipoPessoa: Literal["F", "J", "E"] #Física, jurídica ou estrangeira
@@ -77,12 +109,12 @@ class Contato:
         self.numeroDocumento = numeroDocumento
 
 
-class Loja:
+class Loja(template):
     id: int
     numero: str
 
 
-class Items:
+class Items(template):
     codigo: str
     
     descricao: str
@@ -102,9 +134,9 @@ class Items:
     def __init__(self, codigo: str) -> None:
         self.codigo = codigo
 
-class Parcela:
+class Parcela(template):
     
-    class FormaPagamento:
+    class FormaPagamento(template):
         id: int
         
     data: datetime
@@ -114,14 +146,14 @@ class Parcela:
     formaPagamento: FormaPagamento
 
 
-class Transporte:
+class Transporte(template):
     
-    class Veiculo:
+    class Veiculo(template):
         placa: str
         uf: str
         marca: str
     
-    class Transportador:
+    class Transportador(template):
         # Obrigatório
         nome: str
         
@@ -133,14 +165,14 @@ class Transporte:
         def __init__(self, nome: str) -> None:
             self.nome = nome
             
-    class Volume:
+    class Volume(template):
         quantidade: int
         especie: str
         numero: str
         pesoBruto: float
         pesoLiquido: float
     
-    class Etiqueta:
+    class Etiqueta(template):
         nome: str
         endereco: str
         numero: str
@@ -160,9 +192,9 @@ class Transporte:
     intermediador: Intermediador
 
 
-class NotaFiscalEletronica:
+class NotaFiscalEletronica(template):
     
-    class NaturezaOperacao:
+    class NaturezaOperacao(template):
         id: int
     
     # Obrigatorio
@@ -191,4 +223,15 @@ class NotaFiscalEletronica:
     def __init__(self, tipo: Literal[0, 1], contato: Contato) -> None:
         self.tipo = tipo
         self.contato = contato
+
     
+if __name__ == "__main__":
+    nota = NotaFiscalEletronica(
+        1,
+        Contato(
+            "Vic Matos",
+            "F",
+            "545472103245"
+        )
+    )
+    print(nota.toJson())
