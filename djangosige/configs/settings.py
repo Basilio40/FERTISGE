@@ -28,9 +28,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'railway',
         'USER':'postgres',
-        'PASSWORD': 'SfSNwB1lGsPqjhzgiavB',
-        'HOST': 'containers-us-west-139.railway.app',
-        'PORT': '6066',
+        'PASSWORD': 'edCCEa1dGcf5BD5ffCdBdBeGc5f6Gb56',
+        'HOST': 'monorail.proxy.rlwy.net',
+        'PORT': '29449',
     }
 }
 
